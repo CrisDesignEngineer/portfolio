@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { FadeIn } from "@/components/FadeIn";
 import type { CaseStudy } from "@/data/cases";
 
@@ -9,30 +10,38 @@ interface CaseContentProps {
   nextCase: CaseStudy;
 }
 
-const colorMap: Record<string, { text: string; bg: string; dot: string; line: string }> = {
+const colorMap: Record<string, { text: string; bg: string; dot: string; line: string; hover: string; groupHover: string }> = {
   accent: {
     text: "text-accent",
     bg: "bg-accent/10",
     dot: "bg-accent shadow-[0_0_12px_rgba(191,90,242,0.4)]",
     line: "from-accent via-accent-3 to-transparent",
+    hover: "group-hover:text-accent",
+    groupHover: "group-hover:text-accent",
   },
   "accent-2": {
     text: "text-accent-2",
     bg: "bg-accent-2/10",
     dot: "bg-accent-2 shadow-[0_0_12px_rgba(236,72,153,0.4)]",
     line: "from-accent-2 via-accent to-transparent",
+    hover: "group-hover:text-accent-2",
+    groupHover: "group-hover:text-accent-2",
   },
   "accent-3": {
     text: "text-accent-3",
     bg: "bg-accent-3/10",
     dot: "bg-accent-3 shadow-[0_0_12px_rgba(99,102,241,0.4)]",
     line: "from-accent-3 via-accent-2 to-transparent",
+    hover: "group-hover:text-accent-3",
+    groupHover: "group-hover:text-accent-3",
   },
   "accent-4": {
     text: "text-accent-4",
     bg: "bg-accent-4/10",
     dot: "bg-accent-4 shadow-[0_0_12px_rgba(34,197,94,0.4)]",
     line: "from-accent-4 via-accent to-transparent",
+    hover: "group-hover:text-accent-4",
+    groupHover: "group-hover:text-accent-4",
   },
 };
 
@@ -76,10 +85,13 @@ export function CaseContent({ caseStudy, nextCase }: CaseContentProps) {
         <FadeIn>
           <div className="max-w-[1120px] mx-auto px-6 sm:px-10 mb-12">
             <div className="w-full aspect-[2.4/1] rounded-2xl overflow-hidden border border-border relative">
-              <img
+              <Image
                 src={caseStudy.image}
                 alt={caseStudy.title}
-                className={`w-full h-full object-cover ${caseStudy.confidential ? 'blur-lg' : ''}`}
+                fill
+                priority
+                sizes="1120px"
+                className={`object-cover ${caseStudy.confidential ? 'blur-lg' : ''}`}
               />
               {caseStudy.confidential && (
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -248,7 +260,7 @@ export function CaseContent({ caseStudy, nextCase }: CaseContentProps) {
                   </span>
                   <span className="text-[10px] text-text-muted font-mono">{nextCase.year}</span>
                 </div>
-                <h3 className={`font-bold text-lg text-text-primary group-hover:${nextColors.text.replace('text-', 'text-')} transition-colors duration-300 ${nextCase.confidential ? 'blur-sm select-none' : ''}`}>
+                <h3 className={`font-bold text-lg text-text-primary ${nextColors.hover} transition-colors duration-300 ${nextCase.confidential ? 'blur-sm select-none' : ''}`}>
                   {nextCase.title}
                 </h3>
                 <p className="text-text-secondary text-sm mt-1">
@@ -260,7 +272,7 @@ export function CaseContent({ caseStudy, nextCase }: CaseContentProps) {
                 height="20"
                 viewBox="0 0 20 20"
                 fill="none"
-                className={`text-text-muted ${nextColors.text.replace('text-', 'group-hover:text-')} group-hover:translate-x-1.5 transition-all duration-300 shrink-0 ml-6`}
+                className={`text-text-muted ${nextColors.groupHover} group-hover:translate-x-1.5 transition-all duration-300 shrink-0 ml-6`}
               >
                 <path
                   d="M4 10h12M11 5l5 5-5 5"

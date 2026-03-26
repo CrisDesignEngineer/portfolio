@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { CaseStudy } from "@/data/cases";
 
 const colorMap: Record<string, { text: string; bg: string }> = {
@@ -76,10 +77,12 @@ export function MobileCasesCarousel({ cases }: MobileCasesCarouselProps) {
                   <div className="w-full aspect-[16/10] bg-bg-secondary overflow-hidden relative">
                     {caseStudy.image ? (
                       <>
-                        <img
+                        <Image
                           src={caseStudy.image}
                           alt={caseStudy.title}
-                          className={`absolute inset-0 w-full h-full object-cover ${caseStudy.confidential ? "blur-md" : ""}`}
+                          fill
+                          sizes="90vw"
+                          className={`object-cover ${caseStudy.confidential ? "blur-md" : ""}`}
                         />
                         {caseStudy.confidential && (
                           <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 text-[10px] font-mono uppercase tracking-wider text-white/80">

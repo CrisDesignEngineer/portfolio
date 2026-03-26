@@ -116,7 +116,7 @@ export const cases: CaseStudy[] = [
   },
   {
     id: "leiteiro",
-    image: "/leitero.jpg",
+    image: "/leiteiro.jpg",
     tag: "Plataforma multilateral",
     year: "2024",
     accentColor: "accent-4",

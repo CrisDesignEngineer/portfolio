@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { FadeIn } from "./FadeIn";
 import type { CaseStudy } from "@/data/cases";
 
@@ -26,10 +27,12 @@ export function CaseCard({ caseStudy, index }: CaseCardProps) {
           <div className="w-full aspect-[2.2/1] bg-bg-secondary overflow-hidden relative">
             {caseStudy.image ? (
               <>
-                <img
+                <Image
                   src={caseStudy.image}
                   alt={caseStudy.title}
-                  className={`absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out ${caseStudy.confidential ? 'blur-md' : ''}`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 1120px"
+                  className={`object-cover group-hover:scale-105 transition-transform duration-700 ease-out ${caseStudy.confidential ? 'blur-md' : ''}`}
                 />
                 {caseStudy.confidential && (
                   <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 text-[11px] font-mono uppercase tracking-wider text-white/80">

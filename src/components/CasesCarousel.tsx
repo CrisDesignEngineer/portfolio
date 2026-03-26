@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FadeIn } from "./FadeIn";
 import type { CaseStudy } from "@/data/cases";
 
@@ -70,10 +71,12 @@ export function CasesCarousel({ cases }: CasesCarouselProps) {
                   <article className="relative overflow-hidden rounded-2xl border border-border bg-bg-card transition-all duration-500 hover:border-border-hover hover:bg-bg-card-hover h-full flex flex-col">
                     <div className="w-full aspect-[2.2/1] bg-bg-secondary overflow-hidden relative">
                       {caseStudy.image ? (
-                        <img
+                        <Image
                           src={caseStudy.image}
                           alt={caseStudy.title}
-                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                          fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
@@ -122,7 +125,7 @@ export function CasesCarousel({ cases }: CasesCarouselProps) {
         {/* Navigation arrows */}
         <div className="flex items-center justify-end gap-3 mt-5">
           <button
-            onClick={() => scroll("right")}
+            onClick={() => scroll("left")}
             className="w-10 h-10 rounded-full border border-border flex items-center justify-center transition-all duration-300 text-text-secondary hover:text-text-primary hover:border-border-hover"
             aria-label="Anterior"
           >
@@ -131,7 +134,7 @@ export function CasesCarousel({ cases }: CasesCarouselProps) {
             </svg>
           </button>
           <button
-            onClick={() => scroll("left")}
+            onClick={() => scroll("right")}
             className="w-10 h-10 rounded-full border border-border flex items-center justify-center transition-all duration-300 text-text-secondary hover:text-text-primary hover:border-border-hover"
             aria-label="Próximo"
           >
