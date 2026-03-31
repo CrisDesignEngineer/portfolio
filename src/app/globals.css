@@ -187,3 +187,11 @@
     0 4px 24px rgba(0, 0, 0, 0.4),
     0 0 40px rgba(191, 90, 242, 0.08);
 }
+
+.locale-fade {
+  transition: opacity 150ms ease-in-out;
+}
+
+.locale-fade.hydrating {
+  opacity: 0;
+}

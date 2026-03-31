@@ -8,13 +8,16 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
+// Use pt as the canonical list for static generation (ids are locale-agnostic)
+const allCases = cases.pt;
+
 export function generateStaticParams() {
-  return cases.map((c) => ({ id: c.id }));
+  return allCases.map((c) => ({ id: c.id }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
-  const caseStudy = cases.find((c) => c.id === id);
+  const caseStudy = allCases.find((c) => c.id === id);
   if (!caseStudy) return {};
 
   return {
@@ -25,19 +28,16 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function CasePage({ params }: PageProps) {
   const { id } = await params;
-  const caseStudy = cases.find((c) => c.id === id);
+  const caseStudy = allCases.find((c) => c.id === id);
 
   if (!caseStudy) {
     notFound();
   }
 
-  const currentIndex = cases.findIndex((c) => c.id === id);
-  const nextCase = cases[(currentIndex + 1) % cases.length];
-
   return (
     <>
       <Header />
-      <CaseContent caseStudy={caseStudy} nextCase={nextCase} />
+      <CaseContent caseId={id} />
       <Footer />
     </>
   );

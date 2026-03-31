@@ -4,12 +4,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { NeonButton } from "@/components/ui/neon-button";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { LanguageToggle } from "@/components/LanguageToggle";
 
 export function Header() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -40,7 +43,7 @@ export function Header() {
             Cristiano Carvalho
           </span>
           <span className="hidden sm:inline text-text-muted text-[13px] font-mono tracking-wide uppercase group-hover:text-[#3b82f6] transition-colors duration-300">
-            Product Designer + Engineer
+            {t("header.role") as string}
           </span>
         </Link>
 
@@ -52,17 +55,17 @@ export function Header() {
                 href="#cases"
                 className="text-[14px] text-text-secondary hover:text-text-primary transition-colors duration-200"
               >
-                Cases
+                {t("header.cases") as string}
               </a>
               <a
                 href="#sobre"
                 className="text-[14px] text-text-secondary hover:text-text-primary transition-colors duration-200"
               >
-                Sobre
+                {t("header.about") as string}
               </a>
               <a href="#contato">
                 <NeonButton size="default" className="text-[14px] text-text-primary cursor-pointer">
-                  Contato
+                  {t("header.contact") as string}
                 </NeonButton>
               </a>
             </>
@@ -80,16 +83,17 @@ export function Header() {
                   strokeLinejoin="round"
                 />
               </svg>
-              Voltar
+              {t("header.back") as string}
             </Link>
           )}
+          <LanguageToggle />
         </div>
 
         {/* Mobile hamburger */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5"
-          aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+          aria-label={menuOpen ? t("header.closeMenu") as string : t("header.openMenu") as string}
         >
           <span
             className={`block w-5 h-[2px] bg-text-primary transition-all duration-300 ${
@@ -123,39 +127,43 @@ export function Header() {
                 onClick={() => setMenuOpen(false)}
                 className="text-[15px] text-text-secondary hover:text-text-primary transition-colors duration-200 py-1"
               >
-                Cases
+                {t("header.cases") as string}
               </a>
               <a
                 href="#sobre"
                 onClick={() => setMenuOpen(false)}
                 className="text-[15px] text-text-secondary hover:text-text-primary transition-colors duration-200 py-1"
               >
-                Sobre
+                {t("header.about") as string}
               </a>
               <a
                 href="#contato"
                 onClick={() => setMenuOpen(false)}
                 className="text-[15px] text-text-secondary hover:text-text-primary transition-colors duration-200 py-1"
               >
-                Contato
+                {t("header.contact") as string}
               </a>
+              <LanguageToggle />
             </>
           ) : (
-            <Link
-              href="/"
-              className="text-[15px] text-text-secondary hover:text-text-primary transition-colors duration-200 flex items-center gap-1.5 py-1"
-            >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path
-                  d="M8 2L3 7l5 5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              Voltar
-            </Link>
+            <>
+              <Link
+                href="/"
+                className="text-[15px] text-text-secondary hover:text-text-primary transition-colors duration-200 flex items-center gap-1.5 py-1"
+              >
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path
+                    d="M8 2L3 7l5 5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                {t("header.back") as string}
+              </Link>
+              <LanguageToggle />
+            </>
           )}
         </div>
       </div>

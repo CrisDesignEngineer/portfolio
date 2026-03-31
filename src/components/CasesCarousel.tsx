@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FadeIn } from "./FadeIn";
 import type { CaseStudy } from "@/data/cases";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 interface CasesCarouselProps {
   cases: CaseStudy[];
@@ -18,6 +19,7 @@ const colorMap: Record<string, { text: string; bg: string; hover: string }> = {
 };
 
 export function CasesCarousel({ cases }: CasesCarouselProps) {
+  const { t } = useTranslation();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -86,7 +88,7 @@ export function CasesCarousel({ cases }: CasesCarouselProps) {
                               <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
                               <path d="M21 15l-5-5L5 21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
-                            <span className="text-text-muted/40 text-xs">Preview do projeto</span>
+                            <span className="text-text-muted/40 text-xs">{t("cases.preview") as string}</span>
                           </div>
                         </div>
                       )}
@@ -109,7 +111,7 @@ export function CasesCarousel({ cases }: CasesCarouselProps) {
                       </p>
 
                       <div className={`mt-4 flex items-center gap-2 ${colors.text} text-[13px] font-medium opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300`}>
-                        Ver case completo
+                        {t("cases.viewCase") as string}
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-1 transition-transform duration-300">
                           <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
@@ -127,7 +129,7 @@ export function CasesCarousel({ cases }: CasesCarouselProps) {
           <button
             onClick={() => scroll("left")}
             className="w-10 h-10 rounded-full border border-border flex items-center justify-center transition-all duration-300 text-text-secondary hover:text-text-primary hover:border-border-hover"
-            aria-label="Anterior"
+            aria-label={t("cases.previous") as string}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -136,7 +138,7 @@ export function CasesCarousel({ cases }: CasesCarouselProps) {
           <button
             onClick={() => scroll("right")}
             className="w-10 h-10 rounded-full border border-border flex items-center justify-center transition-all duration-300 text-text-secondary hover:text-text-primary hover:border-border-hover"
-            aria-label="Próximo"
+            aria-label={t("cases.next") as string}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
