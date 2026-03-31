@@ -3,6 +3,7 @@ import React from 'react'
 import { AnimatedGroup } from '@/components/ui/animated-group'
 import { InfiniteSlider } from '@/components/ui/infinite-slider'
 import { ProgressiveBlur } from '@/components/ui/progressive-blur'
+import { useTranslation } from "@/i18n/LanguageContext"
 
 const transitionVariants = {
   item: {
@@ -40,6 +41,7 @@ const techStack = [
 ]
 
 export function Hero() {
+  const { t } = useTranslation();
   return (
     <section className="overflow-hidden">
       <div className="relative mx-auto max-w-[1120px] px-6 sm:px-10 pt-28 lg:pt-40 lg:pb-8">
@@ -58,13 +60,12 @@ export function Hero() {
             }}
           >
             <h1 className="text-balance font-extrabold text-4xl sm:text-5xl md:text-6xl leading-[1.08] tracking-[-0.025em]">
-              Do Figma ao código{' '}
-              <span className="gradient-text">em produção</span>
+              {t("hero.titleStart") as string}{' '}
+              <span className="gradient-text">{t("hero.titleHighlight") as string}</span>
             </h1>
 
             <p className="mx-auto mt-6 max-w-2xl text-pretty text-text-secondary text-lg sm:text-xl leading-[1.7]">
-              Product Designer & Design Engineer. SaaS B2B, Design Systems e interfaces escaláveis.
-              Não desenho apenas interfaces. Estruturo produtos e construo soluções.
+              {t("hero.description") as string}
             </p>
 
             <div className="mt-10 flex items-center justify-center gap-5">
@@ -75,7 +76,7 @@ export function Hero() {
                   background: "linear-gradient(135deg, var(--accent), var(--accent-3))",
                 }}
               >
-                Ver cases
+                {t("hero.ctaCases") as string}
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path
                     d="M1 7h12M8 2l5 5-5 5"
@@ -90,7 +91,7 @@ export function Hero() {
                 href="#contato"
                 className="inline-flex items-center px-7 py-3.5 text-text-secondary text-[14px] font-medium hover:text-text-primary transition-colors duration-200"
               >
-                Contato
+                {t("hero.ctaContact") as string}
               </a>
             </div>
 
@@ -119,7 +120,7 @@ export function Hero() {
         <div className="group relative m-auto max-w-[1120px] px-6 sm:px-10">
           <div className="flex flex-col items-center md:flex-row">
             <div className="inline md:max-w-44 md:border-r md:border-[var(--border)] md:pr-6">
-              <p className="text-end text-sm text-text-muted font-mono uppercase tracking-wider">Stack & Tools</p>
+              <p className="text-end text-sm text-text-muted font-mono uppercase tracking-wider">{t("hero.stackLabel") as string}</p>
             </div>
             <div className="relative py-6 md:w-[calc(100%-11rem)]">
               <InfiniteSlider
@@ -154,6 +155,7 @@ export function Hero() {
 
 /* Mini preview de design system no card decorativo */
 const DesignPreview = () => {
+  const { t } = useTranslation();
   return (
     <div className="relative space-y-3 rounded-[1rem] bg-white/5 p-4">
       <div className="flex items-center gap-1.5 text-accent">
@@ -163,29 +165,29 @@ const DesignPreview = () => {
           <rect x="3" y="14" width="7" height="7" rx="1" />
           <rect x="14" y="14" width="7" height="7" rx="1" />
         </svg>
-        <div className="text-sm font-medium text-text-primary">Design System</div>
+        <div className="text-sm font-medium text-text-primary">{t("heroPreview.title") as string}</div>
       </div>
       <div className="space-y-3">
         <div className="text-text-secondary border-b border-white/10 pb-3 text-sm">
-          Componentes, tokens e padrões escaláveis para produtos consistentes.
+          {t("heroPreview.description") as string}
         </div>
         <div className="space-y-3">
           <div className="space-y-1">
             <div className="space-x-1">
               <span className="text-text-primary align-baseline text-xl font-medium">48</span>
-              <span className="text-text-muted text-xs">Componentes</span>
+              <span className="text-text-muted text-xs">{t("heroPreview.components") as string}</span>
             </div>
             <div className="flex h-5 items-center rounded px-2 text-xs text-white" style={{ background: 'linear-gradient(to right, var(--accent), var(--accent-3))' }}>
-              Produção
+              {t("heroPreview.production") as string}
             </div>
           </div>
           <div className="space-y-1">
             <div className="space-x-1">
               <span className="text-text-primary align-baseline text-xl font-medium">120+</span>
-              <span className="text-text-muted text-xs">Tokens</span>
+              <span className="text-text-muted text-xs">{t("heroPreview.tokens") as string}</span>
             </div>
             <div className="flex h-5 w-2/3 items-center rounded bg-white/10 px-2 text-xs text-text-secondary">
-              Semânticos
+              {t("heroPreview.semantic") as string}
             </div>
           </div>
         </div>
