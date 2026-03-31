@@ -73,3 +73,29 @@ export function useTranslation() {
   }
   return context;
 }
+
+export function LocaleFadeWrapper({ children }: { children: ReactNode }) {
+  const { isHydrated, locale } = useTranslation();
+  const [fading, setFading] = useState(false);
+  const prevLocaleRef = useRef(locale);
+
+  useEffect(() => {
+    if (prevLocaleRef.current !== locale && isHydrated) {
+      setFading(true);
+      const timer = setTimeout(() => {
+        setFading(false);
+      }, 150);
+      prevLocaleRef.current = locale;
+      return () => clearTimeout(timer);
+    }
+  }, [locale, isHydrated]);
+
+  return (
+    <div
+      className={`locale-fade ${!isHydrated ? "hydrating" : ""}`}
+      style={{ opacity: fading ? 0 : 1 }}
+    >
+      {children}
+    </div>
+  );
+}

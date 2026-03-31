@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { LanguageProvider } from "@/i18n/LanguageContext";
+import { LanguageProvider, LocaleFadeWrapper } from "@/i18n/LanguageContext";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -61,9 +61,11 @@ export default function RootLayout({
       <body className="min-h-screen bg-bg-primary text-text-primary font-sans">
         <LanguageProvider>
           <div className="bg-glow" />
-          <div className="relative z-10">
-            {children}
-          </div>
+          <LocaleFadeWrapper>
+            <div className="relative z-10">
+              {children}
+            </div>
+          </LocaleFadeWrapper>
         </LanguageProvider>
       </body>
     </html>
