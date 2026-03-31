@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { CaseStudy } from "@/data/cases";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 const colorMap: Record<string, { text: string; bg: string }> = {
   accent: { text: "text-accent", bg: "bg-accent/10" },
@@ -17,6 +18,7 @@ interface MobileCasesCarouselProps {
 }
 
 export function MobileCasesCarousel({ cases }: MobileCasesCarouselProps) {
+  const { t } = useTranslation();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -90,7 +92,7 @@ export function MobileCasesCarousel({ cases }: MobileCasesCarouselProps) {
                               <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                             </svg>
-                            Confidencial
+                            {t("cases.confidential") as string}
                           </div>
                         )}
                       </>
@@ -102,7 +104,7 @@ export function MobileCasesCarousel({ cases }: MobileCasesCarouselProps) {
                             <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
                             <path d="M21 15l-5-5L5 21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
-                          <span className="text-text-muted/40 text-xs">Preview do projeto</span>
+                          <span className="text-text-muted/40 text-xs">{t("cases.preview") as string}</span>
                         </div>
                       </div>
                     )}
@@ -125,7 +127,7 @@ export function MobileCasesCarousel({ cases }: MobileCasesCarouselProps) {
                     </p>
 
                     <div className={`mt-3 flex items-center gap-2 ${colors.text} text-[12px] font-medium`}>
-                      Ver case
+                      {t("cases.viewCaseShort") as string}
                       <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                         <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
@@ -151,7 +153,7 @@ export function MobileCasesCarousel({ cases }: MobileCasesCarouselProps) {
                   ? "w-6 h-2 bg-accent"
                   : "w-2 h-2 bg-text-muted/30"
               }`}
-              aria-label={`Ir para case ${i + 1}`}
+              aria-label={`${t("cases.goToCase") as string} ${i + 1}`}
             />
           ))}
         </div>
@@ -161,7 +163,7 @@ export function MobileCasesCarousel({ cases }: MobileCasesCarouselProps) {
           <button
             onClick={() => scroll("left")}
             className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-text-secondary active:text-text-primary active:border-border-hover"
-            aria-label="Anterior"
+            aria-label={t("cases.previous") as string}
           >
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
               <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -170,7 +172,7 @@ export function MobileCasesCarousel({ cases }: MobileCasesCarouselProps) {
           <button
             onClick={() => scroll("right")}
             className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-text-secondary active:text-text-primary active:border-border-hover"
-            aria-label="Próximo"
+            aria-label={t("cases.next") as string}
           >
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
               <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
