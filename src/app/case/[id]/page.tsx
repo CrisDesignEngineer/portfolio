@@ -34,13 +34,10 @@ export default async function CasePage({ params }: PageProps) {
     notFound();
   }
 
-  const currentIndex = allCases.findIndex((c) => c.id === id);
-  const nextCase = allCases[(currentIndex + 1) % allCases.length];
-
   return (
     <>
       <Header />
-      <CaseContent caseStudy={caseStudy} nextCase={nextCase} />
+      <CaseContent caseId={id} />
       <Footer />
     </>
   );

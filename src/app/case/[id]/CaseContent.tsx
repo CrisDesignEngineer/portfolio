@@ -3,11 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FadeIn } from "@/components/FadeIn";
-import type { CaseStudy } from "@/data/cases";
+import { useTranslation } from "@/i18n/LanguageContext";
+import { cases } from "@/data/cases";
 
 interface CaseContentProps {
-  caseStudy: CaseStudy;
-  nextCase: CaseStudy;
+  caseId: string;
 }
 
 const colorMap: Record<string, { text: string; bg: string; dot: string; line: string; hover: string; groupHover: string }> = {
@@ -45,7 +45,14 @@ const colorMap: Record<string, { text: string; bg: string; dot: string; line: st
   },
 };
 
-export function CaseContent({ caseStudy, nextCase }: CaseContentProps) {
+export function CaseContent({ caseId }: CaseContentProps) {
+  const { t, locale } = useTranslation();
+  const localizedCases = cases[locale];
+  const caseIndex = localizedCases.findIndex((c) => c.id === caseId);
+  if (caseIndex === -1) return null;
+  const caseStudy = localizedCases[caseIndex];
+  const nextCase = localizedCases[(caseIndex + 1) % localizedCases.length];
+
   const colors = colorMap[caseStudy.accentColor || "accent"];
   const nextColors = colorMap[nextCase.accentColor || "accent"];
 
@@ -65,7 +72,7 @@ export function CaseContent({ caseStudy, nextCase }: CaseContentProps) {
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                   <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
-                Confidencial
+                {t("cases.confidential") as string}
               </span>
             )}
           </div>
@@ -100,7 +107,7 @@ export function CaseContent({ caseStudy, nextCase }: CaseContentProps) {
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                       <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                     </svg>
-                    Conteúdo confidencial
+                    {t("caseDetail.confidentialContent") as string}
                   </div>
                 </div>
               )}
@@ -115,7 +122,7 @@ export function CaseContent({ caseStudy, nextCase }: CaseContentProps) {
           <div className="grid grid-cols-3 gap-6 py-5 border-t border-b border-border mb-12">
             <div>
               <p className={`text-[11px] font-mono uppercase tracking-[0.15em] mb-2 ${colors.text}`}>
-                Role
+                {t("caseDetail.role") as string}
               </p>
               <p className="text-text-primary text-[14px] font-medium">
                 {caseStudy.role}
@@ -123,7 +130,7 @@ export function CaseContent({ caseStudy, nextCase }: CaseContentProps) {
             </div>
             <div>
               <p className={`text-[11px] font-mono uppercase tracking-[0.15em] mb-2 ${colors.text}`}>
-                Duração
+                {t("caseDetail.duration") as string}
               </p>
               <p className="text-text-primary text-[14px] font-medium">
                 {caseStudy.duration}
@@ -131,7 +138,7 @@ export function CaseContent({ caseStudy, nextCase }: CaseContentProps) {
             </div>
             <div>
               <p className={`text-[11px] font-mono uppercase tracking-[0.15em] mb-2 ${colors.text}`}>
-                Escopo
+                {t("caseDetail.scope") as string}
               </p>
               <p className="text-text-primary text-[14px] font-medium">
                 {caseStudy.scope}
@@ -140,11 +147,11 @@ export function CaseContent({ caseStudy, nextCase }: CaseContentProps) {
           </div>
         </FadeIn>
 
-        {/* Visao geral */}
+        {/* Overview */}
         <FadeIn>
           <section className="mb-12">
             <h2 className="font-bold text-xl tracking-tight mb-4">
-              Visão geral
+              {t("caseDetail.overview") as string}
             </h2>
             <p className="text-text-secondary text-[15px] leading-[1.75]">
               {caseStudy.overview}
@@ -152,11 +159,11 @@ export function CaseContent({ caseStudy, nextCase }: CaseContentProps) {
           </section>
         </FadeIn>
 
-        {/* Desafios */}
+        {/* Challenges */}
         <FadeIn>
           <section className="mb-12">
             <h2 className="font-bold text-xl tracking-tight mb-5">
-              Desafios
+              {t("caseDetail.challenges") as string}
             </h2>
             <ul className="space-y-0">
               {caseStudy.challenges.map((challenge, i) => (
@@ -177,11 +184,11 @@ export function CaseContent({ caseStudy, nextCase }: CaseContentProps) {
           </section>
         </FadeIn>
 
-        {/* Processo */}
+        {/* Process */}
         <FadeIn>
           <section className="mb-12">
             <h2 className="font-bold text-xl tracking-tight mb-6">
-              Processo
+              {t("caseDetail.process") as string}
             </h2>
             <div className="relative pl-8">
               <div className={`absolute left-[3px] top-2 bottom-2 w-[2px] bg-gradient-to-b ${colors.line} rounded-full`} />
@@ -202,11 +209,11 @@ export function CaseContent({ caseStudy, nextCase }: CaseContentProps) {
           </section>
         </FadeIn>
 
-        {/* Resultados */}
+        {/* Results */}
         <FadeIn>
           <section className="mb-12">
             <h2 className="font-bold text-xl tracking-tight mb-5">
-              Resultados
+              {t("caseDetail.results") as string}
             </h2>
             <div className="grid sm:grid-cols-2 gap-3">
               {caseStudy.results.map((result, i) => (
@@ -231,11 +238,11 @@ export function CaseContent({ caseStudy, nextCase }: CaseContentProps) {
           </section>
         </FadeIn>
 
-        {/* Aprendizados */}
+        {/* Learnings */}
         <FadeIn>
           <section className="mb-14">
             <h2 className="font-bold text-xl tracking-tight mb-4">
-              Aprendizados
+              {t("caseDetail.learnings") as string}
             </h2>
             <p className="text-text-secondary text-[15px] leading-[1.75]">
               {caseStudy.learnings}
@@ -243,11 +250,11 @@ export function CaseContent({ caseStudy, nextCase }: CaseContentProps) {
           </section>
         </FadeIn>
 
-        {/* Navegação para próximo case */}
+        {/* Next case navigation */}
         <FadeIn>
           <div className="border-t border-border pt-10">
             <p className="text-text-muted text-[11px] font-mono uppercase tracking-[0.15em] mb-4">
-              Próximo case
+              {t("caseDetail.nextCase") as string}
             </p>
             <Link
               href={`/case/${nextCase.id}`}
