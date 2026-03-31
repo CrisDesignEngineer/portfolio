@@ -1,33 +1,7 @@
 "use client";
 
 import { FadeIn } from "./FadeIn";
-
-const designSkills = [
-  "Estruturação e evolução de design systems escaláveis com tokens semânticos e componentes reutilizáveis",
-  "Desenho de fluxos complexos e jornadas críticas com foco em redução de fricção e clareza da informação",
-  "Prototipação de média e alta fidelidade para validação e tomada de decisão",
-  "UX research incluindo análise comportamental, testes de usabilidade e validação contínua",
-  "Arquitetura da informação para sistemas com grande volume de dados e regras de negócio",
-  "Uso estratégico de dados e métricas para orientar decisões de produto",
-];
-
-const engineeringSkills = [
-  "Implementação de interfaces com React/Next.js, garantindo fidelidade ao design e performance",
-  "Deploy e gerenciamento via Vercel, com workflow profissional usando GitHub",
-  "Integração Figma-to-code com IA (Claude Code), acelerando a ponte entre design e código",
-  "Banco de dados (Neon/PostgreSQL), pagamentos (Stripe) e emails transacionais (Resend)",
-  "Design systems técnicos com shadcn/ui, HeroUI e Tailwind CSS",
-  "Colaboração direta com engenharia, eliminando handoff e entregando soluções end-to-end",
-];
-
-const skills = [
-  { name: "Pesquisa com usuários", color: "text-accent" },
-  { name: "Wireframing e prototipação", color: "text-accent-2" },
-  { name: "Design de interface (UI)", color: "text-accent-3" },
-  { name: "Design Thinking", color: "text-accent-4" },
-  { name: "Design responsivo e mobile-first", color: "text-accent" },
-  { name: "Design Engineering", color: "text-accent-2" },
-];
+import { useTranslation } from "@/i18n/LanguageContext";
 
 const tools = [
   { name: "Figma", color: "text-accent" },
@@ -47,31 +21,41 @@ const tools = [
 ];
 
 export function About() {
+  const { t } = useTranslation();
+
+  const designSkills = t("about.designSkills") as string[];
+  const engineeringSkills = t("about.engineeringSkills") as string[];
+
+  const skillColors = [
+    "text-accent", "text-accent-2", "text-accent-3",
+    "text-accent-4", "text-accent", "text-accent-2",
+  ];
+  const translatedSkills = (t("about.skills") as string[]).map((name, i) => ({
+    name,
+    color: skillColors[i],
+  }));
+
   return (
     <section id="sobre" className="py-14 sm:py-16 max-w-[1120px] mx-auto px-6 sm:px-10">
       {/* Bio */}
       <div className="mb-14">
         <FadeIn>
           <span className="inline-block text-[13px] font-mono font-medium text-accent-3 tracking-[0.15em] uppercase mb-3">
-            Sobre mim
+            {t("about.label") as string}
           </span>
           <h2 className="font-extrabold text-3xl sm:text-[32px] tracking-[-0.02em] mb-6 leading-[1.2]">
-            Product Designer &amp;{" "}
-            <span className="gradient-text">Design Engineer</span>
+            {t("about.title") as string}{" "}
+            <span className="gradient-text">{t("about.titleHighlight") as string}</span>
           </h2>
         </FadeIn>
 
         <FadeIn delay={0.1}>
           <div className="space-y-4">
-            <p className="text-text-secondary text-[15px] leading-[1.75]">
-              Product Designer e Design Engineer com formação em Sistemas de Informação e experiência desde 2016 em produtos digitais B2B e SaaS.
-            </p>
-            <p className="text-text-secondary text-[15px] leading-[1.75]">
-              Minha atuação conecta design e engenharia: vou do discovery e definição de problemas até a implementação em código, eliminando o gap entre o que é projetado no Figma e o que chega em produção.
-            </p>
-            <p className="text-text-secondary text-[15px] leading-[1.75]">
-              Organizo arquitetura, reduzo ruído, crio padrões escaláveis e conecto experiência a métricas e impacto real no negócio. Quando necessário, coloco a mão no código para garantir que a entrega final tenha o nível de polimento e performance que o produto precisa.
-            </p>
+            {(t("about.bio") as string[]).map((paragraph, i) => (
+              <p key={i} className="text-text-secondary text-[15px] leading-[1.75]">
+                {paragraph}
+              </p>
+            ))}
           </div>
         </FadeIn>
       </div>
@@ -82,7 +66,7 @@ export function About() {
         <FadeIn delay={0.15}>
           <div>
             <h3 className="text-[12px] font-mono font-medium text-accent tracking-[0.15em] uppercase mb-5">
-              Product Design
+              {t("about.productDesign") as string}
             </h3>
             <ul className="space-y-0">
               {designSkills.map((item, i) => (
@@ -107,7 +91,7 @@ export function About() {
         <FadeIn delay={0.2}>
           <div>
             <h3 className="text-[12px] font-mono font-medium text-accent-2 tracking-[0.15em] uppercase mb-5">
-              Design Engineering
+              {t("about.designEngineering") as string}
             </h3>
             <ul className="space-y-0">
               {engineeringSkills.map((item, i) => (
@@ -134,10 +118,10 @@ export function About() {
         <FadeIn delay={0.25}>
           <div>
             <h3 className="text-[12px] font-mono font-medium text-accent-4 tracking-[0.15em] uppercase mb-4">
-              Skills
+              {t("about.skillsLabel") as string}
             </h3>
             <div className="flex flex-wrap gap-2.5">
-              {skills.map((skill) => (
+              {translatedSkills.map((skill) => (
                 <span
                   key={skill.name}
                   className={`text-[13px] ${skill.color} border border-border px-4 py-2 rounded-full hover:border-current/30 transition-all duration-300`}
@@ -152,7 +136,7 @@ export function About() {
         <FadeIn delay={0.3}>
           <div>
             <h3 className="text-[12px] font-mono font-medium text-[#f9ab00] tracking-[0.15em] uppercase mb-4">
-              Ferramentas &amp; Stack
+              {t("about.toolsLabel") as string}
             </h3>
             <div className="flex flex-wrap gap-2.5">
               {tools.map((tool) => (
