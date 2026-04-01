@@ -6,8 +6,10 @@ export function LanguageToggle() {
   const { locale, toggleLocale } = useTranslation();
 
   return (
-    <div className="flex items-center bg-white/[0.08] rounded-lg p-1 gap-0.5">
+    <div role="radiogroup" aria-label="Language" className="flex items-center bg-white/[0.08] rounded-lg p-1 gap-0.5">
       <button
+        role="radio"
+        aria-checked={locale === "pt"}
         onClick={locale === "pt" ? undefined : toggleLocale}
         className={`px-2.5 py-1 rounded-md text-[12px] font-semibold transition-all duration-200 ${
           locale === "pt"
@@ -19,6 +21,8 @@ export function LanguageToggle() {
         PT
       </button>
       <button
+        role="radio"
+        aria-checked={locale === "en"}
         onClick={locale === "en" ? undefined : toggleLocale}
         className={`px-2.5 py-1 rounded-md text-[12px] font-semibold transition-all duration-200 ${
           locale === "en"

@@ -43,7 +43,7 @@ export function Header() {
             Cristiano Carvalho
           </span>
           <span className="hidden sm:inline text-text-muted text-[13px] font-mono tracking-wide uppercase group-hover:text-[#3b82f6] transition-colors duration-300">
-            {t("header.role") as string}
+            {t("header.role")}
           </span>
         </Link>
 
@@ -55,17 +55,17 @@ export function Header() {
                 href="#cases"
                 className="text-[14px] text-text-secondary hover:text-text-primary transition-colors duration-200"
               >
-                {t("header.cases") as string}
+                {t("header.cases")}
               </a>
               <a
                 href="#sobre"
                 className="text-[14px] text-text-secondary hover:text-text-primary transition-colors duration-200"
               >
-                {t("header.about") as string}
+                {t("header.about")}
               </a>
               <a href="#contato">
                 <NeonButton size="default" className="text-[14px] text-text-primary cursor-pointer">
-                  {t("header.contact") as string}
+                  {t("header.contact")}
                 </NeonButton>
               </a>
             </>
@@ -83,7 +83,7 @@ export function Header() {
                   strokeLinejoin="round"
                 />
               </svg>
-              {t("header.back") as string}
+              {t("header.back")}
             </Link>
           )}
           <LanguageToggle />
@@ -93,7 +93,7 @@ export function Header() {
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5"
-          aria-label={menuOpen ? t("header.closeMenu") as string : t("header.openMenu") as string}
+          aria-label={menuOpen ? t("header.closeMenu") : t("header.openMenu")}
         >
           <span
             className={`block w-5 h-[2px] bg-text-primary transition-all duration-300 ${
@@ -127,21 +127,21 @@ export function Header() {
                 onClick={() => setMenuOpen(false)}
                 className="text-[15px] text-text-secondary hover:text-text-primary transition-colors duration-200 py-1"
               >
-                {t("header.cases") as string}
+                {t("header.cases")}
               </a>
               <a
                 href="#sobre"
                 onClick={() => setMenuOpen(false)}
                 className="text-[15px] text-text-secondary hover:text-text-primary transition-colors duration-200 py-1"
               >
-                {t("header.about") as string}
+                {t("header.about")}
               </a>
               <a
                 href="#contato"
                 onClick={() => setMenuOpen(false)}
                 className="text-[15px] text-text-secondary hover:text-text-primary transition-colors duration-200 py-1"
               >
-                {t("header.contact") as string}
+                {t("header.contact")}
               </a>
               <LanguageToggle />
             </>
@@ -160,7 +160,7 @@ export function Header() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                {t("header.back") as string}
+                {t("header.back")}
               </Link>
               <LanguageToggle />
             </>

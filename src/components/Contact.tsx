@@ -8,7 +8,7 @@ export function Contact() {
 
   const contacts = [
     {
-      label: t("contact.email") as string,
+      label: t("contact.email"),
       value: "design.cristianocarvalho@gmail.com",
       href: "mailto:design.cristianocarvalho@gmail.com",
       display: (
@@ -21,7 +21,7 @@ export function Contact() {
       color: "group-hover:text-accent-2",
     },
     {
-      label: t("contact.linkedin") as string,
+      label: t("contact.linkedin"),
       value: "/design-cristiano-carvalho",
       href: "https://www.linkedin.com/in/design-cristiano-carvalho/",
       display: "/design-cristiano-carvalho",
@@ -29,7 +29,7 @@ export function Contact() {
       color: "group-hover:text-accent-3",
     },
     {
-      label: t("contact.phone") as string,
+      label: t("contact.phone"),
       value: "+55 (11) 97726-6408",
       href: "tel:+5511977266408",
       display: "+55 (11) 97726-6408",
@@ -42,13 +42,13 @@ export function Contact() {
       <div className="max-w-2xl mb-10">
         <FadeIn>
           <span className="inline-block text-[13px] font-mono font-medium text-accent-4 tracking-[0.15em] uppercase mb-3">
-            {t("contact.label") as string}
+            {t("contact.label")}
           </span>
           <h2 className="font-extrabold text-3xl sm:text-[32px] tracking-[-0.02em] mb-3">
-            {t("contact.title") as string}
+            {t("contact.title")}
           </h2>
           <p className="text-text-secondary text-[15px] leading-[1.7]">
-            {t("contact.description") as string}
+            {t("contact.description")}
           </p>
         </FadeIn>
       </div>
