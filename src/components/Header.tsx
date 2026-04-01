@@ -143,7 +143,6 @@ export function Header() {
               >
                 {t("header.contact")}
               </a>
-              <LanguageToggle />
             </>
           ) : (
             <>
@@ -162,7 +161,6 @@ export function Header() {
                 </svg>
                 {t("header.back")}
               </Link>
-              <LanguageToggle />
             </>
           )}
         </div>
