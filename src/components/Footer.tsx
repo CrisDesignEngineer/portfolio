@@ -11,7 +11,7 @@ export function Footer() {
         <div className="flex items-center gap-2.5">
           <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           <p className="text-text-muted text-[13px]">
-            {t("footer.available") as string}
+            {t("footer.available")}
           </p>
         </div>
         <p className="text-text-muted text-[13px]">

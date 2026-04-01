@@ -42,7 +42,7 @@ export function CaseCard({ caseStudy, index }: CaseCardProps) {
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                       <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                     </svg>
-                    {t("cases.confidential") as string}
+                    {t("cases.confidential")}
                   </div>
                 )}
               </>
@@ -54,7 +54,7 @@ export function CaseCard({ caseStudy, index }: CaseCardProps) {
                     <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
                     <path d="M21 15l-5-5L5 21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  <span className="text-text-muted/40 text-xs">{t("cases.preview") as string}</span>
+                  <span className="text-text-muted/40 text-xs">{t("cases.preview")}</span>
                 </div>
               </div>
             )}
@@ -77,7 +77,7 @@ export function CaseCard({ caseStudy, index }: CaseCardProps) {
             </p>
 
             <div className={`mt-5 flex items-center gap-2 ${colors.text} text-[13px] font-medium opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300`}>
-              {t("cases.viewCase") as string}
+              {t("cases.viewCase")}
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-1 transition-transform duration-300">
                 <path
                   d="M1 7h12M8 2l5 5-5 5"

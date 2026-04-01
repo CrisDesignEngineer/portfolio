@@ -60,12 +60,12 @@ export function Hero() {
             }}
           >
             <h1 className="text-balance font-extrabold text-4xl sm:text-5xl md:text-6xl leading-[1.08] tracking-[-0.025em]">
-              {t("hero.titleStart") as string}{' '}
-              <span className="gradient-text">{t("hero.titleHighlight") as string}</span>
+              {t("hero.titleStart")}{' '}
+              <span className="gradient-text">{t("hero.titleHighlight")}</span>
             </h1>
 
             <p className="mx-auto mt-6 max-w-2xl text-pretty text-text-secondary text-lg sm:text-xl leading-[1.7]">
-              {t("hero.description") as string}
+              {t("hero.description")}
             </p>
 
             <div className="mt-10 flex items-center justify-center gap-5">
@@ -76,7 +76,7 @@ export function Hero() {
                   background: "linear-gradient(135deg, var(--accent), var(--accent-3))",
                 }}
               >
-                {t("hero.ctaCases") as string}
+                {t("hero.ctaCases")}
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path
                     d="M1 7h12M8 2l5 5-5 5"
@@ -91,7 +91,7 @@ export function Hero() {
                 href="#contato"
                 className="inline-flex items-center px-7 py-3.5 text-text-secondary text-[14px] font-medium hover:text-text-primary transition-colors duration-200"
               >
-                {t("hero.ctaContact") as string}
+                {t("hero.ctaContact")}
               </a>
             </div>
 
@@ -120,7 +120,7 @@ export function Hero() {
         <div className="group relative m-auto max-w-[1120px] px-6 sm:px-10">
           <div className="flex flex-col items-center md:flex-row">
             <div className="inline md:max-w-44 md:border-r md:border-[var(--border)] md:pr-6">
-              <p className="text-end text-sm text-text-muted font-mono uppercase tracking-wider">{t("hero.stackLabel") as string}</p>
+              <p className="text-end text-sm text-text-muted font-mono uppercase tracking-wider">{t("hero.stackLabel")}</p>
             </div>
             <div className="relative py-6 md:w-[calc(100%-11rem)]">
               <InfiniteSlider
@@ -165,29 +165,29 @@ const DesignPreview = () => {
           <rect x="3" y="14" width="7" height="7" rx="1" />
           <rect x="14" y="14" width="7" height="7" rx="1" />
         </svg>
-        <div className="text-sm font-medium text-text-primary">{t("heroPreview.title") as string}</div>
+        <div className="text-sm font-medium text-text-primary">{t("heroPreview.title")}</div>
       </div>
       <div className="space-y-3">
         <div className="text-text-secondary border-b border-white/10 pb-3 text-sm">
-          {t("heroPreview.description") as string}
+          {t("heroPreview.description")}
         </div>
         <div className="space-y-3">
           <div className="space-y-1">
             <div className="space-x-1">
               <span className="text-text-primary align-baseline text-xl font-medium">48</span>
-              <span className="text-text-muted text-xs">{t("heroPreview.components") as string}</span>
+              <span className="text-text-muted text-xs">{t("heroPreview.components")}</span>
             </div>
             <div className="flex h-5 items-center rounded px-2 text-xs text-white" style={{ background: 'linear-gradient(to right, var(--accent), var(--accent-3))' }}>
-              {t("heroPreview.production") as string}
+              {t("heroPreview.production")}
             </div>
           </div>
           <div className="space-y-1">
             <div className="space-x-1">
               <span className="text-text-primary align-baseline text-xl font-medium">120+</span>
-              <span className="text-text-muted text-xs">{t("heroPreview.tokens") as string}</span>
+              <span className="text-text-muted text-xs">{t("heroPreview.tokens")}</span>
             </div>
             <div className="flex h-5 w-2/3 items-center rounded bg-white/10 px-2 text-xs text-text-secondary">
-              {t("heroPreview.semantic") as string}
+              {t("heroPreview.semantic")}
             </div>
           </div>
         </div>
