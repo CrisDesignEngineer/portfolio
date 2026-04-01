@@ -21,16 +21,16 @@ const tools = [
 ];
 
 export function About() {
-  const { t } = useTranslation();
+  const { t, tArray } = useTranslation();
 
-  const designSkills = t("about.designSkills") as string[];
-  const engineeringSkills = t("about.engineeringSkills") as string[];
+  const designSkills = tArray("about.designSkills");
+  const engineeringSkills = tArray("about.engineeringSkills");
 
   const skillColors = [
     "text-accent", "text-accent-2", "text-accent-3",
     "text-accent-4", "text-accent", "text-accent-2",
   ];
-  const translatedSkills = (t("about.skills") as string[]).map((name, i) => ({
+  const translatedSkills = tArray("about.skills").map((name, i) => ({
     name,
     color: skillColors[i],
   }));
@@ -41,17 +41,17 @@ export function About() {
       <div className="mb-14">
         <FadeIn>
           <span className="inline-block text-[13px] font-mono font-medium text-accent-3 tracking-[0.15em] uppercase mb-3">
-            {t("about.label") as string}
+            {t("about.label")}
           </span>
           <h2 className="font-extrabold text-3xl sm:text-[32px] tracking-[-0.02em] mb-6 leading-[1.2]">
-            {t("about.title") as string}{" "}
-            <span className="gradient-text">{t("about.titleHighlight") as string}</span>
+            {t("about.title")}{" "}
+            <span className="gradient-text">{t("about.titleHighlight")}</span>
           </h2>
         </FadeIn>
 
         <FadeIn delay={0.1}>
           <div className="space-y-4">
-            {(t("about.bio") as string[]).map((paragraph, i) => (
+            {tArray("about.bio").map((paragraph, i) => (
               <p key={i} className="text-text-secondary text-[15px] leading-[1.75]">
                 {paragraph}
               </p>
@@ -66,7 +66,7 @@ export function About() {
         <FadeIn delay={0.15}>
           <div>
             <h3 className="text-[12px] font-mono font-medium text-accent tracking-[0.15em] uppercase mb-5">
-              {t("about.productDesign") as string}
+              {t("about.productDesign")}
             </h3>
             <ul className="space-y-0">
               {designSkills.map((item, i) => (
@@ -91,7 +91,7 @@ export function About() {
         <FadeIn delay={0.2}>
           <div>
             <h3 className="text-[12px] font-mono font-medium text-accent-2 tracking-[0.15em] uppercase mb-5">
-              {t("about.designEngineering") as string}
+              {t("about.designEngineering")}
             </h3>
             <ul className="space-y-0">
               {engineeringSkills.map((item, i) => (
@@ -118,7 +118,7 @@ export function About() {
         <FadeIn delay={0.25}>
           <div>
             <h3 className="text-[12px] font-mono font-medium text-accent-4 tracking-[0.15em] uppercase mb-4">
-              {t("about.skillsLabel") as string}
+              {t("about.skillsLabel")}
             </h3>
             <div className="flex flex-wrap gap-2.5">
               {translatedSkills.map((skill) => (
@@ -136,7 +136,7 @@ export function About() {
         <FadeIn delay={0.3}>
           <div>
             <h3 className="text-[12px] font-mono font-medium text-[#f9ab00] tracking-[0.15em] uppercase mb-4">
-              {t("about.toolsLabel") as string}
+              {t("about.toolsLabel")}
             </h3>
             <div className="flex flex-wrap gap-2.5">
               {tools.map((tool) => (

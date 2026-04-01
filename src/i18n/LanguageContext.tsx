@@ -11,22 +11,20 @@ const locales = { pt, en } as const;
 interface LanguageContextType {
   locale: Locale;
   toggleLocale: () => void;
-  t: (key: string) => string | string[];
+  t: (key: string) => string;
+  tArray: (key: string) => string[];
   isHydrated: boolean;
 }
 
 const LanguageContext = createContext<LanguageContextType | null>(null);
 
-function getNestedValue(obj: Record<string, unknown>, path: string): string | string[] {
-  const value = path.split(".").reduce<unknown>((acc, key) => {
+function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
+  return path.split(".").reduce<unknown>((acc, key) => {
     if (acc && typeof acc === "object" && key in (acc as Record<string, unknown>)) {
       return (acc as Record<string, unknown>)[key];
     }
     return undefined;
   }, obj);
-  if (typeof value === "string") return value;
-  if (Array.isArray(value)) return value as string[];
-  return path;
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
@@ -52,15 +50,26 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     setLocale((prev) => (prev === "pt" ? "en" : "pt"));
   }, []);
 
+  const localeData = locales[locale] as unknown as Record<string, unknown>;
+
   const t = useCallback(
-    (key: string): string | string[] => {
-      return getNestedValue(locales[locale] as unknown as Record<string, unknown>, key);
+    (key: string): string => {
+      const value = getNestedValue(localeData, key);
+      return typeof value === "string" ? value : key;
     },
-    [locale]
+    [localeData]
+  );
+
+  const tArray = useCallback(
+    (key: string): string[] => {
+      const value = getNestedValue(localeData, key);
+      return Array.isArray(value) ? value : [key];
+    },
+    [localeData]
   );
 
   return (
-    <LanguageContext.Provider value={{ locale, toggleLocale, t, isHydrated }}>
+    <LanguageContext.Provider value={{ locale, toggleLocale, t, tArray, isHydrated }}>
       {children}
     </LanguageContext.Provider>
   );
