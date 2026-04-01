@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider, LocaleFadeWrapper } from "@/i18n/LanguageContext";
+import { MobileLanguageFab } from "@/components/MobileLanguageFab";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -66,6 +67,7 @@ export default function RootLayout({
               {children}
             </div>
           </LocaleFadeWrapper>
+          <MobileLanguageFab />
         </LanguageProvider>
       </body>
     </html>
