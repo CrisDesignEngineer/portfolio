@@ -17,6 +17,7 @@
   --accent-2: #ff2d55;
   --accent-3: #5e5ce6;
   --accent-4: #30d158;
+  --accent-5: #f9ab00;
 
   --border: rgba(255, 255, 255, 0.08);
   --border-hover: rgba(255, 255, 255, 0.15);
@@ -43,6 +44,7 @@
   --color-accent-2: var(--accent-2);
   --color-accent-3: var(--accent-3);
   --color-accent-4: var(--accent-4);
+  --color-accent-5: var(--accent-5);
 
   --color-border: var(--border);
   --color-border-hover: var(--border-hover);
