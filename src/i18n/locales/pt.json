@@ -85,6 +85,11 @@
     ],
     "toolsLabel": "Ferramentas & Stack"
   },
+  "courses": {
+    "title": "Cursos & Certificados",
+    "viewCertificate": "Ver certificado",
+    "viewAll": "Ver todos os certificados"
+  },
   "contact": {
     "label": "Contato",
     "title": "Vamos conversar?",
