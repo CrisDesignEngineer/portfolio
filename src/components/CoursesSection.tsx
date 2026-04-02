@@ -2,7 +2,6 @@
 
 import { FadeIn } from "./FadeIn";
 import { CourseCard } from "./CourseCard";
-import { ArrowRight } from "lucide-react";
 import { useTranslation } from "@/i18n/LanguageContext";
 import { courses } from "@/data/courses";
 
@@ -26,17 +25,6 @@ export function CoursesSection() {
         ))}
       </div>
 
-      <FadeIn delay={0.3}>
-        <div className="flex justify-center mt-10">
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-text-primary rounded-full border border-border transition-all duration-300 hover:border-border-hover hover:bg-bg-card-hover"
-          >
-            {t("courses.viewAll")}
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        </div>
-      </FadeIn>
     </section>
   );
 }
