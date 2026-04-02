@@ -5,6 +5,9 @@ import { ColorSection } from "./ColorSection";
 import { TypographySection } from "./TypographySection";
 import { SpacingSection } from "./SpacingSection";
 import { IconsSection } from "./IconsSection";
+import { ComponentsSection } from "./ComponentsSection";
+import { AnimationsSection } from "./AnimationsSection";
+import { TokensTableSection } from "./TokensTableSection";
 
 const SECTIONS = [
   { id: "colors", label: "Colors" },
@@ -15,8 +18,6 @@ const SECTIONS = [
   { id: "animations", label: "Animations" },
   { id: "tokens", label: "Tokens" },
 ] as const;
-
-const REMAINING = ["components", "animations", "tokens"];
 
 export function DesignSystemContent() {
   return (
@@ -53,14 +54,20 @@ export function DesignSystemContent() {
           <IconsSection />
         </section>
 
-        {SECTIONS.filter((s) => REMAINING.includes(s.id)).map((section) => (
-          <section key={section.id} id={section.id} className="py-16 scroll-mt-16">
-            <h2 className="font-extrabold text-2xl sm:text-3xl tracking-[-0.02em] mb-8">
-              {section.label}
-            </h2>
-            <p className="text-text-muted">Coming soon...</p>
-          </section>
-        ))}
+        <section id="components" className="py-16 scroll-mt-16">
+          <h2 className="font-extrabold text-2xl sm:text-3xl tracking-[-0.02em] mb-8">Components</h2>
+          <ComponentsSection />
+        </section>
+
+        <section id="animations" className="py-16 scroll-mt-16">
+          <h2 className="font-extrabold text-2xl sm:text-3xl tracking-[-0.02em] mb-8">Animations</h2>
+          <AnimationsSection />
+        </section>
+
+        <section id="tokens" className="py-16 scroll-mt-16">
+          <h2 className="font-extrabold text-2xl sm:text-3xl tracking-[-0.02em] mb-8">Design Tokens</h2>
+          <TokensTableSection />
+        </section>
       </div>
     </div>
   );
