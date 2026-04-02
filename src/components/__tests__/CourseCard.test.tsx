@@ -5,7 +5,7 @@ import type { Course } from "@/data/courses";
 
 vi.mock("framer-motion", () => ({
   motion: {
-    a: ({ children, ...props }: React.ComponentProps<"a">) => (
+    a: ({ children, whileHover, transition, ...props }: any) => (
       <a {...props}>{children}</a>
     ),
   },

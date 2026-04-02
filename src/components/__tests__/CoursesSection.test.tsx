@@ -4,10 +4,10 @@ import { CoursesSection } from "../CoursesSection";
 
 vi.mock("framer-motion", () => ({
   motion: {
-    a: ({ children, ...props }: React.ComponentProps<"a">) => (
+    a: ({ children, whileHover, transition, ...props }: any) => (
       <a {...props}>{children}</a>
     ),
-    div: ({ children, ...props }: React.ComponentProps<"div">) => (
+    div: ({ children, whileInView, viewport, initial, transition, ...props }: any) => (
       <div {...props}>{children}</div>
     ),
   },
