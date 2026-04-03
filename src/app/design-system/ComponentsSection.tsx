@@ -3,10 +3,13 @@
 import { ArrowRight } from "lucide-react";
 import { NeonButton } from "@/components/ui/neon-button";
 import { CourseCard } from "@/components/CourseCard";
+import { CaseCard } from "@/components/CaseCard";
 import { courses } from "@/data/courses";
+import { cases } from "@/data/cases";
 
 export function ComponentsSection() {
   const demoCourse = courses.en[0];
+  const demoCase = cases.en[1]; // Vivara (non-confidential)
 
   return (
     <div className="space-y-16">
@@ -34,18 +37,26 @@ export function ComponentsSection() {
         <h3 className="text-sm font-mono font-medium text-text-secondary tracking-[0.1em] uppercase mb-6">
           Cards
         </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
+        <div className="space-y-6">
           <div>
-            <p className="text-xs font-mono text-text-muted mb-3">CourseCard</p>
-            <CourseCard course={demoCourse} />
+            <p className="text-xs font-mono text-text-muted mb-3">CaseCard</p>
+            <div className="max-w-2xl">
+              <CaseCard caseStudy={demoCase} index={0} />
+            </div>
           </div>
-          <div>
-            <p className="text-xs font-mono text-text-muted mb-3">Card Surface</p>
-            <div className="rounded-xl border border-border bg-bg-card p-6 hover:border-border-hover hover:bg-bg-card-hover transition-colors duration-300">
-              <p className="font-bold text-text-primary mb-1">Card Title</p>
-              <p className="text-sm text-text-secondary">
-                Standard card with bg-card, border, and hover transitions.
-              </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
+            <div>
+              <p className="text-xs font-mono text-text-muted mb-3">CourseCard</p>
+              <CourseCard course={demoCourse} />
+            </div>
+            <div>
+              <p className="text-xs font-mono text-text-muted mb-3">Card Surface</p>
+              <div className="rounded-xl border border-border bg-bg-card p-6 hover:border-border-hover hover:bg-bg-card-hover transition-colors duration-300">
+                <p className="font-bold text-text-primary mb-1">Card Title</p>
+                <p className="text-sm text-text-secondary">
+                  Standard card with bg-card, border, and hover transitions.
+                </p>
+              </div>
             </div>
           </div>
         </div>

@@ -5,25 +5,25 @@
 
 ## Visao Geral
 
-Pagina unica com scroll vertical e sidebar fixa, acessivel apenas por link direto (`/design-system`). Nao aparece no menu de navegacao. Conteudo em ingles. Foco em preview visual sem code snippets.
+Pagina unica com navegacao por tabs (sidebar + painel de conteudo), acessivel apenas por link direto (`/design-system`). Nao aparece no menu de navegacao. Conteudo em ingles. Foco em preview visual sem code snippets.
 
 ## Layout
 
 ### Desktop (lg+)
-- **Sidebar fixa** a esquerda (~200px): logo/titulo + links de ancora para cada secao
-- **Conteudo principal** scrollavel a direita: secoes empilhadas com dividers
-- Sidebar acompanha o scroll com highlight na secao ativa (scroll spy)
+- **Sidebar fixa** a esquerda (~200px): titulo "SECTIONS" + botoes para cada secao
+- **Painel de conteudo** a direita: exibe apenas a secao selecionada (tab pattern)
+- Clicar na sidebar troca o conteudo do painel direito sem scroll
 
 ### Tablet (md)
-- Sidebar colapsa para nav horizontal fixa no topo com links de ancora
+- Sidebar colapsa para nav horizontal sticky no topo com botoes
 - Conteudo full-width abaixo
 
 ### Mobile
-- Mesmo que tablet: nav horizontal fixa no topo
-- Conteudo full-width, secoes empilhadas
+- Mesmo que tablet: nav horizontal sticky no topo
+- Conteudo full-width
 
 ### Container
-- Max-width: 1120px com padding consistente (px-6 sm:px-10)
+- Max-width: 1400px com padding consistente (px-6 sm:px-10)
 - Mesmo dark theme do portfolio (bg-primary, text-primary)
 
 ## Secoes

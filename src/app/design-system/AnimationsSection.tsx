@@ -2,6 +2,16 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { InfiniteSlider } from "@/components/ui/infinite-slider";
+
+const techStack = [
+  { name: "Figma", icon: "🎨" },
+  { name: "React", icon: "⚛️" },
+  { name: "Next.js", icon: "▲" },
+  { name: "Tailwind CSS", icon: "🎐" },
+  { name: "TypeScript", icon: "📘" },
+  { name: "Framer Motion", icon: "✨" },
+];
 
 function AnimationDemo({
   label,
@@ -75,6 +85,37 @@ function GlowDemo() {
   );
 }
 
+function BreatheGlowDemo() {
+  const [key, setKey] = useState(0);
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <p className="text-xs font-mono text-text-muted">Breathe Glow — Background pulse</p>
+        <button
+          type="button"
+          onClick={() => setKey((k) => k + 1)}
+          className="text-xs font-mono text-accent hover:text-accent-hover transition-colors"
+        >
+          Replay
+        </button>
+      </div>
+      <div className="h-24 flex items-center justify-center rounded-lg border border-border bg-bg-card overflow-hidden">
+        <div key={key} className="relative w-24 h-16 flex items-center justify-center">
+          <div
+            className="absolute inset-0 rounded-full blur-xl opacity-60"
+            style={{
+              background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
+              animation: "breathe 4s ease-in-out infinite",
+            }}
+          />
+          <span className="relative text-xs font-mono text-text-primary z-10">Glow</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function AnimationsSection() {
   return (
     <div className="space-y-12">
@@ -97,6 +138,23 @@ export function AnimationsSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <HoverDemo />
           <GlowDemo />
+          <BreatheGlowDemo />
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-mono font-medium text-text-secondary tracking-[0.1em] uppercase mb-6">
+          InfiniteSlider
+        </h3>
+        <div className="rounded-lg border border-border bg-bg-card p-6 overflow-hidden">
+          <InfiniteSlider speed={40} speedOnHover={20} gap={56}>
+            {techStack.map((tech) => (
+              <div key={tech.name} className="flex items-center gap-2">
+                <span className="text-base">{tech.icon}</span>
+                <span className="text-sm text-text-secondary whitespace-nowrap">{tech.name}</span>
+              </div>
+            ))}
+          </InfiniteSlider>
         </div>
       </div>
     </div>

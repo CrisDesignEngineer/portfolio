@@ -18,6 +18,8 @@ vi.mock("framer-motion", () => ({
       ...props
     }: any) => <div {...props}>{children}</div>,
   },
+  useMotionValue: () => ({ get: () => 0, set: () => {} }),
+  animate: () => ({ stop: () => {} }),
 }));
 
 vi.mock("lucide-react", () => {
@@ -37,6 +39,10 @@ vi.mock("lucide-react", () => {
     Lock: MockIcon,
   };
 });
+
+vi.mock("react-use-measure", () => ({
+  default: () => [() => {}, { width: 500, height: 50 }],
+}));
 
 vi.mock("../Sidebar", () => ({
   Sidebar: ({
@@ -64,6 +70,16 @@ vi.mock("@/i18n/LanguageContext", () => ({
   }),
 }));
 
+vi.mock("@/components/CaseCard", () => ({
+  CaseCard: ({ caseStudy }: any) => (
+    <div data-testid="case-card">{caseStudy.title}</div>
+  ),
+}));
+
+vi.mock("@/components/FadeIn", () => ({
+  FadeIn: ({ children }: any) => <div>{children}</div>,
+}));
+
 describe("DesignSystemContent", () => {
   it("renders the page title", () => {
     render(<DesignSystemContent />);
@@ -72,7 +88,6 @@ describe("DesignSystemContent", () => {
 
   it("renders sidebar navigation buttons for all 7 sections", () => {
     render(<DesignSystemContent />);
-    // Two sidebars (mobile + desktop) so buttons appear twice each
     expect(screen.getAllByRole("button", { name: "Colors" })).toHaveLength(2);
     expect(screen.getAllByRole("button", { name: "Typography" })).toHaveLength(2);
     expect(screen.getAllByRole("button", { name: "Spacing" })).toHaveLength(2);
@@ -96,12 +111,36 @@ describe("DesignSystemContent", () => {
     expect(screen.getByText("From Figma to code")).toBeInTheDocument();
   });
 
+  it("switches to Spacing section on click", () => {
+    render(<DesignSystemContent />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Spacing" })[0]);
+    expect(screen.getByRole("heading", { level: 2, name: "Spacing" })).toBeInTheDocument();
+    expect(screen.getByText("gap-4 / 16px")).toBeInTheDocument();
+    expect(screen.getByText("mb-6 / 24px")).toBeInTheDocument();
+  });
+
   it("switches to Icons section on click", () => {
     render(<DesignSystemContent />);
     fireEvent.click(screen.getAllByRole("button", { name: "Icons" })[0]);
     expect(screen.getByRole("heading", { level: 2, name: "Icons" })).toBeInTheDocument();
     expect(screen.getByText("Award")).toBeInTheDocument();
     expect(screen.getByText("ArrowRight")).toBeInTheDocument();
+  });
+
+  it("switches to Components section on click", () => {
+    render(<DesignSystemContent />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Components" })[0]);
+    expect(screen.getByRole("heading", { level: 2, name: "Components" })).toBeInTheDocument();
+    expect(screen.getByText("Neon Default")).toBeInTheDocument();
+    expect(screen.getByTestId("case-card")).toBeInTheDocument();
+  });
+
+  it("switches to Animations section on click", () => {
+    render(<DesignSystemContent />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Animations" })[0]);
+    expect(screen.getByRole("heading", { level: 2, name: "Animations" })).toBeInTheDocument();
+    expect(screen.getByText("FadeIn Up")).toBeInTheDocument();
+    expect(screen.getByText("Breathe Glow — Background pulse")).toBeInTheDocument();
   });
 
   it("switches to Tokens section on click", () => {

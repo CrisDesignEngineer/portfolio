@@ -49,7 +49,7 @@ export function DesignSystemContent() {
   return (
     <div className="min-h-screen bg-bg-primary">
       {/* Mobile nav */}
-      <div className="lg:hidden">
+      <div className="lg:hidden" aria-hidden="false">
         <Sidebar sections={SECTIONS} activeId={activeSection} onSelect={setActiveSection} />
       </div>
 
@@ -67,7 +67,7 @@ export function DesignSystemContent() {
         {/* Main layout: sidebar + content */}
         <div className="flex gap-12 pb-20">
           {/* Desktop sidebar */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:block" aria-hidden="false">
             <Sidebar sections={SECTIONS} activeId={activeSection} onSelect={setActiveSection} />
           </div>
 
