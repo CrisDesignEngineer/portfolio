@@ -27,7 +27,7 @@ vi.mock("lucide-react", () => {
     ArrowRight: MockIcon,
     ArrowUpRight: MockIcon,
     Mail: MockIcon,
-    Linkedin: MockIcon,
+    Link2: MockIcon,
     Phone: MockIcon,
     Menu: MockIcon,
     X: MockIcon,
