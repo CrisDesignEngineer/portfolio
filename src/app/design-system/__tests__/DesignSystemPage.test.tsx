@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { DesignSystemContent } from "../DesignSystemContent";
 
@@ -39,12 +39,19 @@ vi.mock("lucide-react", () => {
 });
 
 vi.mock("../Sidebar", () => ({
-  Sidebar: ({ sections }: { sections: { id: string; label: string }[] }) => (
+  Sidebar: ({
+    sections,
+    onSelect,
+  }: {
+    sections: { id: string; label: string }[];
+    activeId: string;
+    onSelect: (id: string) => void;
+  }) => (
     <nav>
       {sections.map((s) => (
-        <a key={s.id} href={`#${s.id}`}>
+        <button key={s.id} onClick={() => onSelect(s.id)}>
           {s.label}
-        </a>
+        </button>
       ))}
     </nav>
   ),
@@ -63,39 +70,43 @@ describe("DesignSystemContent", () => {
     expect(screen.getByRole("heading", { level: 1, name: "Design System" })).toBeInTheDocument();
   });
 
-  it("renders all 7 section headings", () => {
+  it("renders sidebar navigation buttons for all 7 sections", () => {
+    render(<DesignSystemContent />);
+    // Two sidebars (mobile + desktop) so buttons appear twice each
+    expect(screen.getAllByRole("button", { name: "Colors" })).toHaveLength(2);
+    expect(screen.getAllByRole("button", { name: "Typography" })).toHaveLength(2);
+    expect(screen.getAllByRole("button", { name: "Spacing" })).toHaveLength(2);
+    expect(screen.getAllByRole("button", { name: "Icons" })).toHaveLength(2);
+    expect(screen.getAllByRole("button", { name: "Components" })).toHaveLength(2);
+    expect(screen.getAllByRole("button", { name: "Animations" })).toHaveLength(2);
+    expect(screen.getAllByRole("button", { name: "Tokens" })).toHaveLength(2);
+  });
+
+  it("renders Colors section by default with swatches", () => {
     render(<DesignSystemContent />);
     expect(screen.getByRole("heading", { level: 2, name: "Colors" })).toBeInTheDocument();
+    expect(screen.getByText("--accent")).toBeInTheDocument();
+    expect(screen.getByText("#bf5af2")).toBeInTheDocument();
+  });
+
+  it("switches to Typography section on click", () => {
+    render(<DesignSystemContent />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Typography" })[0]);
     expect(screen.getByRole("heading", { level: 2, name: "Typography" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: "Spacing" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: "Icons" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: "Components" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: "Animations" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: "Design Tokens" })).toBeInTheDocument();
-  });
-
-  it("renders color swatches", () => {
-    render(<DesignSystemContent />);
-    // --accent appears in both ColorSection and TokensTableSection, so use getAllByText
-    expect(screen.getAllByText("--accent").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText("#bf5af2").length).toBeGreaterThanOrEqual(1);
-  });
-
-  it("renders typography specimens", () => {
-    render(<DesignSystemContent />);
     expect(screen.getByText("From Figma to code")).toBeInTheDocument();
   });
 
-  it("renders icon names", () => {
+  it("switches to Icons section on click", () => {
     render(<DesignSystemContent />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Icons" })[0]);
+    expect(screen.getByRole("heading", { level: 2, name: "Icons" })).toBeInTheDocument();
     expect(screen.getByText("Award")).toBeInTheDocument();
     expect(screen.getByText("ArrowRight")).toBeInTheDocument();
   });
 
-  it("renders sidebar navigation links", () => {
+  it("switches to Tokens section on click", () => {
     render(<DesignSystemContent />);
-    const colorLinks = screen.getAllByText("Colors");
-    // One in sidebar, one as section heading
-    expect(colorLinks.length).toBeGreaterThanOrEqual(2);
+    fireEvent.click(screen.getAllByRole("button", { name: "Tokens" })[0]);
+    expect(screen.getByRole("heading", { level: 2, name: "Design Tokens" })).toBeInTheDocument();
   });
 });
