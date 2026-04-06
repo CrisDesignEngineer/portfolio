@@ -1,7 +1,20 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(xargs basename:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npm install:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm test:*)",
+      "Bash(npx vitest:*)",
+      "Bash(gh pr:*)",
+      "mcp__b3c9cb70-8e25-4a64-a1b7-c5a7243affa0__list_deployments",
+      "Bash(node -e \"const lr = require\\(''lucide-react''\\); console.log\\(typeof lr.Award, typeof lr.X, typeof lr.Linkedin\\)\")",
+      "Bash(node -e \"const lr = require\\(''lucide-react''\\); console.log\\(Object.keys\\(lr\\).filter\\(k => k.toLowerCase\\(\\).includes\\(''linkedin''\\)\\)\\)\")",
+      "Bash(node -e \"const lr = require\\(''lucide-react''\\); const keys = Object.keys\\(lr\\).slice\\(0, 30\\); console.log\\(keys\\)\")"
     ]
   }
 }

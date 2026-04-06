@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider, LocaleFadeWrapper } from "@/i18n/LanguageContext";
 import { MobileLanguageFab } from "@/components/MobileLanguageFab";
+import { TokenStyles } from "@/design-system/TokenStyles";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -59,6 +60,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={`${geist.variable} ${geistMono.variable} antialiased`}>
+      <head>
+        <TokenStyles />
+      </head>
       <body className="min-h-screen bg-bg-primary text-text-primary font-sans">
         <LanguageProvider>
           <div className="bg-glow" />

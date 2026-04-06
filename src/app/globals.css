@@ -1,31 +1,8 @@
 @import "tailwindcss";
 
 /* ========== DESIGN TOKENS ========== */
-:root {
-  --bg-primary: #050507;
-  --bg-secondary: #0a0a0f;
-  --bg-card: #0d0d12;
-  --bg-card-hover: #12121a;
-
-  --text-primary: #f5f5f7;
-  --text-secondary: #b8b8c8;
-  --text-muted: #5a5a6e;
-
-  --accent: #bf5af2;
-  --accent-hover: #d27af5;
-  --accent-muted: rgba(191, 90, 242, 0.08);
-  --accent-2: #ff2d55;
-  --accent-3: #5e5ce6;
-  --accent-4: #30d158;
-  --accent-5: #f9ab00;
-
-  --border: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(255, 255, 255, 0.15);
-
-  --transition-fast: 150ms ease;
-  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* Token values are injected from src/design-system/tokens.ts via TokenStyles component.
+   To change a token: edit tokens.ts → it propagates to CSS vars, /ds page, and all components. */
 
 /* ========== TAILWIND THEME ========== */
 @theme inline {
