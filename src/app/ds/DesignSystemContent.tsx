@@ -9,6 +9,7 @@ import { IconsSection } from "./IconsSection";
 import { ComponentsSection } from "./ComponentsSection";
 import { AnimationsSection } from "./AnimationsSection";
 import { TokensTableSection } from "./TokensTableSection";
+import { PlaygroundSection } from "./PlaygroundSection";
 
 const SECTIONS = [
   { id: "colors", label: "Colors" },
@@ -18,6 +19,7 @@ const SECTIONS = [
   { id: "components", label: "Components" },
   { id: "animations", label: "Animations" },
   { id: "tokens", label: "Tokens" },
+  { id: "playground", label: "Playground" },
 ] as const;
 
 const SECTION_COMPONENTS: Record<string, React.FC> = {
@@ -28,6 +30,7 @@ const SECTION_COMPONENTS: Record<string, React.FC> = {
   components: ComponentsSection,
   animations: AnimationsSection,
   tokens: TokensTableSection,
+  playground: PlaygroundSection,
 };
 
 const SECTION_TITLES: Record<string, string> = {
@@ -38,6 +41,7 @@ const SECTION_TITLES: Record<string, string> = {
   components: "Components",
   animations: "Animations",
   tokens: "Design Tokens",
+  playground: "Playground",
 };
 
 export function DesignSystemContent() {
