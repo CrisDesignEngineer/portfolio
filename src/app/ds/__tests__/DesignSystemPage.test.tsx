@@ -37,6 +37,7 @@ vi.mock("lucide-react", () => {
     ChevronRight: MockIcon,
     ExternalLink: MockIcon,
     Lock: MockIcon,
+    RotateCcw: MockIcon,
   };
 });
 
@@ -86,7 +87,7 @@ describe("DesignSystemContent", () => {
     expect(screen.getByRole("heading", { level: 1, name: "Design System" })).toBeInTheDocument();
   });
 
-  it("renders sidebar navigation buttons for all 7 sections", () => {
+  it("renders sidebar navigation buttons for all 8 sections", () => {
     render(<DesignSystemContent />);
     expect(screen.getAllByRole("button", { name: "Colors" })).toHaveLength(2);
     expect(screen.getAllByRole("button", { name: "Typography" })).toHaveLength(2);
@@ -95,6 +96,7 @@ describe("DesignSystemContent", () => {
     expect(screen.getAllByRole("button", { name: "Components" })).toHaveLength(2);
     expect(screen.getAllByRole("button", { name: "Animations" })).toHaveLength(2);
     expect(screen.getAllByRole("button", { name: "Tokens" })).toHaveLength(2);
+    expect(screen.getAllByRole("button", { name: "Playground" })).toHaveLength(2);
   });
 
   it("renders Colors section by default with swatches", () => {
@@ -147,5 +149,37 @@ describe("DesignSystemContent", () => {
     render(<DesignSystemContent />);
     fireEvent.click(screen.getAllByRole("button", { name: "Tokens" })[0]);
     expect(screen.getByRole("heading", { level: 2, name: "Design Tokens" })).toBeInTheDocument();
+  });
+
+  it("switches to Playground section on click", () => {
+    render(<DesignSystemContent />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Playground" })[0]);
+    expect(screen.getByRole("heading", { level: 2, name: "Playground" })).toBeInTheDocument();
+    expect(screen.getByText("Preview Card")).toBeInTheDocument();
+  });
+
+  it("renders Playground control tabs", () => {
+    render(<DesignSystemContent />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Playground" })[0]);
+    // Playground internal tabs (Colors/Typography/Spacing appear in sidebar too, so 3 each)
+    expect(screen.getAllByText("Colors")).toHaveLength(3);
+    expect(screen.getAllByText("Typography")).toHaveLength(3);
+    expect(screen.getAllByText("Spacing")).toHaveLength(3);
+    // Transitions only exists in Playground tabs
+    expect(screen.getByText("Transitions")).toBeInTheDocument();
+  });
+
+  it("renders Playground reset button", () => {
+    render(<DesignSystemContent />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Playground" })[0]);
+    expect(screen.getByTitle("Reset to defaults")).toBeInTheDocument();
+  });
+
+  it("renders preview card content in Playground", () => {
+    render(<DesignSystemContent />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Playground" })[0]);
+    expect(screen.getByText("Preview Card")).toBeInTheDocument();
+    expect(screen.getByText("Neon Button")).toBeInTheDocument();
+    expect(screen.getByText("DESIGN SYSTEM")).toBeInTheDocument();
   });
 });
