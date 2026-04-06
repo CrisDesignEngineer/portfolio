@@ -169,10 +169,10 @@ describe("DesignSystemContent", () => {
     expect(screen.getByText("Transitions")).toBeInTheDocument();
   });
 
-  it("renders Playground reset button", () => {
+  it("renders Playground reset button with aria-label", () => {
     render(<DesignSystemContent />);
     fireEvent.click(screen.getAllByRole("button", { name: "Playground" })[0]);
-    expect(screen.getByTitle("Reset to defaults")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Reset to defaults" })).toBeInTheDocument();
   });
 
   it("renders preview card content in Playground", () => {
@@ -181,5 +181,33 @@ describe("DesignSystemContent", () => {
     expect(screen.getByText("Preview Card")).toBeInTheDocument();
     expect(screen.getByText("Neon Button")).toBeInTheDocument();
     expect(screen.getByText("DESIGN SYSTEM")).toBeInTheDocument();
+  });
+
+  it("switches Playground internal tabs", () => {
+    render(<DesignSystemContent />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Playground" })[0]);
+    // Default tab is Colors — verify Backgrounds heading from ColorsTab
+    expect(screen.getByRole("heading", { level: 4, name: "Backgrounds" })).toBeInTheDocument();
+    // Switch to Spacing tab
+    fireEvent.click(screen.getByRole("tab", { name: "Spacing" }));
+    // Spacing controls should appear (gap/padding labels)
+    expect(screen.getByLabelText(/Gap:/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Padding:/)).toBeInTheDocument();
+    // Backgrounds heading from Colors tab should be gone
+    expect(screen.queryByRole("heading", { level: 4, name: "Backgrounds" })).not.toBeInTheDocument();
+  });
+
+  it("resets Playground values to defaults", () => {
+    render(<DesignSystemContent />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Playground" })[0]);
+    // Switch to Spacing tab and change gap value
+    fireEvent.click(screen.getByRole("tab", { name: "Spacing" }));
+    const gapInput = screen.getByLabelText(/Gap:/) as HTMLInputElement;
+    fireEvent.change(gapInput, { target: { value: "48" } });
+    expect(gapInput.value).toBe("48");
+    // Click reset
+    fireEvent.click(screen.getByRole("button", { name: "Reset to defaults" }));
+    // Gap should return to default (16)
+    expect(gapInput.value).toBe("16");
   });
 });

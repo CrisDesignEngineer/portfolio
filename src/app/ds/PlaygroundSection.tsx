@@ -112,6 +112,7 @@ function ColorsTab({
                       type="color"
                       value={currentValue}
                       onChange={(e) => onChange(color.cssVar, e.target.value)}
+                      aria-label={`${color.name} color`}
                       className="w-8 h-8 p-0 border-0 bg-transparent cursor-pointer shrink-0"
                     />
                   ) : (
@@ -119,6 +120,7 @@ function ColorsTab({
                       type="text"
                       value={currentValue}
                       onChange={(e) => onChange(color.cssVar, e.target.value)}
+                      aria-label={`${color.name} color value`}
                       className="flex-1 min-w-0 bg-bg-secondary border border-border rounded px-2 py-1 text-xs font-mono text-text-primary focus:outline-none focus:border-accent"
                     />
                   )}
@@ -154,10 +156,11 @@ function TypographyTab({
         const currentValue = cssVars[token.cssVar] ?? token.value;
         return (
           <div key={token.cssVar}>
-            <label className="text-xs font-mono text-text-muted uppercase tracking-wider block mb-2">
+            <label htmlFor={`font-${token.cssVar}`} className="text-xs font-mono text-text-muted uppercase tracking-wider block mb-2">
               {token.name}
             </label>
             <select
+              id={`font-${token.cssVar}`}
               value={currentValue}
               onChange={(e) => onFontChange(token.cssVar, e.target.value)}
               className="w-full bg-bg-secondary border border-border rounded px-3 py-2 text-sm text-text-primary focus:outline-none focus:border-accent"
@@ -172,10 +175,11 @@ function TypographyTab({
         );
       })}
       <div>
-        <label className="text-xs font-mono text-text-muted uppercase tracking-wider block mb-2">
+        <label htmlFor="playground-font-size" className="text-xs font-mono text-text-muted uppercase tracking-wider block mb-2">
           Font Size: {fontSize}px
         </label>
         <input
+          id="playground-font-size"
           type="range"
           min={12}
           max={24}
@@ -204,10 +208,11 @@ function SpacingTab({
   return (
     <div className="space-y-6">
       <div>
-        <label className="text-xs font-mono text-text-muted uppercase tracking-wider block mb-2">
+        <label htmlFor="playground-gap" className="text-xs font-mono text-text-muted uppercase tracking-wider block mb-2">
           Gap: {spacing.gap}px
         </label>
         <input
+          id="playground-gap"
           type="range"
           min={0}
           max={64}
@@ -221,10 +226,11 @@ function SpacingTab({
         </div>
       </div>
       <div>
-        <label className="text-xs font-mono text-text-muted uppercase tracking-wider block mb-2">
+        <label htmlFor="playground-padding" className="text-xs font-mono text-text-muted uppercase tracking-wider block mb-2">
           Padding: {spacing.padding}px
         </label>
         <input
+          id="playground-padding"
           type="range"
           min={0}
           max={64}
@@ -261,10 +267,11 @@ function TransitionsTab({
               {token.name}
             </h4>
             <div>
-              <label className="text-xs text-text-secondary block mb-1">
+              <label htmlFor={`duration-${token.cssVar}`} className="text-xs text-text-secondary block mb-1">
                 Duration: {duration}ms
               </label>
               <input
+                id={`duration-${token.cssVar}`}
                 type="range"
                 min={0}
                 max={1000}
@@ -284,10 +291,11 @@ function TransitionsTab({
               </div>
             </div>
             <div>
-              <label className="text-xs text-text-secondary block mb-1">
+              <label htmlFor={`easing-${token.cssVar}`} className="text-xs text-text-secondary block mb-1">
                 Easing
               </label>
               <select
+                id={`easing-${token.cssVar}`}
                 value={easing}
                 onChange={(e) =>
                   onChange(
@@ -380,6 +388,7 @@ function PreviewCard({
 
         {/* Button styled like NeonButton */}
         <button
+          type="button"
           className="self-start px-5 py-2.5 rounded-lg font-medium text-sm transition-all"
           style={{
             backgroundColor: "var(--accent)",
@@ -437,10 +446,13 @@ export function PlaygroundSection() {
         {/* Controls panel */}
         <div className="w-full lg:w-80 shrink-0 space-y-4">
           {/* Tabs + Reset */}
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap" role="tablist" aria-label="Playground controls">
             {TABS.map((tab) => (
               <button
                 key={tab.id}
+                type="button"
+                role="tab"
+                aria-selected={activeTab === tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-3 py-1.5 rounded-md text-xs font-mono transition-colors ${
                   activeTab === tab.id
@@ -452,8 +464,10 @@ export function PlaygroundSection() {
               </button>
             ))}
             <button
+              type="button"
               onClick={handleReset}
               className="ml-auto p-1.5 rounded-md text-text-muted hover:text-text-secondary transition-colors"
+              aria-label="Reset to defaults"
               title="Reset to defaults"
             >
               <RotateCcw className="w-4 h-4" />
@@ -461,7 +475,7 @@ export function PlaygroundSection() {
           </div>
 
           {/* Tab content */}
-          <div className="bg-bg-card border border-border rounded-lg p-4 max-h-[600px] overflow-y-auto">
+          <div role="tabpanel" aria-label={`${activeTab} controls`} className="bg-bg-card border border-border rounded-lg p-4 max-h-[600px] overflow-y-auto">
             {activeTab === "colors" && (
               <ColorsTab cssVars={cssVars} onChange={handleCssVarChange} />
             )}
