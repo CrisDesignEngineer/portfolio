@@ -101,7 +101,7 @@ export function Contact() {
               {...(contact.external
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
-              className={`group relative flex flex-col justify-between p-6 rounded-2xl border border-border bg-bg-card hover:border-border-hover hover:bg-bg-card-hover transition-all duration-500 h-full overflow-hidden before:absolute before:inset-y-0 before:left-0 before:w-1/3 before:opacity-0 before:blur-2xl before:transition-opacity before:duration-500 hover:before:opacity-20 ${contact.glowColor}`}
+              className={`group relative flex flex-col justify-between p-6 rounded-2xl border border-border bg-bg-card hover:border-border-hover hover:bg-bg-card-hover transition-all duration-500 h-full overflow-hidden before:content-[''] before:absolute before:inset-y-0 before:left-0 before:w-1/3 before:opacity-0 before:blur-2xl before:transition-opacity before:duration-500 hover:before:opacity-20 ${contact.glowColor}`}
             >
               <div className="flex items-center justify-between mb-6">
                 <span className="text-text-muted">{contact.icon}</span>
