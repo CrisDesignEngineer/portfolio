@@ -92,11 +92,13 @@
   },
   "contact": {
     "label": "Contato",
-    "title": "Vamos conversar?",
-    "description": "Se você busca um designer que entende de produto e tecnologia, estou disponível para novos projetos.",
-    "email": "Email",
+    "title": "Vamos construir algo juntos?",
+    "description": "Estou sempre aberto a conversar sobre novos projetos, ideias criativas ou oportunidades de colaboração. Entre em contato!",
+    "email": "E-mail",
+    "whatsapp": "WhatsApp",
+    "whatsappSub": "Chat rápido",
     "linkedin": "LinkedIn",
-    "phone": "Telefone"
+    "linkedinSub": "/design-cristiano-carvalho"
   },
   "footer": {
     "available": "Disponível para novos projetos"

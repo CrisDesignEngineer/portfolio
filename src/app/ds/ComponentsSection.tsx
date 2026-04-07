@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 import { NeonButton } from "@/components/ui/neon-button";
 import { CourseCard } from "@/components/CourseCard";
 import { CaseCard } from "@/components/CaseCard";
@@ -57,6 +57,30 @@ export function ComponentsSection() {
                   Standard card with bg-card, border, and hover transitions.
                 </p>
               </div>
+            </div>
+          </div>
+          <div>
+            <p className="text-xs font-mono text-text-muted mb-3">ContactCard (with hover glow)</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl">
+              {[
+                { color: "before:bg-[#8B5CF6]", label: "E-mail", subtitle: "user@email.com" },
+                { color: "before:bg-[#25D366]", label: "WhatsApp", subtitle: "Chat rápido" },
+                { color: "before:bg-[#0A66C2]", label: "LinkedIn", subtitle: "/profile" },
+              ].map((card) => (
+                <div
+                  key={card.label}
+                  className={`group relative flex flex-col justify-between p-6 rounded-2xl border border-border bg-bg-card hover:border-border-hover hover:bg-bg-card-hover transition-all duration-500 overflow-hidden before:content-[''] before:absolute before:inset-y-0 before:left-0 before:w-1/3 before:opacity-0 before:blur-2xl before:transition-opacity before:duration-500 hover:before:opacity-20 ${card.color}`}
+                >
+                  <div className="flex items-center justify-between mb-6">
+                    <Mail className="w-5 h-5 text-text-muted" />
+                    <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-text-primary transition-colors duration-300" />
+                  </div>
+                  <div>
+                    <p className="text-text-primary text-[15px] font-semibold mb-1">{card.label}</p>
+                    <p className="text-text-muted text-[13px]">{card.subtitle}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
