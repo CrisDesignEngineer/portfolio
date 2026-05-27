@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Cristiano Carvalho - Product Designer & Design Engineer";
+export const alt = "Cristiano Carvalho - Product Designer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -36,7 +36,7 @@ export default async function Image() {
               textTransform: "uppercase",
             }}
           >
-            Product Designer & Design Engineer
+            Product Designer
           </div>
           <div
             style={{

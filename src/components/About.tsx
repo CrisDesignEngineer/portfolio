@@ -87,7 +87,7 @@ export function About() {
           </div>
         </FadeIn>
 
-        {/* Design Engineering */}
+        {/* Stack técnica */}
         <FadeIn delay={0.2}>
           <div>
             <h3 className="text-[12px] font-mono font-medium text-accent-2 tracking-[0.15em] uppercase mb-5">
