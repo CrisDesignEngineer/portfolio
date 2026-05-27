@@ -54,10 +54,10 @@
     "bio": [
       "Product Designer com formação em Sistemas de Informação e experiência desde 2016 em produtos digitais B2B e SaaS. Diferencial competitivo: a stack técnica que me permite ir do Figma ao código em produção.",
       "Minha atuação conecta design e engenharia: vou do discovery e definição de problemas até a implementação em código, eliminando o gap entre o que é projetado no Figma e o que chega em produção.",
-      "Organizo arquitetura, reduzo ruído, crio padrões escaláveis e conecto experiência a métricas e impacto real no negócio. Quando necessário, coloco a mão no código para garantir que a entrega final tenha o nível de polimento e performance que o produto precisa."
+      "Organizo arquitetura, reduzo ruído, crio padrões escaláveis e conecto experiência a métricas e impacto real no negócio. Atuo em todo o ciclo — do discovery à implementação em código — garantindo que polimento e performance cheguem intactos à produção."
     ],
     "productDesign": "Product Design",
-    "designEngineering": "Stack técnica (diferencial)",
+    "technicalStack": "Stack técnica (diferencial)",
     "designSkills": [
       "Estruturação e evolução de design systems escaláveis com tokens semânticos e componentes reutilizáveis",
       "Desenho de fluxos complexos e jornadas críticas com foco em redução de fricção e clareza da informação",
@@ -66,7 +66,7 @@
       "Arquitetura da informação para sistemas com grande volume de dados e regras de negócio",
       "Uso estratégico de dados e métricas para orientar decisões de produto"
     ],
-    "engineeringSkills": [
+    "technicalStackSkills": [
       "Implementação de interfaces com React/Next.js, garantindo fidelidade ao design e performance",
       "Deploy e gerenciamento via Vercel, com workflow profissional usando GitHub",
       "Integração Figma-to-code com IA (Claude Code), acelerando a ponte entre design e código",
