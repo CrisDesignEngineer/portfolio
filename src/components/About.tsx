@@ -24,7 +24,7 @@ export function About() {
   const { t, tArray } = useTranslation();
 
   const designSkills = tArray("about.designSkills");
-  const engineeringSkills = tArray("about.engineeringSkills");
+  const technicalStackSkills = tArray("about.technicalStackSkills");
 
   const skillColors = [
     "text-accent", "text-accent-2", "text-accent-3",
@@ -91,10 +91,10 @@ export function About() {
         <FadeIn delay={0.2}>
           <div>
             <h3 className="text-[12px] font-mono font-medium text-accent-2 tracking-[0.15em] uppercase mb-5">
-              {t("about.designEngineering")}
+              {t("about.technicalStack")}
             </h3>
             <ul className="space-y-0">
-              {engineeringSkills.map((item, i) => (
+              {technicalStackSkills.map((item, i) => (
                 <li
                   key={i}
                   className="flex gap-3.5 text-text-secondary text-[14px] leading-[1.65] py-3 border-b border-border last:border-0"
