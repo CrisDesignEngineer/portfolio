@@ -20,14 +20,14 @@ const geistMono = Geist_Mono({
 const siteUrl = "https://portfolio-cristiano-iota.vercel.app";
 
 export const metadata: Metadata = {
-  title: "Cristiano Carvalho | Product Designer & Design Engineer",
+  title: "Cristiano Carvalho | Product Designer",
   description:
-    "Product Designer & Design Engineer com foco em SaaS B2B, Design Systems e interfaces escaláveis. Do Figma ao código em produção.",
+    "Product Designer com foco em SaaS B2B, Design Systems e interfaces escaláveis. Do Figma ao código em produção.",
   metadataBase: new URL(siteUrl),
   openGraph: {
-    title: "Cristiano Carvalho | Product Designer & Design Engineer",
+    title: "Cristiano Carvalho | Product Designer",
     description:
-      "Product Designer & Design Engineer. SaaS B2B, Design Systems e interfaces escaláveis.",
+      "Product Designer com stack técnica completa. SaaS B2B, Design Systems e interfaces escaláveis.",
     type: "website",
     url: siteUrl,
     siteName: "Cristiano Carvalho",
@@ -36,15 +36,15 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Cristiano Carvalho - Product Designer & Design Engineer",
+        alt: "Cristiano Carvalho - Product Designer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cristiano Carvalho | Product Designer & Design Engineer",
+    title: "Cristiano Carvalho | Product Designer",
     description:
-      "Product Designer & Design Engineer. SaaS B2B, Design Systems e interfaces escaláveis.",
+      "Product Designer com stack técnica completa. SaaS B2B, Design Systems e interfaces escaláveis.",
     images: ["/og-image.png"],
   },
   robots: {
