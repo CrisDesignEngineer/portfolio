@@ -229,7 +229,9 @@ export function CaseContent({ caseId }: CaseContentProps) {
                       </svg>
                     </span>
                     <p className="text-text-secondary text-[14px] leading-[1.65]">
-                      {result}
+                      <strong className="text-text-primary font-semibold">{result.title}</strong>
+                      {" — "}
+                      {result.description}
                     </p>
                   </div>
                 </div>

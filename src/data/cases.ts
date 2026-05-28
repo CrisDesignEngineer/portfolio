@@ -11,7 +11,7 @@ export interface CaseStudy {
   overview: string;
   challenges: string[];
   process: { title: string; description: string }[];
-  results: string[];
+  results: { title: string; description: string }[];
   learnings: string;
   accentColor?: string;
   confidential?: boolean;
@@ -20,13 +20,13 @@ export interface CaseStudy {
 export const cases: Record<"pt" | "en", CaseStudy[]> = {
   pt: [
     {
-      id: "keoto",
-      image: "/keoto.jpg",
+      id: "saas-platform",
+      image: "/saas-platform.jpg",
       tag: "SaaS Platform",
       year: "2025",
       accentColor: "accent",
       confidential: true,
-      title: "Keoto",
+      title: "Plataforma SaaS confidencial",
       subtitle: "Design de plataforma SaaS e criação de Design System",
       role: "Product Designer",
       duration: "8 meses",
@@ -62,10 +62,26 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         },
       ],
       results: [
-        "Design system estruturado desde o início do produto",
-        "Componentes reutilizáveis acelerando o desenvolvimento",
-        "Alinhamento direto entre design e engenharia",
-        "Base visual preparada para escalar",
+        {
+          title: "Design system estruturado do zero em 8 meses",
+          description:
+            "tokens semânticos de cor, tipografia e espaçamento; 48+ componentes reutilizáveis cobrindo botões, inputs, modais, cards, tabelas e navegação. Base preparada para escalar sem retrabalho.",
+        },
+        {
+          title: "Stack alinhada com engenharia desde o início",
+          description:
+            "escolha deliberada de shadcn/ui + Tailwind CSS reduziu o gap entre o que era desenhado no Figma e o que era implementado em código. Menos ciclos de revisão, mais velocidade de entrega.",
+        },
+        {
+          title: "Liderança de 2 designers juniores",
+          description:
+            "divisão de funcionalidades com revisão centralizada garantindo consistência visual em todo o produto, mesmo com trabalho paralelo.",
+        },
+        {
+          title: "Plataforma com múltiplos fluxos interdependentes entregue com consistência",
+          description:
+            "regras de negócio complexas traduzidas em jornadas claras sem fragmentar a experiência entre módulos.",
+        },
       ],
       learnings:
         "Este projeto reforçou a importância de estruturar um design system desde o início e o impacto que o alinhamento entre design e engenharia tem na velocidade de desenvolvimento de um SaaS.",
@@ -91,26 +107,37 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       ],
       process: [
         {
-          title: "Análise AS IS",
+          title: "O problema real estava escondido no comportamento",
           description:
-            "Mapeamento dos fluxos existentes (venda, devolução, troca, ordem de serviço, consulta de cliente e produto) identificando gargalos e dores por jornada.",
+            "As vendedoras das lojas físicas tinham desenvolvido maneiras próprias de contornar o sistema Capta. Buscas no banco de dados eram lentas e algumas ações travavam — então elas criavam atalhos informais para não perder tempo com o cliente na frente. Isso revelou algo mais sério do que lentidão técnica: o sistema gerava carga cognitiva alta logo na entrada, com muita informação exposta de uma vez.",
         },
         {
-          title: "Ideação e Prototipação",
+          title: "Por que só melhorar o layout não resolvia",
           description:
-            "Redesign dos fluxos principais com indicadores de progresso, tabelas dinâmicas, seleção de múltiplos pagamentos, resumo otimizado de pedidos e envio automático por e-mail/WhatsApp.",
-        },
-        {
-          title: "Backlog de Funcionalidades",
-          description:
-            "Organização de todas as melhorias e novas features com etapa do fluxo, tela afetada, área do componente, funcionalidade, regras de negócio e fluxo de navegação.",
+            "A primeira hipótese foi redesenhar a interface mantendo a estrutura existente. Descartei rápido: reorganizar o que estava visível não reduzia o volume de informação que as vendedoras precisavam processar de uma vez. O caminho certo foi separar as informações em etapas, entregando só o que era necessário para cada momento da venda. Menos decisões simultâneas, menos sobrecarga, menos necessidade de contornar o sistema.",
         },
       ],
       results: [
-        "Redução do tempo de atendimento nas lojas",
-        "Aumento na satisfação das vendedoras",
-        "Diminuição da troca entre sistemas",
-        "Agilidade nas jornadas mais críticas",
+        {
+          title: "Redução do tempo de atendimento nas lojas",
+          description:
+            "separação das informações em etapas eliminou a sobrecarga cognitiva que forçava as vendedoras a criar atalhos informais para contornar o sistema.",
+        },
+        {
+          title: "Diminuição da alternância entre sistemas",
+          description:
+            "operações que exigiam trocar de tela ou sistema foram consolidadas em um fluxo único, reduzindo interrupções durante o atendimento ao cliente.",
+        },
+        {
+          title: "Fluxos de troca e devolução simplificados",
+          description:
+            "indicadores de progresso e resumo otimizado de pedidos reduziram o número de cliques nas jornadas mais críticas da operação de loja.",
+        },
+        {
+          title: "Backlog estruturado para continuidade",
+          description:
+            "todas as melhorias documentadas com etapa do fluxo, tela afetada, regras de negócio e navegação, deixando a equipe de desenvolvimento com contexto completo para implementação.",
+        },
       ],
       learnings:
         "Este projeto reforçou a importância de entender profundamente o contexto operacional dos usuários (vendedoras em loja) antes de propor soluções, e como a simplificação de fluxos internos tem impacto direto na experiência do cliente final.",
@@ -137,26 +164,37 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       ],
       process: [
         {
-          title: "Estratégia de abordagem",
+          title: "A tensão central do projeto",
           description:
-            "Mobile-first para o usuário final (telas simples, textos diretos, fluxos guiados) e estrutura modular para perfis administrativos (tabelas, CRUDs, filtros visuais, status coloridos).",
+            "A plataforma servia dois perfis radicalmente diferentes. De um lado, empresas agro com times estruturados e familiaridade com ferramentas digitais. Do outro, produtores rurais — em grande parte pessoas mais velhas, com pouca experiência tecnológica e contexto de uso completamente diferente. O que funcionava para um lado criava barreira para o outro.",
         },
         {
-          title: "Design System",
+          title: "A decisão de design",
           description:
-            "Paleta de cores com alertas e temas neutros, tipografia estruturada, ícones personalizados para o setor agro e componentes reutilizáveis.",
-        },
-        {
-          title: "3 jornadas distintas",
-          description:
-            "Cliente (landing > pagamento > envio de dados > acompanhamento > download), Empresa (login > cadastro de produtos > gestão de usuários) e Analista Leiteiro (aprovação de produtos, análise de dados, conformidade).",
+            "Qualquer solução que priorizasse funcionalidade avançada para as empresas sacrificaria a acessibilidade para os produtores. A decisão foi desenhar a partir do usuário mais vulnerável: fluxos simplificados, linguagem direta, hierarquia visual clara e menos opções por tela. As empresas perderiam alguma densidade de informação, mas o produto só funcionaria se os dois lados conseguissem operar com autonomia.",
         },
       ],
       results: [
-        "Experiência intuitiva para usuários com baixa familiaridade digital",
-        "Painéis administrativos robustos sem comprometer usabilidade",
-        "Solução escalável e acessível entregue em 3 meses",
-        "Controle completo do design system aos fluxos finais",
+        {
+          title: "Experiência acessível para usuários com baixa familiaridade digital",
+          description:
+            "fluxos guiados, linguagem direta e hierarquia visual simplificada permitiram que produtores rurais operassem a plataforma com autonomia, sem treinamento prévio.",
+        },
+        {
+          title: "Painéis administrativos robustos sem comprometer usabilidade",
+          description:
+            "empresas e analistas tiveram acesso a tabelas, CRUDs, filtros e status coloridos dentro da mesma base de design system, sem abrir mão de consistência.",
+        },
+        {
+          title: "3 jornadas distintas entregues em 3 meses",
+          description:
+            "cliente, empresa e analista com fluxos independentes e coerentes entre si, do zero até produção.",
+        },
+        {
+          title: "Design system completo para o setor agro",
+          description:
+            "paleta, tipografia, ícones customizados e componentes reutilizáveis estruturados desde o início, com escala prevista.",
+        },
       ],
       learnings:
         "O maior aprendizado foi construir uma experiência intuitiva para usuários com pouca familiaridade digital, sem comprometer a robustez e autonomia dos perfis administrativos.",
@@ -182,31 +220,37 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       ],
       process: [
         {
-          title: "Análise comportamental",
+          title: "Diagnóstico antes da solução",
           description:
-            "Uso do Crazy Egg para mapear heatmaps, scroll maps e gravações de sessão. Identificação dos pontos exatos de abandono e fricção no fluxo do formulário.",
+            "Antes de propor qualquer mudança, usei o Crazy Egg para deixar o comportamento dos usuários falar primeiro. Heatmaps, scroll maps e gravações de sessão mostraram o que a intuição não conseguiria: o problema não era só visual. O layout confuso era sintoma — o fluxo para chegar ao formulário também estava fragmentado, criando fricção antes mesmo do usuário começar a preencher.",
         },
         {
-          title: "Benchmark competitivo",
+          title: "Benchmark como base para as soluções",
           description:
-            "Análise de formulários de concorrentes no setor automotivo para identificar padrões de sucesso e oportunidades de diferenciação na experiência Honda.",
-        },
-        {
-          title: "Redesign do fluxo",
-          description:
-            "Implementação de preenchimento automático (autofill), exibição dinâmica de concessionárias baseada em geolocalização e personalização visual por campanha.",
-        },
-        {
-          title: "Validação e iteração",
-          description:
-            "Monitoramento contínuo de métricas pós-implementação para validar hipóteses e iterar sobre a solução.",
+            "Com o diagnóstico feito, analisei como os concorrentes do setor automotivo resolviam os mesmos problemas. Três padrões se destacaram e viraram as bases da solução: preenchimento automático para reduzir esforço manual, exibição de concessionárias por geolocalização para eliminar uma etapa de seleção desnecessária, e personalização visual por campanha para dar contexto ao usuário desde o primeiro contato. A engenharia entrou na ideação junto, validando viabilidade técnica antes de qualquer decisão ser fechada.",
         },
       ],
       results: [
-        "Redução significativa na quantidade de cliques necessários",
-        "Aumento na taxa de preenchimento do formulário",
-        "Experiência personalizada por campanha e localização",
-        "Decisões de design embasadas em dados comportamentais",
+        {
+          title: "Redução no número de cliques para conclusão do formulário",
+          description:
+            "identificada por comparação de fluxo antes/depois com base nas gravações do Crazy Egg. Estimativa de ~30% a menos de interações obrigatórias no caminho crítico.",
+        },
+        {
+          title: "Aumento visível na taxa de preenchimento",
+          description:
+            "sessões gravadas mostraram queda no abandono nos pontos de fricção identificados na análise de heatmap. Dados exatos não preservados, mas a direção foi consistente com as hipóteses levantadas no benchmark.",
+        },
+        {
+          title: "Exibição dinâmica de concessionárias por geolocalização",
+          description:
+            "eliminou uma etapa manual de seleção que aparecia como ponto de abandono nas gravações de sessão.",
+        },
+        {
+          title: "Personalização visual por campanha implementada",
+          description:
+            "permitindo variações sem retrabalho de desenvolvimento a cada nova campanha.",
+        },
       ],
       learnings:
         "Este projeto consolidou a importância de usar dados comportamentais reais (não apenas heurísticas) para fundamentar decisões de design, especialmente em contextos onde cada ponto percentual de conversão tem impacto direto no negócio.",
@@ -214,13 +258,13 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
   ],
   en: [
     {
-      id: "keoto",
-      image: "/keoto.jpg",
+      id: "saas-platform",
+      image: "/saas-platform.jpg",
       tag: "SaaS Platform",
       year: "2025",
       accentColor: "accent",
       confidential: true,
-      title: "Keoto",
+      title: "Confidential SaaS Platform",
       subtitle: "SaaS platform design and Design System creation",
       role: "Product Designer",
       duration: "8 months",
@@ -256,10 +300,26 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         },
       ],
       results: [
-        "Design system structured from the beginning of the product",
-        "Reusable components accelerating development",
-        "Direct alignment between design and engineering",
-        "Visual foundation ready to scale",
+        {
+          title: "Design system built from scratch over 8 months",
+          description:
+            "semantic tokens for color, typography, and spacing; 48+ reusable components covering buttons, inputs, modals, cards, tables, and navigation. Foundation ready to scale without rework.",
+        },
+        {
+          title: "Stack aligned with engineering from day one",
+          description:
+            "deliberate choice of shadcn/ui + Tailwind CSS reduced the gap between what was designed in Figma and what was implemented in code. Fewer review cycles, faster delivery.",
+        },
+        {
+          title: "Leadership of 2 junior designers",
+          description:
+            "workload split by feature with centralized review, ensuring visual consistency across the entire product despite parallel work.",
+        },
+        {
+          title: "Platform with multiple interdependent flows delivered consistently",
+          description:
+            "complex business rules translated into clear journeys without fragmenting the experience across modules.",
+        },
       ],
       learnings:
         "This project reinforced the importance of structuring a design system from the start and the impact that alignment between design and engineering has on the development speed of a SaaS.",
@@ -285,26 +345,37 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       ],
       process: [
         {
-          title: "AS IS Analysis",
+          title: "The real problem was hidden in behavior",
           description:
-            "Mapping of existing flows (sale, return, exchange, service order, customer and product lookup) identifying bottlenecks and pain points per journey.",
+            "The store associates had developed their own workarounds for the Capta system. Database searches were slow and some actions froze — so they created informal shortcuts to avoid losing time with a customer standing in front of them. This revealed something more serious than technical slowness: the system generated high cognitive load from the very first screen, with too much information exposed at once.",
         },
         {
-          title: "Ideation and Prototyping",
+          title: "Why just improving the layout wasn't enough",
           description:
-            "Redesign of main flows with progress indicators, dynamic tables, multiple payment selection, optimized order summary and automatic sending via email/WhatsApp.",
-        },
-        {
-          title: "Feature Backlog",
-          description:
-            "Organization of all improvements and new features with flow stage, affected screen, component area, functionality, business rules and navigation flow.",
+            "The first hypothesis was to redesign the interface while keeping the existing structure. I discarded it quickly: reorganizing what was visible wouldn't reduce the volume of information associates had to process at once. The right path was to separate information into steps, delivering only what was needed for each moment of the sale. Fewer simultaneous decisions, less overload, less need to work around the system.",
         },
       ],
       results: [
-        "Reduced service time in stores",
-        "Increased satisfaction among sales associates",
-        "Reduced switching between systems",
-        "Agility in the most critical journeys",
+        {
+          title: "Reduced customer service time in stores",
+          description:
+            "splitting information into steps eliminated the cognitive overload that was forcing associates to create informal shortcuts to work around the system.",
+        },
+        {
+          title: "Less switching between systems",
+          description:
+            "operations that required changing screens or tools were consolidated into a single flow, reducing interruptions during customer service.",
+        },
+        {
+          title: "Simplified exchange and return flows",
+          description:
+            "progress indicators and an optimized order summary reduced the number of clicks in the most critical store operation journeys.",
+        },
+        {
+          title: "Structured backlog for continuity",
+          description:
+            "all improvements documented with flow stage, affected screen, business rules, and navigation, giving the development team full context for implementation.",
+        },
       ],
       learnings:
         "This project reinforced the importance of deeply understanding the operational context of users (in-store sales associates) before proposing solutions, and how the simplification of internal flows has a direct impact on the end customer experience.",
@@ -331,26 +402,37 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       ],
       process: [
         {
-          title: "Approach strategy",
+          title: "The core tension of the project",
           description:
-            "Mobile-first for the end user (simple screens, direct text, guided flows) and modular structure for administrative profiles (tables, CRUDs, visual filters, colored statuses).",
+            "The platform served two radically different profiles. On one side, agro companies with structured teams and digital tool familiarity. On the other, rural producers — largely older individuals with limited tech experience and a completely different usage context. What worked well for one side created a barrier for the other.",
         },
         {
-          title: "Design System",
+          title: "The design decision",
           description:
-            "Color palette with alerts and neutral themes, structured typography, custom icons for the agro sector and reusable components.",
-        },
-        {
-          title: "3 distinct journeys",
-          description:
-            "Customer (landing > payment > data submission > tracking > download), Company (login > product registration > user management) and Leiteiro Analyst (product approval, data analysis, compliance).",
+            "Any solution that prioritized advanced functionality for companies would sacrifice accessibility for producers. The decision was to design from the most vulnerable user outward: simplified flows, direct language, clear visual hierarchy, and fewer options per screen. Companies would lose some information density, but the product would only work if both sides could operate independently.",
         },
       ],
       results: [
-        "Intuitive experience for users with low digital familiarity",
-        "Robust administrative dashboards without compromising usability",
-        "Scalable and accessible solution delivered in 3 months",
-        "Complete control of the design system to final flows",
+        {
+          title: "Accessible experience for users with low digital familiarity",
+          description:
+            "guided flows, plain language, and simplified visual hierarchy allowed rural producers to operate the platform independently, without prior training.",
+        },
+        {
+          title: "Robust admin panels without compromising usability",
+          description:
+            "companies and analysts accessed tables, CRUDs, filters, and color-coded statuses within the same design system, without sacrificing consistency.",
+        },
+        {
+          title: "3 distinct journeys delivered in 3 months",
+          description:
+            "client, company, and analyst flows built independently but cohesively, from zero to production.",
+        },
+        {
+          title: "Complete design system for the agro sector",
+          description:
+            "palette, typography, custom icons, and reusable components structured from the start with scale in mind.",
+        },
       ],
       learnings:
         "The biggest learning was building an intuitive experience for users with little digital familiarity, without compromising the robustness and autonomy of administrative profiles.",
@@ -376,31 +458,37 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       ],
       process: [
         {
-          title: "Behavioral analysis",
+          title: "Diagnosis before solutions",
           description:
-            "Use of Crazy Egg to map heatmaps, scroll maps and session recordings. Identification of exact abandonment and friction points in the form flow.",
+            "Before proposing any changes, I used Crazy Egg to let user behavior speak first. Heatmaps, scroll maps, and session recordings revealed what intuition couldn't: the problem wasn't purely visual. The confusing layout was a symptom — the flow to reach the form was also fragmented, creating friction before users even started filling it out.",
         },
         {
-          title: "Competitive benchmark",
+          title: "Benchmark as the foundation for solutions",
           description:
-            "Analysis of competitor forms in the automotive sector to identify success patterns and differentiation opportunities in the Honda experience.",
-        },
-        {
-          title: "Flow redesign",
-          description:
-            "Implementation of autofill, dynamic dealership display based on geolocation and visual personalization by campaign.",
-        },
-        {
-          title: "Validation and iteration",
-          description:
-            "Continuous monitoring of post-implementation metrics to validate hypotheses and iterate on the solution.",
+            "With the diagnosis in place, I analyzed how competitors in the automotive sector handled the same problems. Three patterns stood out and became the basis for the solution: autofill to reduce manual effort, geolocation-based dealership display to eliminate an unnecessary selection step, and visual customization per campaign to give users context from the very first interaction. Engineering joined the ideation process early, validating technical feasibility before any decision was finalized.",
         },
       ],
       results: [
-        "Significant reduction in the number of clicks required",
-        "Increased form completion rate",
-        "Personalized experience by campaign and location",
-        "Design decisions backed by behavioral data",
+        {
+          title: "Reduction in the number of clicks to complete the form",
+          description:
+            "identified through before/after flow comparison based on Crazy Egg recordings. Estimated ~30% fewer required interactions along the critical path.",
+        },
+        {
+          title: "Visible improvement in form completion rate",
+          description:
+            "recorded sessions showed a drop in abandonment at the friction points identified in the heatmap analysis. Exact data not preserved, but the direction was consistent with the hypotheses raised during the benchmark.",
+        },
+        {
+          title: "Dynamic dealership display by geolocation",
+          description:
+            "eliminated a manual selection step that appeared as a drop-off point in session recordings.",
+        },
+        {
+          title: "Visual customization per campaign implemented",
+          description:
+            "enabling variations without development rework for each new campaign.",
+        },
       ],
       learnings:
         "This project consolidated the importance of using real behavioral data (not just heuristics) to support design decisions, especially in contexts where each percentage point of conversion has a direct impact on the business.",
