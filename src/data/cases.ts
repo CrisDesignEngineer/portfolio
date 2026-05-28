@@ -20,13 +20,13 @@ export interface CaseStudy {
 export const cases: Record<"pt" | "en", CaseStudy[]> = {
   pt: [
     {
-      id: "keoto",
-      image: "/keoto.jpg",
+      id: "saas-platform",
+      image: "/saas-platform.jpg",
       tag: "SaaS Platform",
       year: "2025",
       accentColor: "accent",
       confidential: true,
-      title: "Keoto",
+      title: "Plataforma SaaS confidencial",
       subtitle: "Design de plataforma SaaS e criação de Design System",
       role: "Product Designer",
       duration: "8 meses",
@@ -258,13 +258,13 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
   ],
   en: [
     {
-      id: "keoto",
-      image: "/keoto.jpg",
+      id: "saas-platform",
+      image: "/saas-platform.jpg",
       tag: "SaaS Platform",
       year: "2025",
       accentColor: "accent",
       confidential: true,
-      title: "Keoto",
+      title: "Confidential SaaS Platform",
       subtitle: "SaaS platform design and Design System creation",
       role: "Product Designer",
       duration: "8 months",
