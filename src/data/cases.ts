@@ -15,6 +15,16 @@ export interface CaseStudy {
   learnings: string;
   accentColor?: string;
   confidential?: boolean;
+  systemInAction?: {
+    intro: string;
+    shots: { images: string[]; width: number; height: number; caption: string }[];
+  };
+  cta?: {
+    title: string;
+    description: string;
+    linkLabel: string;
+    linkUrl: string;
+  };
 }
 
 export const cases: Record<"pt" | "en", CaseStudy[]> = {
@@ -48,7 +58,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         {
           title: "Design System",
           description:
-            "Estruturação de tokens (cores, tipografia, espaçamentos, estados), componentes reutilizáveis (botões, inputs, selects, modais, cards, tabelas, navegação) e padrões escaláveis.",
+            "A estrutura de tokens foi definida antes dos primeiros componentes: cores semânticas (primária, sucesso, alerta, neutro), tipografia por hierarquia, espaçamentos por escala e estados de interação padronizados. A decisão de suportar dark mode desde o início significou que cada token de cor precisava ter sua variante escura — o que evitou retrabalho posterior e garantiu que o modo escuro fosse consistente em toda a plataforma, não uma adaptação.\n\nA escolha de shadcn/ui + Tailwind CSS foi um alinhamento deliberado com engenharia: ambos os lados avaliaram as opções disponíveis e concluíram que essa stack reduzia o gap entre o que era desenhado e o que seria implementado. Menos decisões duplicadas entre design e código, menos ciclos de revisão.",
         },
         {
           title: "Alinhamento com engenharia",
@@ -59,6 +69,11 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
           title: "Liderança de design",
           description:
             "Coordenação de dois designers juniores, dividindo funcionalidades, revisando interfaces e garantindo consistência visual em todo o produto.",
+        },
+        {
+          title: "Governança do sistema",
+          description:
+            "O maior desafio de liderança não foi técnico — foi comportamental. Os dois designers juniores tinham o hábito de criar componentes novos sem verificar se já existia um equivalente na biblioteca. O resultado era duplicação silenciosa: dois componentes com a mesma função, estilos levemente diferentes, quebrando a consistência sem que ninguém percebesse.\n\nA solução foi estabelecer uma regra clara de processo: antes de criar qualquer componente, verificar a biblioteca. Isso virou parte do fluxo de revisão — qualquer componente novo precisava de justificativa explícita de por que o existente não resolvia. Com o tempo, a duplicação diminuiu e os juniores passaram a contribuir para evoluir componentes existentes em vez de criar paralelos.",
         },
       ],
       results: [
@@ -85,6 +100,54 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       ],
       learnings:
         "Este projeto reforçou a importância de estruturar um design system desde o início e o impacto que o alinhamento entre design e engenharia tem na velocidade de desenvolvimento de um SaaS.",
+      systemInAction: {
+        intro:
+          "A plataforma cobre múltiplas superfícies com o mesmo design system: tela de login, dashboard principal, gestão de vendas, assinaturas e carteira financeira. Cada tela usa os mesmos tokens e componentes, mas com composições adaptadas ao contexto.",
+        shots: [
+          {
+            images: ["/login.png"],
+            width: 1920,
+            height: 965,
+            caption:
+              "Tela de login — primeira superfície da plataforma. Layout dividido com formulário à esquerda e visual de marca à direita.",
+          },
+          {
+            images: ["/home.png", "/home_dark.png"],
+            width: 1712,
+            height: 1094,
+            caption:
+              "Dashboard em modo claro e escuro. O dark mode foi planejado desde o início como decisão de token, não adaptado depois — cada cor semântica tem sua variante para os dois temas.",
+          },
+          {
+            images: ["/vendas.png"],
+            width: 1920,
+            height: 965,
+            caption:
+              "Gestão de vendas com 6 filtros independentes em cadeia: produto, período, origem, situação, método de pagamento e UTMs. Mesmo padrão de filtros reutilizado em outras seções com contextos diferentes.",
+          },
+          {
+            images: ["/assinaturas.png"],
+            width: 1920,
+            height: 965,
+            caption:
+              "Cards de métricas com semântica de cor deliberada: verde para ativos, laranja para alertas, neutro para totais. A cor carrega significado, não é decorativa.",
+          },
+          {
+            images: ["/carteira_dark.png"],
+            width: 1920,
+            height: 965,
+            caption:
+              "Carteira financeira em dark mode com tabela de taxas e prazos. Mesma estrutura de tabela da seção de vendas, mesma lógica de filtros — o sistema escala sem retrabalho.",
+          },
+        ],
+      },
+      cta: {
+        title: "Quer saber mais sobre esse projeto?",
+        description:
+          "Por conta do acordo de confidencialidade, as telas acima são o que posso mostrar publicamente. Posso detalhar decisões de arquitetura, o design system completo e o processo de liderança em uma conversa fechada.",
+        linkLabel: "Falar no LinkedIn →",
+        linkUrl: "https://www.linkedin.com/in/design-cristiano-carvalho/",
+      },
     },
     {
       id: "vivara",
@@ -286,7 +349,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         {
           title: "Design System",
           description:
-            "Structuring tokens (colors, typography, spacing, states), reusable components (buttons, inputs, selects, modals, cards, tables, navigation) and scalable patterns.",
+            "The token structure was defined before the first components: semantic colors (primary, success, warning, neutral), typography by hierarchy, spacing by scale, and standardized interaction states. Deciding to support dark mode from day one meant every color token needed a dark variant — which prevented rework later and ensured dark mode was consistent across the entire platform, not an adaptation.\n\nThe choice of shadcn/ui + Tailwind CSS was a deliberate alignment with engineering: both sides evaluated the available options and concluded this stack would reduce the gap between what was designed and what would be implemented. Fewer duplicated decisions between design and code, fewer review cycles.",
         },
         {
           title: "Engineering alignment",
@@ -297,6 +360,11 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
           title: "Design leadership",
           description:
             "Coordination of two junior designers, dividing features, reviewing interfaces and ensuring visual consistency throughout the product.",
+        },
+        {
+          title: "System governance",
+          description:
+            "The biggest leadership challenge wasn't technical — it was behavioral. Both junior designers had a habit of creating new components without checking whether an equivalent already existed in the library. The result was silent duplication: two components with the same function, slightly different styles, breaking consistency without anyone noticing.\n\nThe solution was establishing a clear process rule: before creating any component, check the library. This became part of the review flow — any new component required an explicit justification for why the existing one didn't solve the problem. Over time, duplication decreased and the junior designers started contributing to evolving existing components instead of creating parallel ones.",
         },
       ],
       results: [
@@ -323,6 +391,54 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       ],
       learnings:
         "This project reinforced the importance of structuring a design system from the start and the impact that alignment between design and engineering has on the development speed of a SaaS.",
+      systemInAction: {
+        intro:
+          "The platform spans multiple surfaces using the same design system: login screen, main dashboard, sales management, subscriptions, and financial wallet. Each screen uses the same tokens and components, composed differently for each context.",
+        shots: [
+          {
+            images: ["/login.png"],
+            width: 1920,
+            height: 965,
+            caption:
+              "Login screen — the platform's first surface. Split layout with the form on the left and brand visual on the right.",
+          },
+          {
+            images: ["/home.png", "/home_dark.png"],
+            width: 1712,
+            height: 1094,
+            caption:
+              "Dashboard in light and dark mode. Dark mode was planned from the start as a token-level decision, not retrofitted — every semantic color has its variant for both themes.",
+          },
+          {
+            images: ["/vendas.png"],
+            width: 1920,
+            height: 965,
+            caption:
+              "Sales management with 6 independent chained filters: product, period, origin, status, payment method, and UTMs. The same filter pattern is reused across other sections with different contexts.",
+          },
+          {
+            images: ["/assinaturas.png"],
+            width: 1920,
+            height: 965,
+            caption:
+              "Metric cards with deliberate color semantics: green for active, orange for alerts, neutral for totals. Color carries meaning, not decoration.",
+          },
+          {
+            images: ["/carteira_dark.png"],
+            width: 1920,
+            height: 965,
+            caption:
+              "Financial wallet in dark mode with a fees and terms table. Same table structure as the sales section, same filter logic — the system scales without rework.",
+          },
+        ],
+      },
+      cta: {
+        title: "Want to know more about this project?",
+        description:
+          "Due to a confidentiality agreement, the screens above are what I can share publicly. I'm happy to detail architecture decisions, the complete design system, and the leadership process in a private conversation.",
+        linkLabel: "Connect on LinkedIn →",
+        linkUrl: "https://www.linkedin.com/in/design-cristiano-carvalho/",
+      },
     },
     {
       id: "vivara",

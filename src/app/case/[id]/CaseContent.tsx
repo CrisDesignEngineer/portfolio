@@ -184,6 +184,42 @@ export function CaseContent({ caseId }: CaseContentProps) {
           </section>
         </FadeIn>
 
+        {/* O sistema em ação */}
+        {caseStudy.systemInAction && (
+          <FadeIn>
+            <section className="mb-12">
+              <h2 className="font-bold text-xl tracking-tight mb-4">
+                {t("caseDetail.systemInAction")}
+              </h2>
+              <p className="text-text-secondary text-[15px] leading-[1.75] mb-8">
+                {caseStudy.systemInAction.intro}
+              </p>
+              <div className="space-y-10">
+                {caseStudy.systemInAction.shots.map((shot, i) => (
+                  <figure key={i}>
+                    <div className={shot.images.length > 1 ? "grid sm:grid-cols-2 gap-3" : ""}>
+                      {shot.images.map((img) => (
+                        <Image
+                          key={img}
+                          src={img}
+                          alt={shot.caption}
+                          width={shot.width}
+                          height={shot.height}
+                          sizes="(min-width: 720px) 720px, 100vw"
+                          className="w-full h-auto rounded-xl border border-border"
+                        />
+                      ))}
+                    </div>
+                    <figcaption className="text-text-muted text-[13px] leading-[1.6] mt-3">
+                      {shot.caption}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </section>
+          </FadeIn>
+        )}
+
         {/* Process */}
         <FadeIn>
           <section className="mb-12">
@@ -199,7 +235,7 @@ export function CaseContent({ caseId }: CaseContentProps) {
                     <h3 className="text-text-primary text-[15px] font-semibold mb-1.5">
                       {`${i + 1}. ${phase.title}`}
                     </h3>
-                    <p className="text-text-secondary text-[15px] leading-[1.7]">
+                    <p className="text-text-secondary text-[15px] leading-[1.7] whitespace-pre-line">
                       {phase.description}
                     </p>
                   </div>
@@ -251,6 +287,30 @@ export function CaseContent({ caseId }: CaseContentProps) {
             </p>
           </section>
         </FadeIn>
+
+        {/* CTA */}
+        {caseStudy.cta && (
+          <FadeIn>
+            <section className="mb-14">
+              <div className="rounded-2xl border border-border bg-bg-card p-7 sm:p-8">
+                <h2 className="font-bold text-xl tracking-tight mb-3">
+                  {caseStudy.cta.title}
+                </h2>
+                <p className="text-text-secondary text-[15px] leading-[1.75] mb-6 max-w-xl">
+                  {caseStudy.cta.description}
+                </p>
+                <a
+                  href={caseStudy.cta.linkUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-2 text-[14px] font-medium ${colors.text} hover:opacity-80 transition-opacity`}
+                >
+                  {caseStudy.cta.linkLabel}
+                </a>
+              </div>
+            </section>
+          </FadeIn>
+        )}
 
         {/* Next case navigation */}
         <FadeIn>
