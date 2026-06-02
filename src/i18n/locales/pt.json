@@ -46,7 +46,9 @@
     "results": "Resultados",
     "learnings": "Aprendizados",
     "nextCase": "Próximo case",
-    "confidentialContent": "Conteúdo confidencial"
+    "confidentialContent": "Conteúdo confidencial",
+    "back": "Voltar",
+    "available": "Disponível para novos projetos"
   },
   "about": {
     "label": "Sobre mim",

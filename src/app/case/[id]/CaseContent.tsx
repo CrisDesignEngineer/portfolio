@@ -1,360 +1,470 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FadeIn } from "@/components/FadeIn";
 import { useTranslation } from "@/i18n/LanguageContext";
 import { cases } from "@/data/cases";
+import "./case.css";
 
 interface CaseContentProps {
   caseId: string;
 }
 
-const colorMap: Record<string, { text: string; bg: string; dot: string; line: string; hover: string; groupHover: string }> = {
-  accent: {
-    text: "text-accent",
-    bg: "bg-accent/10",
-    dot: "bg-accent shadow-[0_0_12px_rgba(191,90,242,0.4)]",
-    line: "from-accent via-accent-3 to-transparent",
-    hover: "group-hover:text-accent",
-    groupHover: "group-hover:text-accent",
-  },
-  "accent-2": {
-    text: "text-accent-2",
-    bg: "bg-accent-2/10",
-    dot: "bg-accent-2 shadow-[0_0_12px_rgba(236,72,153,0.4)]",
-    line: "from-accent-2 via-accent to-transparent",
-    hover: "group-hover:text-accent-2",
-    groupHover: "group-hover:text-accent-2",
-  },
-  "accent-3": {
-    text: "text-accent-3",
-    bg: "bg-accent-3/10",
-    dot: "bg-accent-3 shadow-[0_0_12px_rgba(99,102,241,0.4)]",
-    line: "from-accent-3 via-accent-2 to-transparent",
-    hover: "group-hover:text-accent-3",
-    groupHover: "group-hover:text-accent-3",
-  },
-  "accent-4": {
-    text: "text-accent-4",
-    bg: "bg-accent-4/10",
-    dot: "bg-accent-4 shadow-[0_0_12px_rgba(34,197,94,0.4)]",
-    line: "from-accent-4 via-accent to-transparent",
-    hover: "group-hover:text-accent-4",
-    groupHover: "group-hover:text-accent-4",
-  },
-};
-
 export function CaseContent({ caseId }: CaseContentProps) {
-  const { t, locale } = useTranslation();
+  const { t, locale, toggleLocale } = useTranslation();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+
   const localizedCases = cases[locale];
   const caseIndex = localizedCases.findIndex((c) => c.id === caseId);
-  if (caseIndex === -1) return null;
-  const caseStudy = localizedCases[caseIndex];
-  const nextCase = localizedCases[(caseIndex + 1) % localizedCases.length];
+  const caseStudy = caseIndex === -1 ? null : localizedCases[caseIndex];
+  const nextCase = caseStudy ? localizedCases[(caseIndex + 1) % localizedCases.length] : null;
 
-  const colors = colorMap[caseStudy.accentColor || "accent"];
-  const nextColors = colorMap[nextCase.accentColor || "accent"];
+  const hasGallery = !!caseStudy?.systemInAction;
+
+  // Sections present in this case (drives the TOC + active-section tracking)
+  const sections: { id: string; label: string }[] = caseStudy
+    ? [
+        { id: "overview", label: t("caseDetail.overview") },
+        { id: "desafios", label: t("caseDetail.challenges") },
+        ...(hasGallery ? [{ id: "sistema", label: t("caseDetail.systemInAction") }] : []),
+        { id: "processo", label: t("caseDetail.process") },
+        { id: "resultados", label: t("caseDetail.results") },
+        { id: "aprendizados", label: t("caseDetail.learnings") },
+      ]
+    : [];
+
+  useEffect(() => {
+    if (!caseStudy) return;
+    const root = rootRef.current;
+    if (!root) return;
+
+    const sectionEls = sections.map((s) => document.getElementById(s.id));
+    const tocLinks = Array.from(root.querySelectorAll<HTMLAnchorElement>(".toc a"));
+    const progress = progressRef.current;
+
+    let ticking = false;
+    const onScroll = () => {
+      const h = document.documentElement;
+      const sc = h.scrollTop;
+      const max = h.scrollHeight - h.clientHeight;
+      if (progress) progress.style.width = (max > 0 ? (sc / max) * 100 : 0) + "%";
+
+      const mid = sc + window.innerHeight * 0.35;
+      let active = 0;
+      sectionEls.forEach((el, i) => {
+        if (el && el.offsetTop <= mid) active = i;
+      });
+      tocLinks.forEach((a, i) => a.classList.toggle("active", i === active));
+    };
+    const onScrollThrottled = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          onScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener("scroll", onScrollThrottled, { passive: true });
+    onScroll();
+
+    // Activate tour-items (frame entrance + annotations) as they enter the viewport
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          e.target.classList.toggle("in", e.isIntersecting && e.intersectionRatio > 0.18);
+        });
+      },
+      { threshold: [0, 0.18, 0.5] }
+    );
+    root.querySelectorAll(".tour-item").forEach((el) => io.observe(el));
+
+    return () => {
+      window.removeEventListener("scroll", onScrollThrottled);
+      io.disconnect();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [caseStudy, locale]);
+
+  if (!caseStudy || !nextCase) return null;
+
+  const arrow = (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  );
+  const lock = (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <rect x="5" y="11" width="14" height="10" rx="2" />
+      <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+    </svg>
+  );
 
   return (
-    <main className="pt-28 pb-16">
-      {/* Hero do case */}
-      <div className="max-w-[1120px] mx-auto px-6 sm:px-10 mb-12">
-        <FadeIn>
-          <div className="flex items-center gap-3 mb-5">
-            <span className={`text-[11px] font-mono font-medium ${colors.text} ${colors.bg} px-4 py-1.5 rounded-full tracking-wide uppercase`}>
-              {caseStudy.tag}
-            </span>
-            <span className="text-[11px] text-text-muted font-mono">{caseStudy.year}</span>
-            {caseStudy.confidential && (
-              <span className="text-[11px] font-mono font-medium text-white/70 bg-white/10 px-3 py-1.5 rounded-full tracking-wide uppercase flex items-center gap-1.5">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
-                {t("cases.confidential")}
-              </span>
-            )}
+    <div className="casepage" ref={rootRef}>
+      <div className="progress" ref={progressRef} />
+
+      {/* TOPBAR */}
+      <header className="topbar">
+        <div className="row">
+          <Link className="brand" href="/">
+            <b>Cristiano Carvalho</b>
+            <span>Product Designer</span>
+          </Link>
+          <div className="top-right">
+            <Link className="back" href="/">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+              {t("caseDetail.back")}
+            </Link>
+            <div className="lang">
+              <button
+                type="button"
+                className={`seg${locale === "pt" ? " on" : ""}`}
+                onClick={() => locale !== "pt" && toggleLocale()}
+              >
+                PT
+              </button>
+              <button
+                type="button"
+                className={`seg${locale === "en" ? " on" : ""}`}
+                onClick={() => locale !== "en" && toggleLocale()}
+              >
+                EN
+              </button>
+            </div>
+            <div className="avatar">CC</div>
           </div>
+        </div>
+      </header>
 
-          <h1 className={`font-extrabold text-4xl sm:text-5xl tracking-[-0.025em] mb-4 ${caseStudy.confidential ? 'blur-sm select-none' : ''}`}>
-            {caseStudy.title}
-          </h1>
+      {/* SECTION NAV */}
+      <nav className="toc">
+        {sections.map((s) => (
+          <a key={s.id} href={`#${s.id}`}>
+            <span className="lbl">{s.label}</span>
+            <span className="dot" />
+          </a>
+        ))}
+      </nav>
 
-          <p className="text-text-secondary text-lg leading-[1.7] max-w-2xl">
-            {caseStudy.subtitle}
-          </p>
-        </FadeIn>
-      </div>
-
-      {/* Imagem de capa */}
-      {caseStudy.image && (
-        <FadeIn>
-          <div className="max-w-[1120px] mx-auto px-6 sm:px-10 mb-12">
-            <div className="w-full aspect-[2.4/1] rounded-2xl overflow-hidden border border-border relative">
-              <Image
-                src={caseStudy.image}
-                alt={caseStudy.title}
-                fill
-                priority
-                sizes="1120px"
-                className={`object-cover ${caseStudy.confidential ? 'blur-lg' : ''}`}
-              />
+      <main id="top">
+        {/* HERO */}
+        <section className="hero">
+          <div className="wrap">
+            <div className="tags reveal">
+              <span className="tag accent">{caseStudy.tag}</span>
+              <span className="tag">{caseStudy.year}</span>
               {caseStudy.confidential && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 text-white/80 text-sm font-mono">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                    </svg>
-                    {t("caseDetail.confidentialContent")}
-                  </div>
-                </div>
+                <span className="tag lock">
+                  {lock}
+                  {t("cases.confidential")}
+                </span>
               )}
             </div>
+            <h1 className="title reveal">{caseStudy.title}</h1>
+            <p className="subtitle reveal">{caseStudy.subtitle}</p>
+
+            <div className="hero-media reveal">
+              {caseStudy.confidential ? (
+                <>
+                  <div className="blurart" />
+                  <div className="grain" />
+                  <div className="lockchip">
+                    {lock}
+                    {t("caseDetail.confidentialContent")}
+                  </div>
+                </>
+              ) : (
+                caseStudy.image && (
+                  <Image
+                    src={caseStudy.image}
+                    alt={caseStudy.title}
+                    fill
+                    priority
+                    sizes="(max-width: 1180px) 100vw, 1180px"
+                    className="heroimg"
+                  />
+                )
+              )}
+            </div>
+
+            <div className="meta reveal">
+              <div>
+                <div className="k">{t("caseDetail.role")}</div>
+                <div className="v">{caseStudy.role}</div>
+              </div>
+              <div>
+                <div className="k">{t("caseDetail.duration")}</div>
+                <div className="v">{caseStudy.duration}</div>
+              </div>
+              <div>
+                <div className="k">{t("caseDetail.scope")}</div>
+                <div className="v">{caseStudy.scope}</div>
+              </div>
+            </div>
           </div>
-        </FadeIn>
-      )}
+        </section>
 
-      {/* Metadados */}
-      <div className="max-w-[720px] mx-auto px-6 sm:px-10">
-        <FadeIn>
-          <div className="grid grid-cols-3 gap-6 py-5 border-t border-b border-border mb-12">
-            <div>
-              <p className={`text-[11px] font-mono uppercase tracking-[0.15em] mb-2 ${colors.text}`}>
-                {t("caseDetail.role")}
-              </p>
-              <p className="text-text-primary text-[14px] font-medium">
-                {caseStudy.role}
-              </p>
-            </div>
-            <div>
-              <p className={`text-[11px] font-mono uppercase tracking-[0.15em] mb-2 ${colors.text}`}>
-                {t("caseDetail.duration")}
-              </p>
-              <p className="text-text-primary text-[14px] font-medium">
-                {caseStudy.duration}
-              </p>
-            </div>
-            <div>
-              <p className={`text-[11px] font-mono uppercase tracking-[0.15em] mb-2 ${colors.text}`}>
-                {t("caseDetail.scope")}
-              </p>
-              <p className="text-text-primary text-[14px] font-medium">
-                {caseStudy.scope}
-              </p>
-            </div>
+        {/* VISÃO GERAL */}
+        <section className="block" id="overview">
+          <div className="wrap">
+            <div className="eyebrow reveal">{t("caseDetail.overview")}</div>
+            <p className="lead reveal">{caseStudy.overview}</p>
           </div>
-        </FadeIn>
+        </section>
 
-        {/* Overview */}
-        <FadeIn>
-          <section className="mb-12">
-            <h2 className="font-bold text-xl tracking-tight mb-4">
-              {t("caseDetail.overview")}
-            </h2>
-            <p className="text-text-secondary text-[15px] leading-[1.75]">
-              {caseStudy.overview}
-            </p>
-          </section>
-        </FadeIn>
-
-        {/* Challenges */}
-        <FadeIn>
-          <section className="mb-12">
-            <h2 className="font-bold text-xl tracking-tight mb-5">
-              {t("caseDetail.challenges")}
-            </h2>
-            <ul className="space-y-0">
-              {caseStudy.challenges.map((challenge, i) => (
-                <li
-                  key={i}
-                  className="flex gap-3.5 text-text-secondary text-[15px] leading-[1.7] py-3 border-b border-border last:border-0"
-                >
-                  <span className="mt-[3px] shrink-0">
-                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none" className={colors.text}>
-                      <rect width="20" height="20" rx="6" fill="currentColor" fillOpacity="0.1" />
-                      <path d="M6 10h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                    </svg>
-                  </span>
-                  {challenge}
-                </li>
+        {/* DESAFIOS */}
+        <section className="block" id="desafios" style={{ paddingTop: 0 }}>
+          <div className="wrap">
+            <h2 className="reveal">{t("caseDetail.challenges")}</h2>
+            <div className="challenges reveal">
+              {caseStudy.challenges.map((c, i) => (
+                <div className="challenge" key={i}>
+                  <span className="num">{String(i + 1).padStart(2, "0")}</span>
+                  <p>{c}</p>
+                </div>
               ))}
-            </ul>
-          </section>
-        </FadeIn>
+            </div>
+          </div>
+        </section>
 
-        {/* O sistema em ação */}
+        {/* O SISTEMA EM AÇÃO */}
         {caseStudy.systemInAction && (
-          <FadeIn>
-            <section className="mb-12">
-              <h2 className="font-bold text-xl tracking-tight mb-4">
-                {t("caseDetail.systemInAction")}
+          <section id="sistema">
+            <div className="tour-intro">
+              <div className="eyebrow reveal">{t("caseDetail.systemInAction")}</div>
+              <h2 className="reveal" style={{ maxWidth: "20ch" }}>
+                {caseStudy.systemInAction.title}
               </h2>
-              <p className="text-text-secondary text-[15px] leading-[1.75] mb-8">
-                {caseStudy.systemInAction.intro}
-              </p>
-              <div className="space-y-10">
-                {caseStudy.systemInAction.shots.map((shot, i) => (
-                  <figure key={i}>
-                    <div className={shot.images.length > 1 ? "grid sm:grid-cols-2 gap-3" : ""}>
-                      {shot.images.map((img) => (
-                        <Image
-                          key={img}
-                          src={img}
-                          alt={shot.caption}
-                          width={shot.width}
-                          height={shot.height}
-                          sizes="(min-width: 720px) 720px, 100vw"
-                          className="w-full h-auto rounded-xl border border-border"
-                        />
+              <p className="lead reveal">{caseStudy.systemInAction.intro}</p>
+              <div className="tour-meta reveal">
+                {caseStudy.systemInAction.meta.map((m, i) => (
+                  <span key={i}>
+                    <b>{m.value}</b> {m.label}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="tour">
+              {caseStudy.systemInAction.shots.map((shot, i) => (
+                <div className="tour-item" key={i}>
+                  <div className="cap-col reveal">
+                    <div className="chapter">
+                      <span className="idx">{shot.idx}</span>
+                      <span className="kind">{shot.kind}</span>
+                    </div>
+                    <h3>{shot.title}</h3>
+                    <p>{shot.description}</p>
+                    <div className="cap-tags">
+                      {shot.tags.map((tag, j) => (
+                        <span className="t" key={j}>
+                          {tag}
+                        </span>
                       ))}
                     </div>
-                    <figcaption className="text-text-muted text-[13px] leading-[1.6] mt-3">
-                      {shot.caption}
-                    </figcaption>
-                  </figure>
-                ))}
-              </div>
-            </section>
-          </FadeIn>
-        )}
-
-        {/* Process */}
-        <FadeIn>
-          <section className="mb-12">
-            <h2 className="font-bold text-xl tracking-tight mb-6">
-              {t("caseDetail.process")}
-            </h2>
-            <div className="relative pl-8">
-              <div className={`absolute left-[3px] top-2 bottom-2 w-[2px] bg-gradient-to-b ${colors.line} rounded-full`} />
-              <div className="space-y-7">
-                {caseStudy.process.map((phase, i) => (
-                  <div key={i} className="relative">
-                    <div className={`absolute -left-8 top-[6px] w-[8px] h-[8px] rounded-full ${colors.dot}`} />
-                    <h3 className="text-text-primary text-[15px] font-semibold mb-1.5">
-                      {`${i + 1}. ${phase.title}`}
-                    </h3>
-                    <p className="text-text-secondary text-[15px] leading-[1.7] whitespace-pre-line">
-                      {phase.description}
-                    </p>
                   </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        </FadeIn>
+                  <div className="frame-col">
+                    <div className="frame-wrap">
+                      <div className="frame">
+                        <div className="bardots">
+                          <i />
+                          <i />
+                          <i />
+                          <span className="barpill" />
+                        </div>
+                        <div className="shotview">
+                          <Image
+                            className="shot"
+                            src={shot.images[0]}
+                            alt={shot.title}
+                            width={shot.width}
+                            height={shot.height}
+                            sizes="(max-width: 900px) 100vw, 600px"
+                            loading="lazy"
+                          />
+                        </div>
+                      </div>
 
-        {/* Results */}
-        <FadeIn>
-          <section className="mb-12">
-            <h2 className="font-bold text-xl tracking-tight mb-5">
-              {t("caseDetail.results")}
-            </h2>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {caseStudy.results.map((result, i) => (
-                <div
-                  key={i}
-                  className="p-5 rounded-xl border border-border bg-bg-card hover:border-border-hover transition-colors duration-300"
-                >
-                  <div className="flex gap-3 items-start">
-                    <span className="mt-0.5 shrink-0">
-                      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" className={colors.text}>
-                        <rect width="20" height="20" rx="6" fill="currentColor" fillOpacity="0.1" />
-                        <path d="M6 10l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                    <p className="text-text-secondary text-[14px] leading-[1.65]">
-                      <strong className="text-text-primary font-semibold">{result.title}</strong>
-                      {" — "}
-                      {result.description}
-                    </p>
+                      {shot.variant === "dual" && shot.images[1] && (
+                        <div
+                          className="frame"
+                          style={{
+                            position: "absolute",
+                            width: "52%",
+                            right: -22,
+                            bottom: -34,
+                            boxShadow: "0 34px 64px -28px rgba(0,0,0,.85)",
+                            zIndex: 6,
+                          }}
+                        >
+                          <div className="bardots" style={{ padding: "8px 11px" }}>
+                            <i />
+                            <i />
+                            <i />
+                          </div>
+                          <div className="shotview">
+                            <Image
+                              className="shot"
+                              src={shot.images[1]}
+                              alt={`${shot.title} — dark`}
+                              width={shot.width}
+                              height={shot.height}
+                              sizes="(max-width: 900px) 60vw, 320px"
+                              loading="lazy"
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {shot.variant === "legend" && shot.legend && (
+                        <div className="legend">
+                          <div className="lt">{locale === "pt" ? "Semântica de cor" : "Color semantics"}</div>
+                          {shot.legend.map((l, j) => (
+                            <div className="lr" key={j}>
+                              <span className="sw" style={{ background: l.color }} />
+                              {l.label}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {shot.annotations?.map((a, j) => {
+                        const style: Record<string, string> = {};
+                        a.style.split(";").forEach((decl) => {
+                          const [k, v] = decl.split(":");
+                          if (k && v) style[k.trim()] = v.trim();
+                        });
+                        return (
+                          <div className={`anno${a.side === "right" ? " right" : ""}`} key={j} style={style}>
+                            <span className="pin" />
+                            <span className="lab">{a.label}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </section>
-        </FadeIn>
-
-        {/* Learnings */}
-        <FadeIn>
-          <section className="mb-14">
-            <h2 className="font-bold text-xl tracking-tight mb-4">
-              {t("caseDetail.learnings")}
-            </h2>
-            <p className="text-text-secondary text-[15px] leading-[1.75]">
-              {caseStudy.learnings}
-            </p>
-          </section>
-        </FadeIn>
-
-        {/* CTA */}
-        {caseStudy.cta && (
-          <FadeIn>
-            <section className="mb-14">
-              <div className="rounded-2xl border border-border bg-bg-card p-7 sm:p-8">
-                <h2 className="font-bold text-xl tracking-tight mb-3">
-                  {caseStudy.cta.title}
-                </h2>
-                <p className="text-text-secondary text-[15px] leading-[1.75] mb-6 max-w-xl">
-                  {caseStudy.cta.description}
-                </p>
-                <a
-                  href={caseStudy.cta.linkUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-2 text-[14px] font-medium ${colors.text} hover:opacity-80 transition-opacity`}
-                >
-                  {caseStudy.cta.linkLabel}
-                </a>
-              </div>
-            </section>
-          </FadeIn>
         )}
 
-        {/* Next case navigation */}
-        <FadeIn>
-          <div className="border-t border-border pt-10">
-            <p className="text-text-muted text-[11px] font-mono uppercase tracking-[0.15em] mb-4">
-              {t("caseDetail.nextCase")}
-            </p>
-            <Link
-              href={`/case/${nextCase.id}`}
-              className="group flex items-center justify-between py-4 px-5 rounded-2xl border border-border bg-bg-card hover:border-border-hover hover:bg-bg-card-hover transition-all duration-300"
-            >
-              <div>
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span className={`text-[10px] font-mono font-medium ${nextColors.text} ${nextColors.bg} px-3 py-1 rounded-full tracking-wide uppercase`}>
-                    {nextCase.tag}
-                  </span>
-                  <span className="text-[10px] text-text-muted font-mono">{nextCase.year}</span>
-                </div>
-                <h3 className={`font-bold text-lg text-text-primary ${nextColors.hover} transition-colors duration-300 ${nextCase.confidential ? 'blur-sm select-none' : ''}`}>
-                  {nextCase.title}
-                </h3>
-                <p className="text-text-secondary text-sm mt-1">
-                  {nextCase.subtitle}
-                </p>
+        {/* PROCESSO */}
+        <section className="block" id="processo">
+          <div className="wrap">
+            <div className="eyebrow reveal">{t("caseDetail.process")}</div>
+            <h2 className="reveal">{locale === "pt" ? "Da pesquisa à governança" : "From research to governance"}</h2>
+            <div className="timeline reveal">
+              {caseStudy.process.map((step, i) => {
+                const num = String(i + 1).padStart(2, "0");
+                const heading = step.headline ?? step.title;
+                const label = step.headline ? `${num} — ${step.title}` : num;
+                return (
+                  <div className="step" key={i}>
+                    <div className="st">{label}</div>
+                    <h4>{heading}</h4>
+                    {step.description.split("\n\n").map((para, j) => (
+                      <p key={j}>{para}</p>
+                    ))}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* RESULTADOS */}
+        <section className="block" id="resultados" style={{ paddingTop: 0 }}>
+          <div className="wrap">
+            <h2 className="reveal">{t("caseDetail.results")}</h2>
+            {caseStudy.metrics ? (
+              <div className="results reveal">
+                {caseStudy.metrics.map((m, i) => (
+                  <div className="stat" key={i}>
+                    <div className="snum">
+                      {m.value}
+                      {m.sup && <span className="sup">{m.sup}</span>}
+                    </div>
+                    <div className="sunit">{m.unit}</div>
+                    <div className="slabel">{m.label}</div>
+                  </div>
+                ))}
               </div>
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                className={`text-text-muted ${nextColors.groupHover} group-hover:translate-x-1.5 transition-all duration-300 shrink-0 ml-6`}
-              >
-                <path
-                  d="M4 10h12M11 5l5 5-5 5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+            ) : (
+              <div className="challenges reveal">
+                {caseStudy.results.map((r, i) => (
+                  <div className="challenge" key={i}>
+                    <span className="num">{String(i + 1).padStart(2, "0")}</span>
+                    <p>
+                      <strong style={{ color: "var(--text)", fontWeight: 600 }}>{r.title}</strong>
+                      {" — "}
+                      {r.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* APRENDIZADOS + CTA */}
+        <section className="block" id="aprendizados" style={{ paddingTop: 0 }}>
+          <div className="wrap">
+            <h2 className="reveal">{t("caseDetail.learnings")}</h2>
+            <p className="lead reveal" style={{ marginBottom: 34 }}>
+              {caseStudy.learnings}
+            </p>
+
+            {caseStudy.cta && (
+              <div className="cta reveal">
+                <h3>{caseStudy.cta.title}</h3>
+                <p>{caseStudy.cta.description}</p>
+                <a className="btn-pri" href={caseStudy.cta.linkUrl} target="_blank" rel="noopener noreferrer">
+                  {caseStudy.cta.linkLabel}
+                  {arrow}
+                </a>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* NEXT CASE */}
+        <section className="nextcase">
+          <div className="wide">
+            <Link className="nextlink" href={`/case/${nextCase.id}`}>
+              <div>
+                <div className="nk">{t("caseDetail.nextCase")}</div>
+                <div className="ntags">
+                  <span className="tag accent">{nextCase.tag}</span>
+                  <span className="tag">{nextCase.year}</span>
+                </div>
+                <h3>{nextCase.title}</h3>
+                <p>{nextCase.subtitle}</p>
+              </div>
+              <div className="arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </div>
             </Link>
           </div>
-        </FadeIn>
-      </div>
-    </main>
+        </section>
+      </main>
+
+      <footer>
+        <div className="row">
+          <span className="avail">
+            <span className="d" />
+            {t("caseDetail.available")}
+          </span>
+          <span>© 2026 Cristiano Carvalho</span>
+        </div>
+      </footer>
+    </div>
   );
 }
