@@ -96,7 +96,7 @@
 .casepage .tag.lock { display: inline-flex; align-items: center; gap: 6px; }
 .casepage .tag.lock svg { width: 11px; height: 11px; }
 .casepage h1.title { font-family: "Sora", var(--font-sora), system-ui, sans-serif; font-weight: 700; font-size: clamp(2.7rem, 6.4vw, 4.6rem); line-height: 0.98; letter-spacing: -0.03em; max-width: 14ch; }
-.casepage .subtitle { margin-top: 20px; font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--muted); max-width: 46ch; line-height: 1.5; }
+.casepage .subtitle { margin-top: 20px; font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--muted); line-height: 1.5; }
 
 /* hero media */
 .casepage .hero-media { margin-top: 48px; position: relative; height: clamp(260px, 42vw, 440px); border-radius: 20px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow); }
@@ -125,8 +125,8 @@
 .casepage .eyebrow { font-family: "JetBrains Mono", var(--font-jetbrains), monospace; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
 .casepage .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--accent); }
 .casepage h2 { font-family: "Sora", var(--font-sora), system-ui, sans-serif; font-weight: 700; font-size: clamp(1.7rem, 3.3vw, 2.3rem); letter-spacing: -0.02em; line-height: 1.08; margin-bottom: 22px; }
-.casepage .lead { font-size: 1.12rem; color: var(--muted); max-width: 60ch; }
-.casepage p.body { color: var(--muted); max-width: 62ch; margin-bottom: 1em; }
+.casepage .lead { font-size: 1.12rem; color: var(--muted); }
+.casepage p.body { color: var(--muted); margin-bottom: 1em; }
 .casepage p.body strong { color: var(--text); font-weight: 600; }
 
 /* desafios */
@@ -153,7 +153,7 @@
 .casepage .chapter .idx { font-family: "Sora", var(--font-sora), system-ui, sans-serif; font-weight: 700; font-size: 2.6rem; letter-spacing: -0.03em; color: transparent; -webkit-text-stroke: 1.3px var(--accent-2); line-height: 0.8; }
 .casepage .chapter .kind { font-family: "JetBrains Mono", var(--font-jetbrains), monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
 .casepage .cap-col h3 { font-family: "Sora", var(--font-sora), system-ui, sans-serif; font-weight: 600; font-size: 1.55rem; letter-spacing: -0.015em; line-height: 1.12; margin-bottom: 14px; }
-.casepage .cap-col p { color: var(--muted); font-size: 1.04rem; max-width: 42ch; }
+.casepage .cap-col p { color: var(--muted); font-size: 1.04rem; }
 .casepage .cap-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
 .casepage .cap-tags .t { font-family: "JetBrains Mono", var(--font-jetbrains), monospace; font-size: 0.68rem; padding: 5px 10px; border-radius: 7px; background: var(--surface); border: 1px solid var(--border-soft); color: var(--muted); }
 
@@ -209,7 +209,7 @@
 .casepage .step::before { content: ""; position: absolute; left: -30px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 12%, transparent); }
 .casepage .step .st { font-family: "JetBrains Mono", var(--font-jetbrains), monospace; font-size: 0.7rem; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 7px; }
 .casepage .step h4 { font-family: "Sora", var(--font-sora), system-ui, sans-serif; font-weight: 600; font-size: 1.18rem; letter-spacing: -0.01em; margin-bottom: 10px; }
-.casepage .step p { color: var(--muted); max-width: 60ch; margin-bottom: 0.8em; font-size: 1rem; }
+.casepage .step p { color: var(--muted); margin-bottom: 0.8em; font-size: 1rem; }
 .casepage .step p:last-child { margin-bottom: 0; }
 
 /* ---------- resultados (faixa de métricas) ---------- */
@@ -224,7 +224,7 @@
 /* ---------- aprendizados / cta ---------- */
 .casepage .cta { margin-top: 18px; border: 1px solid var(--border); border-radius: 20px; padding: 38px; background: radial-gradient(500px 300px at 90% 0%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 60%), var(--surface); }
 .casepage .cta h3 { font-family: "Sora", var(--font-sora), system-ui, sans-serif; font-weight: 700; font-size: 1.5rem; letter-spacing: -0.02em; margin-bottom: 14px; }
-.casepage .cta p { color: var(--muted); max-width: 58ch; margin-bottom: 24px; }
+.casepage .cta p { color: var(--muted); margin-bottom: 24px; }
 .casepage .btn-pri { display: inline-flex; align-items: center; gap: 9px; padding: 13px 22px; border-radius: 11px; background: var(--accent); color: #0a130d; font-weight: 700; font-size: 0.95rem; transition: transform 0.2s, box-shadow 0.2s; }
 .casepage .btn-pri:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -12px color-mix(in oklab, var(--accent) 60%, transparent); }
 .casepage .btn-pri svg { width: 16px; height: 16px; }
@@ -236,7 +236,7 @@
 .casepage .nextlink .nk { font-family: "JetBrains Mono", var(--font-jetbrains), monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-bottom: 14px; }
 .casepage .nextlink .ntags { display: flex; gap: 9px; margin-bottom: 12px; }
 .casepage .nextlink h3 { font-family: "Sora", var(--font-sora), system-ui, sans-serif; font-weight: 700; font-size: clamp(1.6rem, 3.5vw, 2.4rem); letter-spacing: -0.02em; }
-.casepage .nextlink p { color: var(--muted); margin-top: 8px; max-width: 50ch; }
+.casepage .nextlink p { color: var(--muted); margin-top: 8px; }
 .casepage .nextlink .arrow { width: 56px; height: 56px; flex: none; border-radius: 50%; border: 1px solid var(--border); display: grid; place-items: center; color: var(--muted); transition: all 0.3s; }
 .casepage .nextlink:hover .arrow { background: var(--accent); color: #0a130d; border-color: var(--accent); transform: translateX(4px); }
 .casepage .nextlink .arrow svg { width: 20px; height: 20px; }
