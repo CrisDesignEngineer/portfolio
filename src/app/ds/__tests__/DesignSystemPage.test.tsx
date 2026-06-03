@@ -103,7 +103,7 @@ describe("DesignSystemContent", () => {
     render(<DesignSystemContent />);
     expect(screen.getByRole("heading", { level: 2, name: "Colors" })).toBeInTheDocument();
     expect(screen.getByText("--accent")).toBeInTheDocument();
-    expect(screen.getByText("#bf5af2")).toBeInTheDocument();
+    expect(screen.getByText("oklch(0.71 0.16 300)")).toBeInTheDocument();
   });
 
   it("switches to Typography section on click", () => {
