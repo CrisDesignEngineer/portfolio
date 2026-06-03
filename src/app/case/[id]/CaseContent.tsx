@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslation } from "@/i18n/LanguageContext";
@@ -10,6 +10,14 @@ import "./case.css";
 interface CaseContentProps {
   caseId: string;
 }
+
+// Per-case highlight color, drawn from the existing design palette tokens.
+const accentByCase: Record<string, string> = {
+  "saas-platform": "var(--violet)",
+  vivara: "var(--magenta)",
+  leiteiro: "var(--cyan)",
+  honda: "var(--green)",
+};
 
 export function CaseContent({ caseId }: CaseContentProps) {
   const { t, locale, toggleLocale } = useTranslation();
@@ -102,8 +110,11 @@ export function CaseContent({ caseId }: CaseContentProps) {
     </svg>
   );
 
+  const accentVar = accentByCase[caseStudy.id] ?? "var(--violet)";
+  const nextAccentVar = accentByCase[nextCase.id] ?? "var(--magenta)";
+
   return (
-    <div className="casepage" ref={rootRef}>
+    <div className="casepage" ref={rootRef} style={{ "--accent": accentVar } as CSSProperties}>
       <div className="progress" ref={progressRef} />
 
       {/* TOPBAR */}
@@ -434,7 +445,7 @@ export function CaseContent({ caseId }: CaseContentProps) {
         </section>
 
         {/* NEXT CASE */}
-        <section className="nextcase">
+        <section className="nextcase" style={{ "--accent": nextAccentVar } as CSSProperties}>
           <div className="wide">
             <Link className="nextlink" href={`/case/${nextCase.id}`}>
               <div>
