@@ -24,7 +24,8 @@
   --accent-2: color-mix(in oklab, var(--accent), #07090d 26%);
   --accent-ink: color-mix(in oklab, var(--accent), #06080c 72%);
   --shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.7), 0 12px 30px -18px rgba(0, 0, 0, 0.6);
-  --wrap: 720px;
+  /* Single consistent content width across every section (no narrow→wide jump). */
+  --wrap: 1180px;
   --wide: 1180px;
 
   background: var(--bg);
