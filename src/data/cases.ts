@@ -10,11 +10,38 @@ export interface CaseStudy {
   scope: string;
   overview: string;
   challenges: string[];
-  process: { title: string; description: string }[];
+  process: { title: string; headline?: string; description: string }[];
   results: { title: string; description: string }[];
   learnings: string;
   accentColor?: string;
   confidential?: boolean;
+  /** Editorial metric ledger shown in the Results section (design "stat" band). */
+  metrics?: { value: string; sup?: string; unit: string; label: string }[];
+  /** Scrollytelling gallery ("O sistema em ação"). */
+  systemInAction?: {
+    title: string;
+    intro: string;
+    meta: { value: string; label: string }[];
+    shots: {
+      idx: string;
+      kind: string;
+      title: string;
+      description: string;
+      tags: string[];
+      images: string[];
+      width: number;
+      height: number;
+      variant?: "dual" | "legend";
+      annotations?: { label: string; side?: "right"; style: string }[];
+      legend?: { color: string; label: string }[];
+    }[];
+  };
+  cta?: {
+    title: string;
+    description: string;
+    linkLabel: string;
+    linkUrl: string;
+  };
 }
 
 export const cases: Record<"pt" | "en", CaseStudy[]> = {
@@ -42,23 +69,33 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       process: [
         {
           title: "Pesquisa e referências",
+          headline: "Mapear o terreno",
           description:
             "Análise de plataformas concorrentes e produtos SaaS do mesmo segmento para identificar padrões de UX, boas práticas de organização de informação e oportunidades de simplificação.",
         },
         {
           title: "Design System",
+          headline: "Tokens antes de componentes",
           description:
-            "Estruturação de tokens (cores, tipografia, espaçamentos, estados), componentes reutilizáveis (botões, inputs, selects, modais, cards, tabelas, navegação) e padrões escaláveis.",
+            "A estrutura de tokens foi definida antes dos primeiros componentes: cores semânticas (primária, sucesso, alerta, neutro), tipografia por hierarquia, espaçamentos por escala e estados de interação padronizados. A decisão de suportar dark mode desde o início significou que cada token de cor precisava ter sua variante escura — o que evitou retrabalho posterior e garantiu que o modo escuro fosse consistente em toda a plataforma, não uma adaptação.\n\nA escolha de shadcn/ui + Tailwind CSS foi um alinhamento deliberado com engenharia: ambos os lados avaliaram as opções disponíveis e concluíram que essa stack reduzia o gap entre o que era desenhado e o que seria implementado. Menos decisões duplicadas entre design e código, menos ciclos de revisão.",
         },
         {
           title: "Alinhamento com engenharia",
+          headline: "Mesma linguagem, design e código",
           description:
             "Interface estruturada considerando shadcn/ui e Tailwind CSS, garantindo consistência entre design e código e implementação mais rápida.",
         },
         {
           title: "Liderança de design",
+          headline: "Coordenar sem fragmentar",
           description:
             "Coordenação de dois designers juniores, dividindo funcionalidades, revisando interfaces e garantindo consistência visual em todo o produto.",
+        },
+        {
+          title: "Governança do sistema",
+          headline: "O desafio era comportamental, não técnico",
+          description:
+            "O maior desafio de liderança não foi técnico — foi comportamental. Os dois designers juniores tinham o hábito de criar componentes novos sem verificar se já existia um equivalente na biblioteca. O resultado era duplicação silenciosa: dois componentes com a mesma função, estilos levemente diferentes, quebrando a consistência sem que ninguém percebesse.\n\nA solução foi estabelecer uma regra clara de processo: antes de criar qualquer componente, verificar a biblioteca. Isso virou parte do fluxo de revisão — qualquer componente novo precisava de justificativa explícita de por que o existente não resolvia. Com o tempo, a duplicação diminuiu e os juniores passaram a contribuir para evoluir componentes existentes em vez de criar paralelos.",
         },
       ],
       results: [
@@ -85,6 +122,106 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       ],
       learnings:
         "Este projeto reforçou a importância de estruturar um design system desde o início e o impacto que o alinhamento entre design e engenharia tem na velocidade de desenvolvimento de um SaaS.",
+      metrics: [
+        { value: "8", unit: "meses", label: "Design system do zero" },
+        { value: "48", sup: "+", unit: "componentes", label: "Biblioteca reutilizável" },
+        { value: "2", unit: "designers", label: "Liderança centralizada" },
+        { value: "2", unit: "temas", label: "Claro e escuro nativos" },
+      ],
+      systemInAction: {
+        title: "Um design system, a mesma lógica em todo o produto",
+        intro:
+          "A plataforma cobre múltiplas superfícies com os mesmos tokens e componentes — login, dashboards (claro e escuro), gestão de vendas, carteira e assinaturas. Cada tela reusa as mesmas peças em composições adaptadas ao contexto, mantendo uma linguagem visual consistente em todo o produto.",
+        meta: [
+          { value: "2", label: "temas (claro + escuro)" },
+          { value: "48+", label: "componentes reutilizados" },
+          { value: "1", label: "linguagem visual" },
+        ],
+        shots: [
+          {
+            idx: "01",
+            kind: "Entrada",
+            title: "Tela de login",
+            description:
+              "Primeira superfície da plataforma. Layout dividido — formulário objetivo à esquerda, presença de marca à direita — para reduzir fricção sem abrir mão de identidade.",
+            tags: ["split layout", "brand-first"],
+            images: ["/login.png"],
+            width: 1920,
+            height: 965,
+            annotations: [
+              { label: "Formulário enxuto", style: "top:50%;left:-12px" },
+              { label: "Marca à direita", side: "right", style: "top:34%;right:-12px" },
+            ],
+          },
+          {
+            idx: "02",
+            kind: "Dashboard",
+            title: "Claro e escuro, desde o dia 1",
+            description:
+              "O dark mode foi planejado desde o início como decisão de futuro — não adaptado depois. Cada token de cor semântica nasceu com sua variante para os dois temas, evitando retrabalho e mantendo consistência total.",
+            tags: ["tokens semânticos", "dual-theme"],
+            images: ["/home.png", "/home_dark.png"],
+            width: 1712,
+            height: 1094,
+            variant: "dual",
+            annotations: [{ label: "Mesma estrutura, dois temas", style: "top:18%;left:-12px" }],
+          },
+          {
+            idx: "03",
+            kind: "Gestão de vendas",
+            title: "Filtros em cascata, padrão reutilizável",
+            description:
+              "Gestão de vendas com filtros independentes em cascata — produto, período, origem, situação, métodos de pagamento e UTMs. O mesmo padrão de filtros multiníveis se repete em outras seções, com contextos diferentes.",
+            tags: ["filtros em cascata", "padrão reutilizado", "empty state"],
+            images: ["/vendas.png"],
+            width: 1920,
+            height: 965,
+            annotations: [
+              { label: "Filtros em cascata", style: "top:44%;left:-12px" },
+              { label: "Empty state informativo", side: "right", style: "bottom:20%;right:-12px" },
+            ],
+          },
+          {
+            idx: "04",
+            kind: "Carteira",
+            title: "Cor com semântica, não decoração",
+            description:
+              "Cards financeiros com semântica de cor deliberada: verde para saldo disponível, laranja para pendente e azul para total. A cor carrega significado — quem escaneia o painel entende o estado antes de ler o número.",
+            tags: ["cor = significado", "scan-first"],
+            images: ["/carteira_dark.png"],
+            width: 1920,
+            height: 965,
+            variant: "legend",
+            legend: [
+              { color: "var(--green)", label: "Saldo disponível" },
+              { color: "var(--orange)", label: "Pendente" },
+              { color: "oklch(0.62 0.15 255)", label: "Total" },
+            ],
+          },
+          {
+            idx: "05",
+            kind: "Assinaturas",
+            title: "O sistema escala sem reestruturar",
+            description:
+              "A mesma estrutura de tabela e a mesma lógica de filtros da gestão de vendas, agora no contexto de assinaturas — MRR, ativas e canceladas. A prova de que o sistema escala para um novo módulo sem reescrever a interface.",
+            tags: ["mesma tabela", "mesma lógica", "novo contexto"],
+            images: ["/assinaturas.png"],
+            width: 1920,
+            height: 965,
+            annotations: [
+              { label: "Mesma tabela de vendas", style: "top:46%;left:-12px" },
+              { label: "Mesmos filtros", side: "right", style: "top:30%;right:-12px" },
+            ],
+          },
+        ],
+      },
+      cta: {
+        title: "Quer saber mais sobre esse projeto?",
+        description:
+          "As telas acima são apenas um recorte de um projeto bem maior. Por conta do acordo de confidencialidade, posso mostrar publicamente só uma parte — em uma conversa fechada consigo detalhar o design system completo, as decisões de arquitetura e o processo de liderança.",
+        linkLabel: "Falar no LinkedIn",
+        linkUrl: "https://www.linkedin.com/in/design-cristiano-carvalho/",
+      },
     },
     {
       id: "vivara",
@@ -147,7 +284,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       image: "/leiteiro.jpg",
       tag: "Plataforma multilateral",
       year: "2024",
-      accentColor: "accent-4",
+      accentColor: "accent-3",
       title: "Leiteiro",
       subtitle:
         "UX e UI para plataforma que conecta empresas agro e produtores rurais",
@@ -204,7 +341,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       image: "/honda.jpg",
       tag: "Otimização de conversão",
       year: "2024",
-      accentColor: "accent-3",
+      accentColor: "accent-4",
       title: "Honda Automóveis",
       subtitle: "Otimização da experiência em formulários de interesse",
       role: "UX Designer",
@@ -280,23 +417,33 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       process: [
         {
           title: "Research and references",
+          headline: "Map the terrain",
           description:
             "Analysis of competing platforms and SaaS products in the same segment to identify UX patterns, best practices for information organization, and simplification opportunities.",
         },
         {
           title: "Design System",
+          headline: "Tokens before components",
           description:
-            "Structuring tokens (colors, typography, spacing, states), reusable components (buttons, inputs, selects, modals, cards, tables, navigation) and scalable patterns.",
+            "The token structure was defined before the first components: semantic colors (primary, success, warning, neutral), typography by hierarchy, spacing by scale, and standardized interaction states. Deciding to support dark mode from day one meant every color token needed a dark variant — which prevented rework later and ensured dark mode was consistent across the entire platform, not an adaptation.\n\nThe choice of shadcn/ui + Tailwind CSS was a deliberate alignment with engineering: both sides evaluated the available options and concluded this stack would reduce the gap between what was designed and what would be implemented. Fewer duplicated decisions between design and code, fewer review cycles.",
         },
         {
           title: "Engineering alignment",
+          headline: "One language, design and code",
           description:
             "Interface structured considering shadcn/ui and Tailwind CSS, ensuring consistency between design and code and faster implementation.",
         },
         {
           title: "Design leadership",
+          headline: "Coordinate without fragmenting",
           description:
             "Coordination of two junior designers, dividing features, reviewing interfaces and ensuring visual consistency throughout the product.",
+        },
+        {
+          title: "System governance",
+          headline: "The challenge was behavioral, not technical",
+          description:
+            "The biggest leadership challenge wasn't technical — it was behavioral. Both junior designers had a habit of creating new components without checking whether an equivalent already existed in the library. The result was silent duplication: two components with the same function, slightly different styles, breaking consistency without anyone noticing.\n\nThe solution was establishing a clear process rule: before creating any component, check the library. This became part of the review flow — any new component required an explicit justification for why the existing one didn't solve the problem. Over time, duplication decreased and the junior designers started contributing to evolving existing components instead of creating parallel ones.",
         },
       ],
       results: [
@@ -323,6 +470,106 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       ],
       learnings:
         "This project reinforced the importance of structuring a design system from the start and the impact that alignment between design and engineering has on the development speed of a SaaS.",
+      metrics: [
+        { value: "8", unit: "months", label: "Design system from scratch" },
+        { value: "48", sup: "+", unit: "components", label: "Reusable library" },
+        { value: "2", unit: "designers", label: "Centralized leadership" },
+        { value: "2", unit: "themes", label: "Native light and dark" },
+      ],
+      systemInAction: {
+        title: "One design system, the same logic across the product",
+        intro:
+          "The platform spans multiple surfaces with the same tokens and components — login, dashboards (light and dark), sales management, wallet, and subscriptions. Each screen reuses the same pieces in context-adapted compositions, keeping one consistent visual language across the product.",
+        meta: [
+          { value: "2", label: "themes (light + dark)" },
+          { value: "48+", label: "reused components" },
+          { value: "1", label: "visual language" },
+        ],
+        shots: [
+          {
+            idx: "01",
+            kind: "Entry",
+            title: "Login screen",
+            description:
+              "The platform's first surface. Split layout — a focused form on the left, brand presence on the right — to reduce friction without giving up identity.",
+            tags: ["split layout", "brand-first"],
+            images: ["/login.png"],
+            width: 1920,
+            height: 965,
+            annotations: [
+              { label: "Lean form", style: "top:50%;left:-12px" },
+              { label: "Brand on the right", side: "right", style: "top:34%;right:-12px" },
+            ],
+          },
+          {
+            idx: "02",
+            kind: "Dashboard",
+            title: "Light and dark, from day 1",
+            description:
+              "Dark mode was planned from the start as a forward-looking decision — not retrofitted. Every semantic color token was born with its variant for both themes, avoiding rework and keeping full consistency.",
+            tags: ["semantic tokens", "dual-theme"],
+            images: ["/home.png", "/home_dark.png"],
+            width: 1712,
+            height: 1094,
+            variant: "dual",
+            annotations: [{ label: "Same structure, two themes", style: "top:18%;left:-12px" }],
+          },
+          {
+            idx: "03",
+            kind: "Sales management",
+            title: "Cascading filters, a reusable pattern",
+            description:
+              "Sales management with independent chained filters — product, period, origin, status, payment methods, and UTMs. The same multi-level filter pattern repeats across other sections, in different contexts.",
+            tags: ["chained filters", "reused pattern", "empty state"],
+            images: ["/vendas.png"],
+            width: 1920,
+            height: 965,
+            annotations: [
+              { label: "Cascading filters", style: "top:44%;left:-12px" },
+              { label: "Informative empty state", side: "right", style: "bottom:20%;right:-12px" },
+            ],
+          },
+          {
+            idx: "04",
+            kind: "Wallet",
+            title: "Color as meaning, not decoration",
+            description:
+              "Financial cards with deliberate color semantics: green for available balance, orange for pending, and blue for total. Color carries meaning — anyone scanning the panel understands the state before reading the number.",
+            tags: ["color = meaning", "scan-first"],
+            images: ["/carteira_dark.png"],
+            width: 1920,
+            height: 965,
+            variant: "legend",
+            legend: [
+              { color: "var(--green)", label: "Available balance" },
+              { color: "var(--orange)", label: "Pending" },
+              { color: "oklch(0.62 0.15 255)", label: "Total" },
+            ],
+          },
+          {
+            idx: "05",
+            kind: "Subscriptions",
+            title: "The system scales without restructuring",
+            description:
+              "The same table structure and the same filter logic from sales management, now in the subscriptions context — MRR, active, and canceled. Proof that the system scales to a new module without rewriting the interface.",
+            tags: ["same table", "same logic", "new context"],
+            images: ["/assinaturas.png"],
+            width: 1920,
+            height: 965,
+            annotations: [
+              { label: "Same sales table", style: "top:46%;left:-12px" },
+              { label: "Same filters", side: "right", style: "top:30%;right:-12px" },
+            ],
+          },
+        ],
+      },
+      cta: {
+        title: "Want to know more about this project?",
+        description:
+          "The screens above are just a slice of a much larger project. Due to a confidentiality agreement, I can only show part of it publicly — in a private conversation I can detail the complete design system, the architecture decisions, and the leadership process.",
+        linkLabel: "Connect on LinkedIn",
+        linkUrl: "https://www.linkedin.com/in/design-cristiano-carvalho/",
+      },
     },
     {
       id: "vivara",
@@ -385,7 +632,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       image: "/leiteiro.jpg",
       tag: "Multilateral Platform",
       year: "2024",
-      accentColor: "accent-4",
+      accentColor: "accent-3",
       title: "Leiteiro",
       subtitle:
         "UX and UI for a platform connecting agribusiness companies and rural producers",
@@ -442,7 +689,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       image: "/honda.jpg",
       tag: "Conversion Optimization",
       year: "2024",
-      accentColor: "accent-3",
+      accentColor: "accent-4",
       title: "Honda Automóveis",
       subtitle: "Optimization of user experience in interest forms",
       role: "UX Designer",

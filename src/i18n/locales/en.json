@@ -41,11 +41,14 @@
     "scope": "Scope",
     "overview": "Overview",
     "challenges": "Challenges",
+    "systemInAction": "The system in action",
     "process": "Process",
     "results": "Results",
     "learnings": "Learnings",
     "nextCase": "Next case",
-    "confidentialContent": "Confidential content"
+    "confidentialContent": "Confidential content",
+    "back": "Back",
+    "available": "Available for new projects"
   },
   "about": {
     "label": "About me",

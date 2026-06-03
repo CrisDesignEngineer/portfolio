@@ -1,19 +1,31 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Sora, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider, LocaleFadeWrapper } from "@/i18n/LanguageContext";
 import { MobileLanguageFab } from "@/components/MobileLanguageFab";
 import { TokenStyles } from "@/design-system/TokenStyles";
 
-const geist = Geist({
+// Display font — headings / titles
+const sora = Sora({
   subsets: ["latin"],
-  variable: "--font-geist",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-sora",
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
+// Body font
+const hankenGrotesk = Hanken_Grotesk({
   subsets: ["latin"],
-  variable: "--font-geist-mono",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-hanken",
+  display: "swap",
+});
+
+// Monospace — eyebrows, labels, code
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-jetbrains",
   display: "swap",
 });
 
@@ -59,7 +71,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${geist.variable} ${geistMono.variable} antialiased`}>
+    <html lang="pt-BR" className={`${sora.variable} ${hankenGrotesk.variable} ${jetbrainsMono.variable} antialiased`}>
       <head>
         <TokenStyles />
       </head>

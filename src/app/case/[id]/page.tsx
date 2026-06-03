@@ -1,7 +1,5 @@
 import { notFound } from "next/navigation";
 import { cases } from "@/data/cases";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
 import { CaseContent } from "./CaseContent";
 
 interface PageProps {
@@ -34,11 +32,5 @@ export default async function CasePage({ params }: PageProps) {
     notFound();
   }
 
-  return (
-    <>
-      <Header />
-      <CaseContent caseId={id} />
-      <Footer />
-    </>
-  );
+  return <CaseContent caseId={id} />;
 }
