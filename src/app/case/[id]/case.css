@@ -55,7 +55,6 @@
 /* ---------- layout helpers ---------- */
 .casepage .wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: 28px; position: relative; z-index: 1; }
 .casepage .wide { max-width: var(--wide); margin-inline: auto; padding-inline: 28px; position: relative; z-index: 1; }
-.casepage .mono { font-family: "JetBrains Mono", var(--font-jetbrains), monospace; font-weight: 500; letter-spacing: 0.04em; }
 
 /* ---------- progress + topbar ---------- */
 .casepage .progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: linear-gradient(90deg, var(--accent-2), var(--accent)); z-index: 60; box-shadow: 0 0 12px var(--accent); }
@@ -126,8 +125,6 @@
 .casepage .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--accent); }
 .casepage h2 { font-family: "Sora", var(--font-sora), system-ui, sans-serif; font-weight: 700; font-size: clamp(1.7rem, 3.3vw, 2.3rem); letter-spacing: -0.02em; line-height: 1.08; margin-bottom: 22px; }
 .casepage .lead { font-size: 1.12rem; color: var(--muted); }
-.casepage p.body { color: var(--muted); margin-bottom: 1em; }
-.casepage p.body strong { color: var(--text); font-weight: 600; }
 
 /* desafios */
 .casepage .challenges { display: grid; gap: 2px; margin-top: 8px; border-radius: 14px; overflow: hidden; border: 1px solid var(--border-soft); }
@@ -176,8 +173,6 @@
 .casepage .frame { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); box-shadow: var(--shadow); transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.8s; }
 .casepage .tour-item.in .frame { transform: translateY(0); }
 .casepage .tour-item .frame { transform: translateY(18px); }
-.casepage .confchip { position: absolute; top: 12px; right: 12px; z-index: 5; display: inline-flex; align-items: center; gap: 6px; font-family: "JetBrains Mono", var(--font-jetbrains), monospace; font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 5px 9px; border-radius: 7px; background: oklch(0.14 0.006 250 / 0.66); backdrop-filter: blur(6px); border: 1px solid oklch(1 0 0 / 0.12); color: var(--muted); }
-.casepage .confchip svg { width: 10px; height: 10px; color: var(--accent); }
 
 .casepage .bardots { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid var(--border-soft); background: var(--bg-2); }
 .casepage .bardots i { width: 9px; height: 9px; border-radius: 50%; background: var(--border); display: block; }
