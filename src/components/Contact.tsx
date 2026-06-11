@@ -66,7 +66,7 @@ export function Contact() {
       icon: <LinkedinIcon className="w-5 h-5" />,
       label: t("contact.linkedin"),
       subtitle: t("contact.linkedinSub"),
-      href: "https://www.linkedin.com/in/design-cristiano-carvalho/",
+      href: "https://www.linkedin.com/in/cristiano-carvalho-design/",
       external: true,
       glowColor: "before:bg-[#0A66C2]",
       ariaLabel: t("contact.linkedin"),
