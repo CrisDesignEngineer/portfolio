@@ -220,7 +220,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         description:
           "As telas acima são apenas um recorte de um projeto bem maior. Por conta do acordo de confidencialidade, posso mostrar publicamente só uma parte — em uma conversa fechada consigo detalhar o design system completo, as decisões de arquitetura e o processo de liderança.",
         linkLabel: "Falar no LinkedIn",
-        linkUrl: "https://www.linkedin.com/in/design-cristiano-carvalho/",
+        linkUrl: "https://www.linkedin.com/in/cristiano-carvalho-design/",
       },
     },
     {
@@ -568,7 +568,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         description:
           "The screens above are just a slice of a much larger project. Due to a confidentiality agreement, I can only show part of it publicly — in a private conversation I can detail the complete design system, the architecture decisions, and the leadership process.",
         linkLabel: "Connect on LinkedIn",
-        linkUrl: "https://www.linkedin.com/in/design-cristiano-carvalho/",
+        linkUrl: "https://www.linkedin.com/in/cristiano-carvalho-design/",
       },
     },
     {

@@ -19,7 +19,7 @@ vi.mock("@/i18n/LanguageContext", () => ({
         "contact.whatsapp": "WhatsApp",
         "contact.whatsappSub": "Chat rápido",
         "contact.linkedin": "LinkedIn",
-        "contact.linkedinSub": "/design-cristiano-carvalho",
+        "contact.linkedinSub": "/cristiano-carvalho-design",
       };
       return map[key] ?? key;
     },
@@ -56,7 +56,7 @@ describe("Contact", () => {
   it("has correct href for LinkedIn", () => {
     render(<Contact />);
     const linkedinLink = screen.getByLabelText(/linkedin/i);
-    expect(linkedinLink).toHaveAttribute("href", "https://www.linkedin.com/in/design-cristiano-carvalho/");
+    expect(linkedinLink).toHaveAttribute("href", "https://www.linkedin.com/in/cristiano-carvalho-design/");
   });
 
   it("opens WhatsApp and LinkedIn in new tab", () => {
