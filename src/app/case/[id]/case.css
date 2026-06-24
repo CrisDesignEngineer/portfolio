@@ -207,8 +207,19 @@
 .casepage .step p { color: var(--muted); margin-bottom: 0.8em; font-size: 1rem; }
 .casepage .step p:last-child { margin-bottom: 0; }
 
+/* step bullet list (findings / flows) */
+.casepage .step-list { list-style: none; margin: 4px 0 0; display: flex; flex-direction: column; gap: 12px; }
+.casepage .step-list li { position: relative; padding-left: 20px; color: var(--muted); font-size: 1rem; line-height: 1.6; }
+.casepage .step-list li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.casepage .step-list li strong { color: var(--text); font-weight: 600; }
+
+/* framed context / step screenshot */
+.casepage .case-img { margin-top: 22px; max-width: 460px; }
+.casepage .case-img-el { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-2); box-shadow: var(--shadow); }
+.casepage .case-img figcaption { margin-top: 10px; font-size: 0.82rem; color: var(--faint); line-height: 1.45; max-width: 42ch; }
+
 /* ---------- resultados (faixa de métricas) ---------- */
-.casepage .results { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 18px; background: var(--border-soft); border: 1px solid var(--border-soft); border-radius: 16px; overflow: hidden; }
+.casepage .results { display: grid; grid-template-columns: repeat(var(--cols, 4), 1fr); gap: 1px; margin-top: 18px; background: var(--border-soft); border: 1px solid var(--border-soft); border-radius: 16px; overflow: hidden; }
 .casepage .stat { background: var(--bg); padding: 32px 26px; display: flex; flex-direction: column; gap: 12px; transition: background 0.25s; }
 .casepage .stat:hover { background: var(--surface); }
 .casepage .snum { font-family: "Sora", var(--font-sora), system-ui, sans-serif; font-weight: 700; font-size: clamp(2.8rem, 4.2vw, 3.6rem); line-height: 0.85; letter-spacing: -0.04em; color: var(--text); font-variant-numeric: tabular-nums; }

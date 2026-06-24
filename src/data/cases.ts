@@ -10,11 +10,21 @@ export interface CaseStudy {
   scope: string;
   overview: string;
   challenges: string[];
-  process: { title: string; headline?: string; description: string }[];
+  process: {
+    title: string;
+    headline?: string;
+    description: string;
+    bullets?: { label?: string; text: string }[];
+    image?: { src: string; width: number; height: number; caption?: string };
+  }[];
   results: { title: string; description: string }[];
   learnings: string;
   accentColor?: string;
   confidential?: boolean;
+  /** Optional context paragraph shown above the Results content. */
+  resultsIntro?: string;
+  /** "Before"/context screenshot shown in the overview section. */
+  contextImage?: { src: string; width: number; height: number; caption?: string };
   /** Editorial metric ledger shown in the Results section (design "stat" band). */
   metrics?: { value: string; sup?: string; unit: string; label: string }[];
   /** Scrollytelling gallery ("O sistema em ação"). */
@@ -122,10 +132,11 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       ],
       learnings:
         "Este projeto reforçou a importância de estruturar um design system desde o início e o impacto que o alinhamento entre design e engenharia tem na velocidade de desenvolvimento de um SaaS.",
+      resultsIntro:
+        "O projeto foi interrompido antes do lançamento por mudanças internas na empresa. O design system foi entregue completo — 48 componentes, 120+ tokens semânticos, dois temas nativos, documentação de governança e processo estabelecido com a equipe. Pronto para implementação no momento em que o projeto foi encerrado.",
       metrics: [
-        { value: "8", unit: "meses", label: "Design system do zero" },
-        { value: "48", sup: "+", unit: "componentes", label: "Biblioteca reutilizável" },
-        { value: "2", unit: "designers", label: "Liderança centralizada" },
+        { value: "48", unit: "componentes", label: "Biblioteca reutilizável" },
+        { value: "120", sup: "+", unit: "tokens", label: "Tokens semânticos" },
         { value: "2", unit: "temas", label: "Claro e escuro nativos" },
       ],
       systemInAction: {
@@ -349,48 +360,128 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       scope: "UX Research, UI, Otimização",
       overview:
         "Otimização da jornada do usuário nos formulários de interesse da Honda Automóveis. Através de análises comportamentais com Crazy Egg e benchmarks competitivos no setor automotivo, reestruturei o fluxo do formulário para reduzir fricção e aumentar a taxa de conversão.",
+      contextImage: {
+        src: "/honda-home-antiga.png",
+        width: 1920,
+        height: 2097,
+        caption: "A página de formulário antiga — ponto de partida da análise comportamental.",
+      },
       challenges: [
-        "Formulários com alta taxa de abandono",
-        "Processo de preenchimento com excesso de cliques",
-        "Falta de personalização por campanha e localização",
-        "Necessidade de dados comportamentais para embasar decisões",
+        "Formulários com alta taxa de abandono antes do final — confirmado por heatmap de scroll",
+        "Seletor de concessionárias causava confusão e hesitação — identificado no heatmap de movimento do mouse",
+        "Campos de modelo e versão concentravam alta interação; dados pessoais tinham baixa interação, sugerindo fricção no meio do fluxo",
+        "Formulário sem adaptação ao contexto: mesmo layout para usuário que chegou pela página do carro e para quem clicou no header sem escolher modelo",
+        "Ausência de personalização visual por campanha, quebrando a consistência com peças de mídia da Honda",
       ],
       process: [
         {
-          title: "Diagnóstico antes da solução",
+          title: "Diagnóstico comportamental com CrazyEgg",
           description:
-            "Antes de propor qualquer mudança, usei o Crazy Egg para deixar o comportamento dos usuários falar primeiro. Heatmaps, scroll maps e gravações de sessão mostraram o que a intuição não conseguiria: o problema não era só visual. O layout confuso era sintoma — o fluxo para chegar ao formulário também estava fragmentado, criando fricção antes mesmo do usuário começar a preencher.",
+            "Antes de propor qualquer solução, mapeei o comportamento real dos usuários com três tipos de análise:",
+          bullets: [
+            {
+              label: "Heatmap de cliques",
+              text: "campos de modelo e versão concentravam a maior interação; campos de dados pessoais tinham baixa interação — indicando que os usuários chegavam ao formulário motivados, mas perdiam impulso no meio do caminho",
+            },
+            {
+              label: "Heatmap de scroll",
+              text: "grande parte dos usuários não chegava ao final do formulário, sugerindo que o tamanho e a estrutura eram barreiras de conclusão",
+            },
+            {
+              label: "Heatmap de movimento do mouse",
+              text: "o seletor de concessionárias gerava hesitação visível — os usuários circulavam o mouse na área sem tomar decisão",
+            },
+          ],
+          image: {
+            src: "/honda-heatmap-scroll.jpg",
+            width: 1211,
+            height: 1780,
+            caption: "Heatmap de scroll: grande parte dos usuários não chegava ao final do formulário.",
+          },
         },
         {
-          title: "Benchmark como base para as soluções",
+          title: "Benchmark competitivo",
           description:
-            "Com o diagnóstico feito, analisei como os concorrentes do setor automotivo resolviam os mesmos problemas. Três padrões se destacaram e viraram as bases da solução: preenchimento automático para reduzir esforço manual, exibição de concessionárias por geolocalização para eliminar uma etapa de seleção desnecessária, e personalização visual por campanha para dar contexto ao usuário desde o primeiro contato. A engenharia entrou na ideação junto, validando viabilidade técnica antes de qualquer decisão ser fechada.",
+            "Analisei os formulários de interesse de Toyota, Renault, Chevrolet, Mitsubishi Motors e Volkswagen. Padrões identificados:",
+          bullets: [
+            { label: "Toyota", text: "formulário com etapas progressivas, reduzindo a sobrecarga visual" },
+            { label: "Renault", text: "agrupamento lógico de campos por contexto" },
+            { label: "Todos os cinco", text: "preenchimento automático e validação em tempo real como padrão" },
+          ],
+        },
+        {
+          title: "Mapeamento de cenários de entrada",
+          description:
+            "O formulário era tratado como uma tela única, mas os usuários chegavam por caminhos completamente diferentes. Mapeei 7 cenários distintos que exigiam comportamentos diferentes do formulário:",
+          bullets: [
+            {
+              label: "Fluxo 1 — Localização via navegador",
+              text: "usuário compartilha geolocalização → concessionárias mais próximas exibidas automaticamente com distância em km",
+            },
+            {
+              label: "Fluxo 2 — Localização via pop-up (apenas estado)",
+              text: "sistema pré-seleciona o estado, usuário escolhe a cidade → concessionárias do estado filtradas, sem distância em km",
+            },
+            {
+              label: "Fluxo 3 — Acesso pelo botão no header",
+              text: "usuário clica em “Tenho interesse” sem ter escolhido um carro → formulário carrega neutro, usuário seleciona modelo e versão manualmente; localização é pré-preenchida se disponível",
+            },
+            {
+              label: "Fluxo 4 — Nova exibição de seminovos",
+              text: "formulário removido da página principal e movido para aba separada, acessível via botões “Tenho interesse” distribuídos pela página; página principal dedicada exclusivamente à exibição dos veículos",
+            },
+            {
+              label: "Fluxo 5 — CPF vs CNPJ",
+              text: "ao inserir CNPJ, o campo “Nome da Empresa” aparece dinamicamente; usuários PF não veem esse campo",
+            },
+            {
+              label: "Fluxo 6 — Apenas uma loja disponível",
+              text: "quando há somente uma concessionária na cidade selecionada, ela é pré-selecionada automaticamente, eliminando a etapa de escolha",
+            },
+            {
+              label: "Fluxo 7 — Personalização por campanha",
+              text: "o fundo do formulário adapta suas cores e imagem à campanha vigente (ex: CR-V Híbrido), reforçando a identidade visual da campanha e aumentando a coerência com as peças de mídia",
+            },
+          ],
+          image: {
+            src: "/honda-fluxo-7.jpg",
+            width: 571,
+            height: 371,
+            caption: "Fluxo 7 — o fundo do formulário se adapta à campanha vigente (ex: CR-V Híbrido).",
+          },
+        },
+        {
+          title: "Handoff com tecnologia",
+          description:
+            "Coordenação com a equipe de tecnologia da Honda para especificação técnica e testes de cada fluxo, incluindo configuração de geolocalização, lógica condicional dos campos e personalização visual por campanha.",
         },
       ],
+      resultsIntro:
+        "O projeto foi entregue como proposta validada em setembro de 2024. Por ter sido um trabalho freelance pontual, os dados de conversão pós-implementação não estão disponíveis. O que foi entregue:",
       results: [
         {
-          title: "Redução no número de cliques para conclusão do formulário",
-          description:
-            "identificada por comparação de fluxo antes/depois com base nas gravações do Crazy Egg. Estimativa de ~30% a menos de interações obrigatórias no caminho crítico.",
+          title: "7 fluxos mapeados e prototipados",
+          description: "cobrindo todos os cenários de entrada identificados.",
         },
         {
-          title: "Aumento visível na taxa de preenchimento",
-          description:
-            "sessões gravadas mostraram queda no abandono nos pontos de fricção identificados na análise de heatmap. Dados exatos não preservados, mas a direção foi consistente com as hipóteses levantadas no benchmark.",
+          title: "Etapa manual de seleção de concessionária eliminada",
+          description: "nos casos de geolocalização disponível ou loja única.",
         },
         {
-          title: "Exibição dinâmica de concessionárias por geolocalização",
-          description:
-            "eliminou uma etapa manual de seleção que aparecia como ponto de abandono nas gravações de sessão.",
+          title: "Menos campos exibidos simultaneamente",
+          description: "via lógica condicional (CPF/CNPJ, modelo/versão por contexto).",
         },
         {
-          title: "Personalização visual por campanha implementada",
-          description:
-            "permitindo variações sem retrabalho de desenvolvimento a cada nova campanha.",
+          title: "Personalização visual por campanha",
+          description: "alinhando o formulário às peças de mídia vigentes.",
+        },
+        {
+          title: "Benchmark de 5 concorrentes documentado",
+          description: "com os padrões adotados na solução.",
         },
       ],
       learnings:
-        "Este projeto consolidou a importância de usar dados comportamentais reais (não apenas heurísticas) para fundamentar decisões de design, especialmente em contextos onde cada ponto percentual de conversão tem impacto direto no negócio.",
+        "Este projeto consolidou a importância de usar dados comportamentais reais (não apenas heurísticas) para fundamentar decisões de design, e de tratar um formulário não como uma tela única, mas como um sistema que responde ao contexto de entrada de cada usuário.",
     },
   ],
   en: [
@@ -470,10 +561,11 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       ],
       learnings:
         "This project reinforced the importance of structuring a design system from the start and the impact that alignment between design and engineering has on the development speed of a SaaS.",
+      resultsIntro:
+        "The project was halted before launch due to internal changes at the company. The design system was delivered complete — 48 components, 120+ semantic tokens, two native themes, governance documentation, and an established process with the team. Ready for implementation at the moment the project was closed.",
       metrics: [
-        { value: "8", unit: "months", label: "Design system from scratch" },
-        { value: "48", sup: "+", unit: "components", label: "Reusable library" },
-        { value: "2", unit: "designers", label: "Centralized leadership" },
+        { value: "48", unit: "components", label: "Reusable library" },
+        { value: "120", sup: "+", unit: "tokens", label: "Semantic tokens" },
         { value: "2", unit: "themes", label: "Native light and dark" },
       ],
       systemInAction: {
@@ -697,48 +789,128 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       scope: "UX Research, UI, Optimization",
       overview:
         "Optimization of the user journey in Honda Automóveis interest forms. Through behavioral analysis with Crazy Egg and competitive benchmarks in the automotive sector, I restructured the form flow to reduce friction and increase conversion rate.",
+      contextImage: {
+        src: "/honda-home-antiga.png",
+        width: 1920,
+        height: 2097,
+        caption: "The previous form page — the starting point of the behavioral analysis.",
+      },
       challenges: [
-        "Forms with high abandonment rate",
-        "Filling process with excessive clicks",
-        "Lack of personalization by campaign and location",
-        "Need for behavioral data to support decisions",
+        "Forms with high abandonment before the end — confirmed by scroll heatmap",
+        "The dealership selector caused confusion and hesitation — identified in the mouse-movement heatmap",
+        "Model and version fields concentrated high interaction; personal data had low interaction, suggesting friction mid-flow",
+        "Form with no context adaptation: the same layout for a user who arrived from the car page and for one who clicked the header without choosing a model",
+        "No visual customization per campaign, breaking consistency with Honda's media pieces",
       ],
       process: [
         {
-          title: "Diagnosis before solutions",
+          title: "Behavioral diagnosis with CrazyEgg",
           description:
-            "Before proposing any changes, I used Crazy Egg to let user behavior speak first. Heatmaps, scroll maps, and session recordings revealed what intuition couldn't: the problem wasn't purely visual. The confusing layout was a symptom — the flow to reach the form was also fragmented, creating friction before users even started filling it out.",
+            "Before proposing any solution, I mapped real user behavior with three types of analysis:",
+          bullets: [
+            {
+              label: "Click heatmap",
+              text: "model and version fields concentrated the most interaction; personal data fields had low interaction — indicating that users reached the form motivated, but lost momentum halfway through",
+            },
+            {
+              label: "Scroll heatmap",
+              text: "a large share of users never reached the end of the form, suggesting its length and structure were completion barriers",
+            },
+            {
+              label: "Mouse-movement heatmap",
+              text: "the dealership selector caused visible hesitation — users hovered around the area without making a decision",
+            },
+          ],
+          image: {
+            src: "/honda-heatmap-scroll.jpg",
+            width: 1211,
+            height: 1780,
+            caption: "Scroll heatmap: a large share of users never reached the end of the form.",
+          },
         },
         {
-          title: "Benchmark as the foundation for solutions",
+          title: "Competitive benchmark",
           description:
-            "With the diagnosis in place, I analyzed how competitors in the automotive sector handled the same problems. Three patterns stood out and became the basis for the solution: autofill to reduce manual effort, geolocation-based dealership display to eliminate an unnecessary selection step, and visual customization per campaign to give users context from the very first interaction. Engineering joined the ideation process early, validating technical feasibility before any decision was finalized.",
+            "I analyzed the interest forms of Toyota, Renault, Chevrolet, Mitsubishi Motors, and Volkswagen. Patterns identified:",
+          bullets: [
+            { label: "Toyota", text: "form with progressive steps, reducing visual overload" },
+            { label: "Renault", text: "logical grouping of fields by context" },
+            { label: "All five", text: "autofill and real-time validation as a standard" },
+          ],
+        },
+        {
+          title: "Mapping entry scenarios",
+          description:
+            "The form was treated as a single screen, but users arrived through completely different paths. I mapped 7 distinct scenarios that required different form behaviors:",
+          bullets: [
+            {
+              label: "Flow 1 — Location via browser",
+              text: "user shares geolocation → nearest dealerships shown automatically with distance in km",
+            },
+            {
+              label: "Flow 2 — Location via pop-up (state only)",
+              text: "the system pre-selects the state, the user picks the city → dealerships filtered by state, without distance in km",
+            },
+            {
+              label: "Flow 3 — Access via the header button",
+              text: "user clicks “I'm interested” without having chosen a car → the form loads neutral, the user selects model and version manually; location is pre-filled if available",
+            },
+            {
+              label: "Flow 4 — New used-car display",
+              text: "the form is removed from the main page and moved to a separate tab, accessible via “I'm interested” buttons distributed across the page; the main page is dedicated exclusively to showcasing the vehicles",
+            },
+            {
+              label: "Flow 5 — CPF vs CNPJ",
+              text: "when entering a CNPJ, the “Company Name” field appears dynamically; individual users never see this field",
+            },
+            {
+              label: "Flow 6 — Only one store available",
+              text: "when there is only one dealership in the selected city, it is pre-selected automatically, eliminating the selection step",
+            },
+            {
+              label: "Flow 7 — Campaign customization",
+              text: "the form background adapts its colors and image to the active campaign (e.g., CR-V Hybrid), reinforcing the campaign's visual identity and increasing coherence with the media pieces",
+            },
+          ],
+          image: {
+            src: "/honda-fluxo-7.jpg",
+            width: 571,
+            height: 371,
+            caption: "Flow 7 — the form background adapts to the active campaign (e.g., CR-V Hybrid).",
+          },
+        },
+        {
+          title: "Handoff with technology",
+          description:
+            "Coordination with Honda's technology team for technical specification and testing of each flow, including geolocation setup, conditional field logic, and visual customization per campaign.",
         },
       ],
+      resultsIntro:
+        "The project was delivered as a validated proposal in September 2024. As it was a one-off freelance engagement, post-implementation conversion data is not available. What was delivered:",
       results: [
         {
-          title: "Reduction in the number of clicks to complete the form",
-          description:
-            "identified through before/after flow comparison based on Crazy Egg recordings. Estimated ~30% fewer required interactions along the critical path.",
+          title: "7 flows mapped and prototyped",
+          description: "covering all identified entry scenarios.",
         },
         {
-          title: "Visible improvement in form completion rate",
-          description:
-            "recorded sessions showed a drop in abandonment at the friction points identified in the heatmap analysis. Exact data not preserved, but the direction was consistent with the hypotheses raised during the benchmark.",
+          title: "Manual dealership selection step eliminated",
+          description: "in cases of available geolocation or a single store.",
         },
         {
-          title: "Dynamic dealership display by geolocation",
-          description:
-            "eliminated a manual selection step that appeared as a drop-off point in session recordings.",
+          title: "Fewer fields shown at once",
+          description: "via conditional logic (CPF/CNPJ, model/version by context).",
         },
         {
-          title: "Visual customization per campaign implemented",
-          description:
-            "enabling variations without development rework for each new campaign.",
+          title: "Visual customization per campaign",
+          description: "aligning the form with the active media pieces.",
+        },
+        {
+          title: "Benchmark of 5 competitors documented",
+          description: "with the patterns adopted in the solution.",
         },
       ],
       learnings:
-        "This project consolidated the importance of using real behavioral data (not just heuristics) to support design decisions, especially in contexts where each percentage point of conversion has a direct impact on the business.",
+        "This project consolidated the importance of using real behavioral data (not just heuristics) to support design decisions, and of treating a form not as a single screen but as a system that responds to each user's entry context.",
     },
   ],
 };

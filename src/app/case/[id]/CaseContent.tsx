@@ -113,6 +113,21 @@ export function CaseContent({ caseId }: CaseContentProps) {
   const accentVar = accentByCase[caseStudy.id] ?? "var(--violet)";
   const nextAccentVar = accentByCase[nextCase.id] ?? "var(--magenta)";
 
+  const renderImage = (img: { src: string; width: number; height: number; caption?: string }) => (
+    <figure className="case-img reveal">
+      <Image
+        src={img.src}
+        alt={img.caption ?? caseStudy.title}
+        width={img.width}
+        height={img.height}
+        sizes="(max-width: 900px) 100vw, 460px"
+        className="case-img-el"
+        loading="lazy"
+      />
+      {img.caption && <figcaption>{img.caption}</figcaption>}
+    </figure>
+  );
+
   return (
     <div className="casepage" ref={rootRef} style={{ "--accent": accentVar } as CSSProperties}>
       <div className="progress" ref={progressRef} />
@@ -225,6 +240,7 @@ export function CaseContent({ caseId }: CaseContentProps) {
           <div className="wrap">
             <div className="eyebrow reveal">{t("caseDetail.overview")}</div>
             <p className="lead reveal">{caseStudy.overview}</p>
+            {caseStudy.contextImage && renderImage(caseStudy.contextImage)}
           </div>
         </section>
 
@@ -382,6 +398,16 @@ export function CaseContent({ caseId }: CaseContentProps) {
                     {step.description.split("\n\n").map((para, j) => (
                       <p key={j}>{para}</p>
                     ))}
+                    {step.bullets && (
+                      <ul className="step-list">
+                        {step.bullets.map((b, j) => (
+                          <li key={j}>
+                            {b.label && <strong>{b.label}:</strong>} {b.text}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {step.image && renderImage(step.image)}
                   </div>
                 );
               })}
@@ -393,8 +419,16 @@ export function CaseContent({ caseId }: CaseContentProps) {
         <section className="block" id="resultados" style={{ paddingTop: 0 }}>
           <div className="wrap">
             <h2 className="reveal">{t("caseDetail.results")}</h2>
+            {caseStudy.resultsIntro && (
+              <p className="lead reveal" style={{ marginBottom: 24 }}>
+                {caseStudy.resultsIntro}
+              </p>
+            )}
             {caseStudy.metrics ? (
-              <div className="results reveal">
+              <div
+                className="results reveal"
+                style={{ "--cols": caseStudy.metrics.length } as CSSProperties}
+              >
                 {caseStudy.metrics.map((m, i) => (
                   <div className="stat" key={i}>
                     <div className="snum">
