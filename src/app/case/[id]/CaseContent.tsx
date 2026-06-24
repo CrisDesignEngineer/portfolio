@@ -113,32 +113,50 @@ export function CaseContent({ caseId }: CaseContentProps) {
   const accentVar = accentByCase[caseStudy.id] ?? "var(--violet)";
   const nextAccentVar = accentByCase[nextCase.id] ?? "var(--magenta)";
 
-  const renderImage = (img: { src: string; width: number; height: number; caption?: string }) => (
-    <figure className="case-shot reveal">
-      <div className="frame-wrap">
-        <div className="frame">
-          <div className="bardots">
-            <i />
-            <i />
-            <i />
-            <span className="barpill" />
-          </div>
-          <div className="shotview">
-            <Image
-              className="shot"
-              src={img.src}
-              alt={img.caption ?? caseStudy.title}
-              width={img.width}
-              height={img.height}
-              sizes="(max-width: 900px) 100vw, 540px"
-              loading="lazy"
-            />
+  // Each screenshot is an "exhibit": browser-chrome frame on one side, caption beside it,
+  // alternating sides — the same editorial treatment as the SaaS gallery.
+  let exhibitCount = 0;
+  const renderImage = (img: {
+    src: string;
+    width: number;
+    height: number;
+    caption?: string;
+    kicker?: string;
+  }) => {
+    const flip = exhibitCount % 2 === 1;
+    exhibitCount += 1;
+    return (
+      <figure className={`case-exhibit reveal${flip ? " flip" : ""}`}>
+        <div className="exhibit-media">
+          <div className="frame-wrap">
+            <div className="frame">
+              <div className="bardots">
+                <i />
+                <i />
+                <i />
+                <span className="barpill" />
+              </div>
+              <div className="shotview">
+                <Image
+                  className="shot"
+                  src={img.src}
+                  alt={img.caption ?? caseStudy.title}
+                  width={img.width}
+                  height={img.height}
+                  sizes="(max-width: 900px) 100vw, 540px"
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      {img.caption && <figcaption>{img.caption}</figcaption>}
-    </figure>
-  );
+        <figcaption className="exhibit-body">
+          {img.kicker && <span className="exhibit-kicker">{img.kicker}</span>}
+          {img.caption && <p>{img.caption}</p>}
+        </figcaption>
+      </figure>
+    );
+  };
 
   return (
     <div className="casepage" ref={rootRef} style={{ "--accent": accentVar } as CSSProperties}>

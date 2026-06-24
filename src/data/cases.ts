@@ -15,7 +15,7 @@ export interface CaseStudy {
     headline?: string;
     description: string;
     bullets?: { label?: string; text: string }[];
-    image?: { src: string; width: number; height: number; caption?: string };
+    image?: { src: string; width: number; height: number; caption?: string; kicker?: string };
   }[];
   results: { title: string; description: string }[];
   learnings: string;
@@ -24,7 +24,7 @@ export interface CaseStudy {
   /** Optional context paragraph shown above the Results content. */
   resultsIntro?: string;
   /** "Before"/context screenshot shown in the overview section. */
-  contextImage?: { src: string; width: number; height: number; caption?: string };
+  contextImage?: { src: string; width: number; height: number; caption?: string; kicker?: string };
   /** Editorial metric ledger shown in the Results section (design "stat" band). */
   metrics?: { value: string; sup?: string; unit: string; label: string }[];
   /** Scrollytelling gallery ("O sistema em ação"). */
@@ -364,6 +364,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         src: "/honda-home-antiga.png",
         width: 1920,
         height: 2097,
+        kicker: "Antes",
         caption: "A página de formulário antiga — ponto de partida da análise comportamental.",
       },
       challenges: [
@@ -396,6 +397,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
             src: "/honda-heatmap-scroll.jpg",
             width: 1211,
             height: 1780,
+            kicker: "Diagnóstico — CrazyEgg",
             caption: "Heatmap de scroll: grande parte dos usuários não chegava ao final do formulário.",
           },
         },
@@ -447,6 +449,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
             src: "/honda-fluxo-7.jpg",
             width: 571,
             height: 371,
+            kicker: "Fluxo 7",
             caption: "Fluxo 7 — o fundo do formulário se adapta à campanha vigente (ex: CR-V Híbrido).",
           },
         },
@@ -793,6 +796,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         src: "/honda-home-antiga.png",
         width: 1920,
         height: 2097,
+        kicker: "Before",
         caption: "The previous form page — the starting point of the behavioral analysis.",
       },
       challenges: [
@@ -825,6 +829,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
             src: "/honda-heatmap-scroll.jpg",
             width: 1211,
             height: 1780,
+            kicker: "Diagnosis — CrazyEgg",
             caption: "Scroll heatmap: a large share of users never reached the end of the form.",
           },
         },
@@ -876,6 +881,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
             src: "/honda-fluxo-7.jpg",
             width: 571,
             height: 371,
+            kicker: "Flow 7",
             caption: "Flow 7 — the form background adapts to the active campaign (e.g., CR-V Hybrid).",
           },
         },
