@@ -114,16 +114,28 @@ export function CaseContent({ caseId }: CaseContentProps) {
   const nextAccentVar = accentByCase[nextCase.id] ?? "var(--magenta)";
 
   const renderImage = (img: { src: string; width: number; height: number; caption?: string }) => (
-    <figure className="case-img reveal">
-      <Image
-        src={img.src}
-        alt={img.caption ?? caseStudy.title}
-        width={img.width}
-        height={img.height}
-        sizes="(max-width: 900px) 100vw, 460px"
-        className="case-img-el"
-        loading="lazy"
-      />
+    <figure className="case-shot reveal">
+      <div className="frame-wrap">
+        <div className="frame">
+          <div className="bardots">
+            <i />
+            <i />
+            <i />
+            <span className="barpill" />
+          </div>
+          <div className="shotview">
+            <Image
+              className="shot"
+              src={img.src}
+              alt={img.caption ?? caseStudy.title}
+              width={img.width}
+              height={img.height}
+              sizes="(max-width: 900px) 100vw, 540px"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
       {img.caption && <figcaption>{img.caption}</figcaption>}
     </figure>
   );

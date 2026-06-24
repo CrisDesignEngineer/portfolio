@@ -213,10 +213,9 @@
 .casepage .step-list li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
 .casepage .step-list li strong { color: var(--text); font-weight: 600; }
 
-/* framed context / step screenshot */
-.casepage .case-img { margin-top: 22px; max-width: 460px; }
-.casepage .case-img-el { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-2); box-shadow: var(--shadow); }
-.casepage .case-img figcaption { margin-top: 10px; font-size: 0.82rem; color: var(--faint); line-height: 1.45; max-width: 42ch; }
+/* context / step screenshot — reuses the gallery browser-frame treatment (chrome + glow + hover) */
+.casepage .case-shot { margin-top: 26px; max-width: 540px; }
+.casepage .case-shot figcaption { margin-top: 14px; font-size: 0.82rem; color: var(--faint); line-height: 1.45; max-width: 46ch; }
 
 /* ---------- resultados (faixa de métricas) ---------- */
 .casepage .results { display: grid; grid-template-columns: repeat(var(--cols, 4), 1fr); gap: 1px; margin-top: 18px; background: var(--border-soft); border: 1px solid var(--border-soft); border-radius: 16px; overflow: hidden; }
