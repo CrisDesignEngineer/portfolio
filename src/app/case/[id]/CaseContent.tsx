@@ -138,7 +138,7 @@ export function CaseContent({ caseId }: CaseContentProps) {
     caption?: string;
     kicker?: string;
   }) => (
-    <figure className="case-shot reveal">
+    <figure className={`case-shot reveal${img.width > img.height ? " case-shot--wide" : ""}`}>
       <button
         type="button"
         className="exhibit-trigger"

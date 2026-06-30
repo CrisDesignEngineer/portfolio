@@ -215,6 +215,7 @@
 
 /* context / step screenshot — compact thumbnail with caption below (click to expand) */
 .casepage .case-shot { max-width: 360px; margin: 28px 0 8px; }
+.casepage .case-shot--wide { max-width: 480px; }
 .casepage .case-shot-cap { margin-top: 16px; }
 .casepage .case-shot-cap .exhibit-kicker { font-family: "JetBrains Mono", var(--font-jetbrains), monospace; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 10px; }
 .casepage .case-shot-cap .exhibit-kicker::before { content: ""; width: 18px; height: 1px; background: var(--accent); }
