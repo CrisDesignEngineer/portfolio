@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslation } from "@/i18n/LanguageContext";
@@ -23,6 +23,22 @@ export function CaseContent({ caseId }: CaseContentProps) {
   const { t, locale, toggleLocale } = useTranslation();
   const rootRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const [lightbox, setLightbox] = useState<{ src: string; caption?: string } | null>(null);
+
+  // Close the image lightbox on Escape and lock background scroll while it's open
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightbox(null);
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [lightbox]);
 
   const localizedCases = cases[locale];
   const caseIndex = localizedCases.findIndex((c) => c.id === caseId);
@@ -112,6 +128,57 @@ export function CaseContent({ caseId }: CaseContentProps) {
 
   const accentVar = accentByCase[caseStudy.id] ?? "var(--violet)";
   const nextAccentVar = accentByCase[nextCase.id] ?? "var(--magenta)";
+
+  // Each screenshot is a compact thumbnail (click to expand) with its caption directly below —
+  // keeps everything aligned to the content column instead of floating in an empty grid cell.
+  const renderImage = (img: {
+    src: string;
+    width: number;
+    height: number;
+    caption?: string;
+    kicker?: string;
+  }) => (
+    <figure className={`case-shot reveal${img.width > img.height ? " case-shot--wide" : ""}`}>
+      <button
+        type="button"
+        className="exhibit-trigger"
+        onClick={() => setLightbox({ src: img.src, caption: img.caption })}
+        aria-label={locale === "pt" ? "Ampliar imagem" : "Expand image"}
+      >
+        <div className="frame-wrap">
+          <div className="frame">
+            <div className="bardots">
+              <i />
+              <i />
+              <i />
+              <span className="barpill" />
+            </div>
+            <div className="shotview">
+              <Image
+                className="shot"
+                src={img.src}
+                alt={img.caption ?? caseStudy.title}
+                width={img.width}
+                height={img.height}
+                sizes="(max-width: 900px) 80vw, 360px"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+        <span className="exhibit-zoom" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M21 21l-4.3-4.3M11 8v6M8 11h6" />
+          </svg>
+        </span>
+      </button>
+      <figcaption className="case-shot-cap">
+        {img.kicker && <span className="exhibit-kicker">{img.kicker}</span>}
+        {img.caption && <p>{img.caption}</p>}
+      </figcaption>
+    </figure>
+  );
 
   return (
     <div className="casepage" ref={rootRef} style={{ "--accent": accentVar } as CSSProperties}>
@@ -225,6 +292,7 @@ export function CaseContent({ caseId }: CaseContentProps) {
           <div className="wrap">
             <div className="eyebrow reveal">{t("caseDetail.overview")}</div>
             <p className="lead reveal">{caseStudy.overview}</p>
+            {caseStudy.contextImage && renderImage(caseStudy.contextImage)}
           </div>
         </section>
 
@@ -382,6 +450,16 @@ export function CaseContent({ caseId }: CaseContentProps) {
                     {step.description.split("\n\n").map((para, j) => (
                       <p key={j}>{para}</p>
                     ))}
+                    {step.bullets && (
+                      <ul className="step-list">
+                        {step.bullets.map((b, j) => (
+                          <li key={j}>
+                            {b.label && <strong>{b.label}:</strong>} {b.text}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {step.image && renderImage(step.image)}
                   </div>
                 );
               })}
@@ -393,8 +471,16 @@ export function CaseContent({ caseId }: CaseContentProps) {
         <section className="block" id="resultados" style={{ paddingTop: 0 }}>
           <div className="wrap">
             <h2 className="reveal">{t("caseDetail.results")}</h2>
+            {caseStudy.resultsIntro && (
+              <p className="lead reveal" style={{ marginBottom: 24 }}>
+                {caseStudy.resultsIntro}
+              </p>
+            )}
             {caseStudy.metrics ? (
-              <div className="results reveal">
+              <div
+                className="results reveal"
+                style={{ "--cols": caseStudy.metrics.length } as CSSProperties}
+              >
                 {caseStudy.metrics.map((m, i) => (
                   <div className="stat" key={i}>
                     <div className="snum">
@@ -476,6 +562,33 @@ export function CaseContent({ caseId }: CaseContentProps) {
           <span>© 2026 Cristiano Carvalho</span>
         </div>
       </footer>
+
+      {lightbox && (
+        <div
+          className="lightbox"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setLightbox(null)}
+        >
+          <button
+            type="button"
+            className="lightbox-close"
+            onClick={() => setLightbox(null)}
+            aria-label={locale === "pt" ? "Fechar" : "Close"}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="lightbox-img"
+            src={lightbox.src}
+            alt={lightbox.caption ?? caseStudy.title}
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 }
