@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslation } from "@/i18n/LanguageContext";
@@ -23,6 +23,22 @@ export function CaseContent({ caseId }: CaseContentProps) {
   const { t, locale, toggleLocale } = useTranslation();
   const rootRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const [lightbox, setLightbox] = useState<{ src: string; caption?: string } | null>(null);
+
+  // Close the image lightbox on Escape and lock background scroll while it's open
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightbox(null);
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [lightbox]);
 
   const localizedCases = cases[locale];
   const caseIndex = localizedCases.findIndex((c) => c.id === caseId);
@@ -128,27 +144,40 @@ export function CaseContent({ caseId }: CaseContentProps) {
     return (
       <figure className={`case-exhibit reveal${flip ? " flip" : ""}`}>
         <div className="exhibit-media">
-          <div className="frame-wrap">
-            <div className="frame">
-              <div className="bardots">
-                <i />
-                <i />
-                <i />
-                <span className="barpill" />
-              </div>
-              <div className="shotview">
-                <Image
-                  className="shot"
-                  src={img.src}
-                  alt={img.caption ?? caseStudy.title}
-                  width={img.width}
-                  height={img.height}
-                  sizes="(max-width: 900px) 100vw, 540px"
-                  loading="lazy"
-                />
+          <button
+            type="button"
+            className="exhibit-trigger"
+            onClick={() => setLightbox({ src: img.src, caption: img.caption })}
+            aria-label={locale === "pt" ? "Ampliar imagem" : "Expand image"}
+          >
+            <div className="frame-wrap">
+              <div className="frame">
+                <div className="bardots">
+                  <i />
+                  <i />
+                  <i />
+                  <span className="barpill" />
+                </div>
+                <div className="shotview">
+                  <Image
+                    className="shot"
+                    src={img.src}
+                    alt={img.caption ?? caseStudy.title}
+                    width={img.width}
+                    height={img.height}
+                    sizes="(max-width: 900px) 100vw, 540px"
+                    loading="lazy"
+                  />
+                </div>
               </div>
             </div>
-          </div>
+            <span className="exhibit-zoom" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="7" />
+                <path d="M21 21l-4.3-4.3M11 8v6M8 11h6" />
+              </svg>
+            </span>
+          </button>
         </div>
         <figcaption className="exhibit-body">
           {img.kicker && <span className="exhibit-kicker">{img.kicker}</span>}
@@ -540,6 +569,33 @@ export function CaseContent({ caseId }: CaseContentProps) {
           <span>© 2026 Cristiano Carvalho</span>
         </div>
       </footer>
+
+      {lightbox && (
+        <div
+          className="lightbox"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setLightbox(null)}
+        >
+          <button
+            type="button"
+            className="lightbox-close"
+            onClick={() => setLightbox(null)}
+            aria-label={locale === "pt" ? "Fechar" : "Close"}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="lightbox-img"
+            src={lightbox.src}
+            alt={lightbox.caption ?? caseStudy.title}
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 }
