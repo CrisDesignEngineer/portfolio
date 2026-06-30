@@ -213,17 +213,14 @@
 .casepage .step-list li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
 .casepage .step-list li strong { color: var(--text); font-weight: 600; }
 
-/* context / step screenshot as a 2-column "exhibit" — mirrors the SaaS gallery (frame + caption beside) */
-.casepage .case-exhibit { display: grid; grid-template-columns: minmax(0, 540px) 1fr; gap: 48px; align-items: start; margin: 44px 0 8px; }
-.casepage .case-exhibit.flip .exhibit-media { order: 2; }
-.casepage .exhibit-media { position: relative; }
-.casepage .exhibit-body { padding-top: 6px; }
-.casepage .exhibit-body .exhibit-kicker { font-family: "JetBrains Mono", var(--font-jetbrains), monospace; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 10px; }
-.casepage .exhibit-body .exhibit-kicker::before { content: ""; width: 22px; height: 1px; background: var(--accent); }
-.casepage .exhibit-body p { color: var(--muted); font-size: 1.02rem; line-height: 1.6; max-width: 40ch; margin-top: 14px; }
+/* context / step screenshot — compact thumbnail with caption below (click to expand) */
+.casepage .case-shot { max-width: 360px; margin: 28px 0 8px; }
+.casepage .case-shot-cap { margin-top: 16px; }
+.casepage .case-shot-cap .exhibit-kicker { font-family: "JetBrains Mono", var(--font-jetbrains), monospace; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+.casepage .case-shot-cap .exhibit-kicker::before { content: ""; width: 18px; height: 1px; background: var(--accent); }
+.casepage .case-shot-cap p { color: var(--muted); font-size: 0.92rem; line-height: 1.55; max-width: 38ch; margin-top: 9px; }
 @media (max-width: 900px) {
-  .casepage .case-exhibit { grid-template-columns: 1fr; gap: 18px; margin: 28px 0; }
-  .casepage .case-exhibit.flip .exhibit-media { order: 0; }
+  .casepage .case-shot { max-width: 100%; }
 }
 /* click-to-expand trigger */
 .casepage .exhibit-trigger { display: block; position: relative; width: 100%; padding: 0; border: 0; background: none; text-align: left; cursor: zoom-in; color: inherit; font: inherit; }

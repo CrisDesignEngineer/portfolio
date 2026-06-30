@@ -129,63 +129,56 @@ export function CaseContent({ caseId }: CaseContentProps) {
   const accentVar = accentByCase[caseStudy.id] ?? "var(--violet)";
   const nextAccentVar = accentByCase[nextCase.id] ?? "var(--magenta)";
 
-  // Each screenshot is an "exhibit": browser-chrome frame on one side, caption beside it,
-  // alternating sides — the same editorial treatment as the SaaS gallery.
-  let exhibitCount = 0;
+  // Each screenshot is a compact thumbnail (click to expand) with its caption directly below —
+  // keeps everything aligned to the content column instead of floating in an empty grid cell.
   const renderImage = (img: {
     src: string;
     width: number;
     height: number;
     caption?: string;
     kicker?: string;
-  }) => {
-    const flip = exhibitCount % 2 === 1;
-    exhibitCount += 1;
-    return (
-      <figure className={`case-exhibit reveal${flip ? " flip" : ""}`}>
-        <div className="exhibit-media">
-          <button
-            type="button"
-            className="exhibit-trigger"
-            onClick={() => setLightbox({ src: img.src, caption: img.caption })}
-            aria-label={locale === "pt" ? "Ampliar imagem" : "Expand image"}
-          >
-            <div className="frame-wrap">
-              <div className="frame">
-                <div className="bardots">
-                  <i />
-                  <i />
-                  <i />
-                  <span className="barpill" />
-                </div>
-                <div className="shotview">
-                  <Image
-                    className="shot"
-                    src={img.src}
-                    alt={img.caption ?? caseStudy.title}
-                    width={img.width}
-                    height={img.height}
-                    sizes="(max-width: 900px) 100vw, 540px"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
+  }) => (
+    <figure className="case-shot reveal">
+      <button
+        type="button"
+        className="exhibit-trigger"
+        onClick={() => setLightbox({ src: img.src, caption: img.caption })}
+        aria-label={locale === "pt" ? "Ampliar imagem" : "Expand image"}
+      >
+        <div className="frame-wrap">
+          <div className="frame">
+            <div className="bardots">
+              <i />
+              <i />
+              <i />
+              <span className="barpill" />
             </div>
-            <span className="exhibit-zoom" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="7" />
-                <path d="M21 21l-4.3-4.3M11 8v6M8 11h6" />
-              </svg>
-            </span>
-          </button>
+            <div className="shotview">
+              <Image
+                className="shot"
+                src={img.src}
+                alt={img.caption ?? caseStudy.title}
+                width={img.width}
+                height={img.height}
+                sizes="(max-width: 900px) 80vw, 360px"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </div>
-        <figcaption className="exhibit-body">
-          {img.kicker && <span className="exhibit-kicker">{img.kicker}</span>}
-          {img.caption && <p>{img.caption}</p>}
-        </figcaption>
-      </figure>
-    );
-  };
+        <span className="exhibit-zoom" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M21 21l-4.3-4.3M11 8v6M8 11h6" />
+          </svg>
+        </span>
+      </button>
+      <figcaption className="case-shot-cap">
+        {img.kicker && <span className="exhibit-kicker">{img.kicker}</span>}
+        {img.caption && <p>{img.caption}</p>}
+      </figcaption>
+    </figure>
+  );
 
   return (
     <div className="casepage" ref={rootRef} style={{ "--accent": accentVar } as CSSProperties}>
