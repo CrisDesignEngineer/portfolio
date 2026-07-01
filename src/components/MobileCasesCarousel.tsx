@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { CaseStudy } from "@/data/cases";
 import { useTranslation } from "@/i18n/LanguageContext";
+import { useCarousel } from "@/lib/useCarousel";
 
 const colorMap: Record<string, { text: string; bg: string }> = {
   accent: { text: "text-accent", bg: "bg-accent/10" },
@@ -19,45 +19,7 @@ interface MobileCasesCarouselProps {
 
 export function MobileCasesCarousel({ cases }: MobileCasesCarouselProps) {
   const { t } = useTranslation();
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const scrollToIndex = (index: number) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const cards = el.children;
-    if (!cards.length) return;
-    const card = cards[index] as HTMLElement;
-    el.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
-    setCurrentIndex(index);
-  };
-
-  const scroll = (dir: "left" | "right") => {
-    if (dir === "right") {
-      const next = currentIndex >= cases.length - 1 ? 0 : currentIndex + 1;
-      scrollToIndex(next);
-    } else {
-      const prev = currentIndex <= 0 ? cases.length - 1 : currentIndex - 1;
-      scrollToIndex(prev);
-    }
-  };
-
-  const handleScroll = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const cards = Array.from(el.children) as HTMLElement[];
-    const scrollLeft = el.scrollLeft;
-    let closest = 0;
-    let minDist = Infinity;
-    cards.forEach((card, i) => {
-      const dist = Math.abs(card.offsetLeft - scrollLeft);
-      if (dist < minDist) {
-        minDist = dist;
-        closest = i;
-      }
-    });
-    setCurrentIndex(closest);
-  };
+  const { scrollRef, currentIndex, scrollToIndex, scroll, handleScroll } = useCarousel(cases.length);
 
   return (
     <div className="relative">
