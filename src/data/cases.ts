@@ -23,6 +23,8 @@ export interface CaseStudy {
   confidential?: boolean;
   /** Optional context paragraph shown above the Results content. */
   resultsIntro?: string;
+  /** Optional paragraph shown below the Results metrics. */
+  resultsNote?: string;
   /** "Before"/context screenshot shown in the overview section. */
   contextImage?: { src: string; width: number; height: number; caption?: string; kicker?: string };
   /** Editorial metric ledger shown in the Results section (design "stat" band). */
@@ -246,25 +248,125 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       duration: "1 mês",
       scope: "UX, UI, Redesign",
       overview:
-        "Redesign do sistema Capta, usado pelas vendedoras nas lojas físicas da Vivara e Life, para melhorar a performance e a experiência de uso. O objetivo foi modernizar o sistema trazendo agilidade, simplicidade e integração à operação de loja, com foco em atendimento mais rápido, processos mais intuitivos e melhoria na experiência de clientes e colaboradoras.",
+        "Redesign do sistema Capta, usado pelas vendedoras nas lojas físicas da Vivara e Life, para melhorar a performance e a experiência de uso. Conduzido em dupla com um designer da Gauge, consultoria de produto responsável pelo projeto para a Vivara, o objetivo foi modernizar o sistema trazendo agilidade, simplicidade e integração à operação de loja. A meta definida com o time de produto era clara: reduzir o tempo médio de uma venda de 3 a 4 minutos para 90 segundos.",
       challenges: [
-        "Sistema com excesso de campos e lentidão no fluxo de venda",
-        "Alternância entre múltiplos sistemas para operações básicas",
-        "Falta de feedback e excesso de cliques nos fluxos de troca e devolução",
-        "Repetição de dados e processos manuais nas ordens de serviço",
+        "Lentidão e travas constantes no fluxo de atendimento, carregamento lento entre telas e quedas do sistema em momentos críticos",
+        "Alternância obrigatória entre Capta e Notavia para operações simples como troca e ordem de serviço",
+        "Interface poluída e pouco intuitiva, com excesso de campos e sobrecarga cognitiva na tela principal",
+        "Meta de negócio distante da realidade operacional, uma venda levava de 3 a 4 minutos, quase o dobro dos 90 segundos definidos como objetivo",
       ],
+      systemInAction: {
+        title: "A mesma lógica em todas as jornadas de loja",
+        intro:
+          "O redesign cobre as jornadas mais usadas no dia a dia da loja, entrada no sistema, venda, ordem de serviço e devolução, mantendo o mesmo padrão de indicador de progresso e resumo de ação em todas elas.",
+        meta: [
+          { value: "7", label: "jornadas redesenhadas" },
+          { value: "3-4min → 90s", label: "meta de tempo de venda" },
+          { value: "3 sistemas → 1", label: "consolidados na jornada de OS" },
+        ],
+        shots: [
+          {
+            idx: "01",
+            kind: "Entrada",
+            title: "Início mais direto",
+            description:
+              "Tela de login simplificada para dois campos e uma página inicial com as 6 ações mais usadas pela vendedora, com atalhos de teclado sinalizados para quem já conhece o sistema.",
+            tags: ["login simplificado", "atalhos de teclado"],
+            images: ["/vivara-login.png"],
+            width: 1268,
+            height: 793,
+            annotations: [
+              { label: "2 campos", style: "top:48%;left:-12px" },
+              { label: "Atalhos sinalizados", side: "right", style: "top:28%;right:-12px" },
+            ],
+          },
+          {
+            idx: "02",
+            kind: "Venda",
+            title: "Passos claros em vez de uma tela só",
+            description:
+              "A jornada de venda, hoje de 3 a 4 minutos, foi separada em etapas visíveis (cliente, produto, pagamento) para reduzir a sobrecarga cognitiva que levava vendedoras a criar atalhos informais no sistema antigo.",
+            tags: ["indicador de progresso", "tabela dinâmica"],
+            images: ["/vivara-venda.png"],
+            width: 699,
+            height: 404,
+            annotations: [
+              { label: "Passo 2 de 3", style: "top:42%;left:-12px" },
+              { label: "Busca por produto ou código", side: "right", style: "bottom:24%;right:-12px" },
+            ],
+          },
+          {
+            idx: "03",
+            kind: "Ordem de serviço",
+            title: "De 3 sistemas cruzados a uma tela",
+            description:
+              "A jornada mais crítica do sistema antigo, 5 a 7 minutos alternando entre Capta, Notavia e LIU só para abrir uma ordem de serviço. No redesign, dados do cliente, produto, fotos e serviços ficam em uma única tela, com envio automático por email e celular do cliente.",
+            tags: ["upload de fotos", "envio automático"],
+            images: ["/vivara-os.png"],
+            width: 693,
+            height: 410,
+            annotations: [
+              { label: "3 fotos direto na tela", style: "top:46%;left:-12px" },
+              { label: "Sem troca de sistema", side: "right", style: "top:26%;right:-12px" },
+            ],
+          },
+          {
+            idx: "04",
+            kind: "Devolução",
+            title: "Confirmação clara, sem retrabalho",
+            description:
+              "Cashback vinculado automaticamente ao CPF do cliente, com confirmação visual imediata e opção de seguir direto para uma nova venda, sem sair da jornada.",
+            tags: ["cashback automático", "confirmação visual"],
+            images: ["/vivara-devolucao.png"],
+            width: 764,
+            height: 443,
+            annotations: [
+              { label: "Cashback vinculado ao CPF", style: "top:46%;left:-12px" },
+              { label: "Segue direto pra venda", side: "right", style: "bottom:24%;right:-12px" },
+            ],
+          },
+        ],
+      },
       process: [
         {
-          title: "O problema real estava escondido no comportamento",
+          title: "Imersão em loja",
+          headline: "O problema real estava escondido no comportamento",
           description:
             "As vendedoras das lojas físicas tinham desenvolvido maneiras próprias de contornar o sistema Capta. Buscas no banco de dados eram lentas e algumas ações travavam — então elas criavam atalhos informais para não perder tempo com o cliente na frente. Isso revelou algo mais sério do que lentidão técnica: o sistema gerava carga cognitiva alta logo na entrada, com muita informação exposta de uma vez.",
         },
         {
-          title: "Por que só melhorar o layout não resolvia",
+          title: "Hipótese descartada",
+          headline: "Por que só melhorar o layout não resolvia",
           description:
             "A primeira hipótese foi redesenhar a interface mantendo a estrutura existente. Descartei rápido: reorganizar o que estava visível não reduzia o volume de informação que as vendedoras precisavam processar de uma vez. O caminho certo foi separar as informações em etapas, entregando só o que era necessário para cada momento da venda. Menos decisões simultâneas, menos sobrecarga, menos necessidade de contornar o sistema.",
         },
+        {
+          title: "Teste de estresse",
+          headline: "Se resolvesse a Ordem de Serviço, resolvia o resto",
+          description:
+            "A OS era a jornada mais extrema do sistema antigo, 5 a 7 minutos cruzando 3 sistemas diferentes. Usei esse fluxo como teste de estresse para as decisões de arquitetura de informação: se o redesign resolvesse esse caso, os outros três (venda, troca, devolução) ficariam resolvidos por consequência.",
+        },
+        {
+          title: "Trabalho em dupla",
+          headline: "Dividir decisões sem perder consistência",
+          description:
+            "Conduzi o projeto em dupla com um designer da Gauge, consultoria de produto responsável pelo projeto para a Vivara. Dividimos as 7 jornadas por fluxo, com revisão cruzada antes de cada entrega para manter o mesmo padrão de interação em todas as telas.",
+        },
+        {
+          title: "Governança",
+          headline: "Da pesquisa ao backlog documentado",
+          description:
+            "Cada melhoria foi documentada em um backlog com etapa, tela, regra de negócio e fluxo de navegação, pensado para o time de desenvolvimento continuar sem a gente.",
+        },
       ],
+      metrics: [
+        { value: "7", unit: "jornadas redesenhadas", label: "Do login ao histórico de atendimento" },
+        { value: "90s", unit: "meta de tempo de venda", label: "De 3–4 min para 90 s, definida com o time de produto" },
+        { value: "3 → 1", unit: "sistemas consolidados", label: "Capta, Notavia e LIU em um fluxo único na jornada de OS" },
+        { value: "1", unit: "backlog documentado", label: "Etapa, tela, regra de negócio e navegação, pronto pra dev" },
+      ],
+      resultsNote:
+        "O projeto foi validado até a etapa de protótipo e documentação de backlog. Testes em campo com as vendedoras e medição de KPIs reais (tempo de atendimento, conversão) ficaram definidos como próximos passos do roadmap entregue à Vivara.",
       results: [
         {
           title: "Redução do tempo de atendimento nas lojas",
@@ -288,7 +390,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         },
       ],
       learnings:
-        "Este projeto reforçou a importância de entender profundamente o contexto operacional dos usuários (vendedoras em loja) antes de propor soluções, e como a simplificação de fluxos internos tem impacto direto na experiência do cliente final.",
+        "Este projeto reforçou a importância de entender profundamente o contexto operacional dos usuários (vendedoras em loja) antes de propor soluções, e como a simplificação de fluxos internos tem impacto direto na experiência do cliente final. Também reforçou como dividir um projeto em dupla, com revisão cruzada constante, ajuda a manter consistência sem perder velocidade.",
     },
     {
       id: "leiteiro",
@@ -678,25 +780,125 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       duration: "1 month",
       scope: "UX, UI, Redesign",
       overview:
-        "Redesign of the Capta system, used by sales associates in Vivara and Life physical stores, to improve performance and the user experience. The goal was to modernize the system by bringing agility, simplicity and integration to store operations, with a focus on faster service, more intuitive processes, and improved experience for customers and staff.",
+        "Redesign of the Capta system, used by sales associates in Vivara and Life physical stores, to improve performance and the user experience. Run as a pair with a designer from Gauge, the product consultancy responsible for the project for Vivara, the goal was to modernize the system by bringing agility, simplicity and integration to store operations. The target defined with the product team was clear: cut the average sale time from 3–4 minutes down to 90 seconds.",
       challenges: [
-        "System with excessive fields and slow sales flow",
-        "Switching between multiple systems for basic operations",
-        "Lack of feedback and too many clicks in exchange and return flows",
-        "Data repetition and manual processes in service orders",
+        "Constant slowness and freezes in the service flow, slow loading between screens, and system crashes at critical moments",
+        "Mandatory switching between Capta and Notavia for simple operations like exchanges and service orders",
+        "Cluttered, unintuitive interface with excessive fields and cognitive overload on the main screen",
+        "A business target far from operational reality — a sale took 3 to 4 minutes, nearly double the 90 seconds set as the goal",
       ],
+      systemInAction: {
+        title: "The same logic across every store journey",
+        intro:
+          "The redesign covers the journeys used most in the store's day-to-day — logging in, sales, service orders, and returns — keeping the same progress indicator and action summary across all of them.",
+        meta: [
+          { value: "7", label: "redesigned journeys" },
+          { value: "3-4min → 90s", label: "target sale time" },
+          { value: "3 systems → 1", label: "consolidated in the service-order journey" },
+        ],
+        shots: [
+          {
+            idx: "01",
+            kind: "Entry",
+            title: "A more direct start",
+            description:
+              "Login screen simplified to two fields and a home page with the 6 actions the associate uses most, with keyboard shortcuts flagged for those who already know the system.",
+            tags: ["simplified login", "keyboard shortcuts"],
+            images: ["/vivara-login.png"],
+            width: 1268,
+            height: 793,
+            annotations: [
+              { label: "2 fields", style: "top:48%;left:-12px" },
+              { label: "Shortcuts flagged", side: "right", style: "top:28%;right:-12px" },
+            ],
+          },
+          {
+            idx: "02",
+            kind: "Sale",
+            title: "Clear steps instead of one screen",
+            description:
+              "The sales journey — today 3 to 4 minutes — was split into visible steps (customer, product, payment) to reduce the cognitive overload that led associates to create informal shortcuts in the old system.",
+            tags: ["progress indicator", "dynamic table"],
+            images: ["/vivara-venda.png"],
+            width: 699,
+            height: 404,
+            annotations: [
+              { label: "Step 2 of 3", style: "top:42%;left:-12px" },
+              { label: "Search by product or code", side: "right", style: "bottom:24%;right:-12px" },
+            ],
+          },
+          {
+            idx: "03",
+            kind: "Service order",
+            title: "From 3 crossed systems to one screen",
+            description:
+              "The most critical journey of the old system — 5 to 7 minutes switching between Capta, Notavia, and LIU just to open a service order. In the redesign, customer data, product, photos, and services all live on a single screen, with automatic delivery by the customer's email and phone.",
+            tags: ["photo upload", "automatic delivery"],
+            images: ["/vivara-os.png"],
+            width: 693,
+            height: 410,
+            annotations: [
+              { label: "3 photos right on the screen", style: "top:46%;left:-12px" },
+              { label: "No system switching", side: "right", style: "top:26%;right:-12px" },
+            ],
+          },
+          {
+            idx: "04",
+            kind: "Return",
+            title: "Clear confirmation, no rework",
+            description:
+              "Cashback linked automatically to the customer's CPF, with immediate visual confirmation and the option to go straight into a new sale without leaving the journey.",
+            tags: ["automatic cashback", "visual confirmation"],
+            images: ["/vivara-devolucao.png"],
+            width: 764,
+            height: 443,
+            annotations: [
+              { label: "Cashback linked to CPF", style: "top:46%;left:-12px" },
+              { label: "Straight into a sale", side: "right", style: "bottom:24%;right:-12px" },
+            ],
+          },
+        ],
+      },
       process: [
         {
-          title: "The real problem was hidden in behavior",
+          title: "In-store immersion",
+          headline: "The real problem was hidden in behavior",
           description:
             "The store associates had developed their own workarounds for the Capta system. Database searches were slow and some actions froze — so they created informal shortcuts to avoid losing time with a customer standing in front of them. This revealed something more serious than technical slowness: the system generated high cognitive load from the very first screen, with too much information exposed at once.",
         },
         {
-          title: "Why just improving the layout wasn't enough",
+          title: "Hypothesis discarded",
+          headline: "Why just improving the layout wasn't enough",
           description:
             "The first hypothesis was to redesign the interface while keeping the existing structure. I discarded it quickly: reorganizing what was visible wouldn't reduce the volume of information associates had to process at once. The right path was to separate information into steps, delivering only what was needed for each moment of the sale. Fewer simultaneous decisions, less overload, less need to work around the system.",
         },
+        {
+          title: "Stress test",
+          headline: "If it solved the Service Order, it solved the rest",
+          description:
+            "The service order was the most extreme journey in the old system — 5 to 7 minutes crossing 3 different systems. I used this flow as a stress test for the information-architecture decisions: if the redesign solved this case, the other three (sale, exchange, return) would be solved as a consequence.",
+        },
+        {
+          title: "Working in a pair",
+          headline: "Splitting decisions without losing consistency",
+          description:
+            "I ran the project as a pair with a designer from Gauge, the product consultancy responsible for the project for Vivara. We split the 7 journeys by flow, with cross-review before each delivery to keep the same interaction pattern across every screen.",
+        },
+        {
+          title: "Governance",
+          headline: "From research to a documented backlog",
+          description:
+            "Every improvement was documented in a backlog with stage, screen, business rule, and navigation flow, designed so the development team could continue without us.",
+        },
       ],
+      metrics: [
+        { value: "7", unit: "redesigned journeys", label: "From login to service history" },
+        { value: "90s", unit: "target sale time", label: "From 3–4 min to 90 s, defined with the product team" },
+        { value: "3 → 1", unit: "consolidated systems", label: "Capta, Notavia, and LIU in a single flow in the service-order journey" },
+        { value: "1", unit: "documented backlog", label: "Stage, screen, business rule, and navigation, ready for dev" },
+      ],
+      resultsNote:
+        "The project was validated through the prototype and backlog-documentation stage. Field testing with the associates and measuring real KPIs (service time, conversion) were defined as the next steps of the roadmap delivered to Vivara.",
       results: [
         {
           title: "Reduced customer service time in stores",
@@ -720,7 +922,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         },
       ],
       learnings:
-        "This project reinforced the importance of deeply understanding the operational context of users (in-store sales associates) before proposing solutions, and how the simplification of internal flows has a direct impact on the end customer experience.",
+        "This project reinforced the importance of deeply understanding the operational context of users (in-store sales associates) before proposing solutions, and how the simplification of internal flows has a direct impact on the end customer experience. It also reinforced how splitting a project across a pair, with constant cross-review, helps keep consistency without losing speed.",
     },
     {
       id: "leiteiro",

@@ -506,6 +506,11 @@ export function CaseContent({ caseId }: CaseContentProps) {
                 ))}
               </div>
             )}
+            {caseStudy.resultsNote && (
+              <p className="lead reveal" style={{ marginTop: 24 }}>
+                {caseStudy.resultsNote}
+              </p>
+            )}
           </div>
         </section>
 
