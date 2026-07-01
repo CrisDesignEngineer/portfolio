@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FadeIn } from "./FadeIn";
 import type { CaseStudy } from "@/data/cases";
 import { useTranslation } from "@/i18n/LanguageContext";
+import { useCarousel } from "@/lib/useCarousel";
 
 interface CasesCarouselProps {
   cases: CaseStudy[];
@@ -20,38 +20,7 @@ const colorMap: Record<string, { text: string; bg: string; hover: string }> = {
 
 export function CasesCarousel({ cases }: CasesCarouselProps) {
   const { t } = useTranslation();
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const scrollToIndex = (index: number) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const card = el.children[index] as HTMLElement;
-    if (!card) return;
-    el.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
-    setCurrentIndex(index);
-  };
-
-  const scroll = (dir: "left" | "right") => {
-    if (dir === "right") {
-      scrollToIndex(currentIndex >= cases.length - 1 ? 0 : currentIndex + 1);
-    } else {
-      scrollToIndex(currentIndex <= 0 ? cases.length - 1 : currentIndex - 1);
-    }
-  };
-
-  const handleScroll = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const cards = Array.from(el.children) as HTMLElement[];
-    let closest = 0;
-    let minDist = Infinity;
-    cards.forEach((card, i) => {
-      const dist = Math.abs(card.offsetLeft - el.scrollLeft);
-      if (dist < minDist) { minDist = dist; closest = i; }
-    });
-    setCurrentIndex(closest);
-  };
+  const { scrollRef, scroll, handleScroll } = useCarousel(cases.length);
 
   return (
     <FadeIn delay={0.1}>
