@@ -462,13 +462,6 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       scope: "UX Research, UI, Otimização",
       overview:
         "Otimização da jornada do usuário nos formulários de interesse da Honda Automóveis. Através de análises comportamentais com Crazy Egg e benchmarks competitivos no setor automotivo, reestruturei o fluxo do formulário para reduzir fricção e aumentar a taxa de conversão.",
-      contextImage: {
-        src: "/honda-home-antiga.png",
-        width: 1920,
-        height: 2097,
-        kicker: "Antes",
-        caption: "A página de formulário antiga — ponto de partida da análise comportamental.",
-      },
       challenges: [
         "Formulários com alta taxa de abandono antes do final — confirmado por heatmap de scroll",
         "Seletor de concessionárias causava confusão e hesitação — identificado no heatmap de movimento do mouse",
@@ -476,9 +469,67 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         "Formulário sem adaptação ao contexto: mesmo layout para usuário que chegou pela página do carro e para quem clicou no header sem escolher modelo",
         "Ausência de personalização visual por campanha, quebrando a consistência com peças de mídia da Honda",
       ],
+      systemInAction: {
+        title: "Um formulário que responde ao contexto de entrada",
+        intro:
+          "O formulário antigo tratava todo tipo de usuário do mesmo jeito. A reestruturação partiu de evidência comportamental real, não de suposição, e resultou em um sistema que responde ao contexto de entrada de cada pessoa.",
+        meta: [
+          { value: "7", label: "cenários de entrada mapeados" },
+          { value: "5", label: "concorrentes no benchmark" },
+          { value: "3", label: "heatmaps analisados" },
+        ],
+        shots: [
+          {
+            idx: "01",
+            kind: "Diagnóstico",
+            title: "O comportamento real, não a heurística",
+            description:
+              "O heatmap de scroll mostrou que grande parte dos usuários não chegava ao final do formulário antigo. Essa evidência, mais o heatmap de cliques e o de movimento do mouse, foi o que orientou toda a reestruturação, não uma suposição de design.",
+            tags: ["heatmap de scroll", "CrazyEgg"],
+            images: ["/honda-heatmap-scroll.jpg"],
+            width: 1211,
+            height: 1780,
+            annotations: [
+              { label: "Abandono antes do fim", style: "top:46%;left:-12px" },
+              { label: "Dado comportamental real", side: "right", style: "top:28%;right:-12px" },
+            ],
+          },
+          {
+            idx: "02",
+            kind: "Antes",
+            title: "Uma tela única pra sete cenários diferentes",
+            description:
+              "O formulário antigo tratava da mesma forma o usuário que chegou pela página do carro e quem clicou no header sem escolher modelo nenhum. Esse foi o ponto de partida da análise.",
+            tags: ["antes", "ponto de partida"],
+            images: ["/honda-home-antiga.png"],
+            width: 1920,
+            height: 2097,
+            annotations: [
+              { label: "Mesmo layout pra todo mundo", style: "top:46%;left:-12px" },
+              { label: "Sem lógica condicional", side: "right", style: "top:28%;right:-12px" },
+            ],
+          },
+          {
+            idx: "03",
+            kind: "Personalização por campanha",
+            title: "O formulário muda com a campanha",
+            description:
+              "O fundo do formulário adapta cores e imagem à campanha vigente (por exemplo, CR-V Híbrido), reforçando a identidade visual e mantendo coerência com as peças de mídia da Honda.",
+            tags: ["personalização visual", "lógica condicional"],
+            images: ["/honda-fluxo-7.jpg"],
+            width: 571,
+            height: 371,
+            annotations: [
+              { label: "Adapta à campanha ativa", style: "top:44%;left:-12px" },
+              { label: "Coerência com a mídia paga", side: "right", style: "bottom:22%;right:-12px" },
+            ],
+          },
+        ],
+      },
       process: [
         {
-          title: "Diagnóstico comportamental com CrazyEgg",
+          title: "Diagnóstico comportamental",
+          headline: "Dados reais, não heurística",
           description:
             "Antes de propor qualquer solução, mapeei o comportamento real dos usuários com três tipos de análise:",
           bullets: [
@@ -495,16 +546,10 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
               text: "o seletor de concessionárias gerava hesitação visível — os usuários circulavam o mouse na área sem tomar decisão",
             },
           ],
-          image: {
-            src: "/honda-heatmap-scroll.jpg",
-            width: 1211,
-            height: 1780,
-            kicker: "Diagnóstico — CrazyEgg",
-            caption: "Heatmap de scroll: grande parte dos usuários não chegava ao final do formulário.",
-          },
         },
         {
           title: "Benchmark competitivo",
+          headline: "O que o mercado já resolveu",
           description:
             "Analisei os formulários de interesse de Toyota, Renault, Chevrolet, Mitsubishi Motors e Volkswagen. Padrões identificados:",
           bullets: [
@@ -514,7 +559,8 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
           ],
         },
         {
-          title: "Mapeamento de cenários de entrada",
+          title: "Mapeamento de cenários",
+          headline: "Sete entradas, sete comportamentos diferentes",
           description:
             "O formulário era tratado como uma tela única, mas os usuários chegavam por caminhos completamente diferentes. Mapeei 7 cenários distintos que exigiam comportamentos diferentes do formulário:",
           bullets: [
@@ -547,22 +593,22 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
               text: "o fundo do formulário adapta suas cores e imagem à campanha vigente (ex: CR-V Híbrido), reforçando a identidade visual da campanha e aumentando a coerência com as peças de mídia",
             },
           ],
-          image: {
-            src: "/honda-fluxo-7.jpg",
-            width: 571,
-            height: 371,
-            kicker: "Fluxo 7",
-            caption: "Fluxo 7 — o fundo do formulário se adapta à campanha vigente (ex: CR-V Híbrido).",
-          },
         },
         {
           title: "Handoff com tecnologia",
+          headline: "Especificação pronta pra implementar",
           description:
             "Coordenação com a equipe de tecnologia da Honda para especificação técnica e testes de cada fluxo, incluindo configuração de geolocalização, lógica condicional dos campos e personalização visual por campanha.",
         },
       ],
       resultsIntro:
-        "O projeto foi entregue como proposta validada em setembro de 2024. Por ter sido um trabalho freelance pontual, os dados de conversão pós-implementação não estão disponíveis. O que foi entregue:",
+        "O projeto foi entregue como proposta validada em setembro de 2024. Por ter sido um trabalho freelance pontual, os dados de conversão pós-implementação não estão disponíveis.",
+      metrics: [
+        { value: "7", unit: "fluxos mapeados e prototipados", label: "Cobrindo todos os cenários de entrada identificados" },
+        { value: "1", unit: "etapa manual eliminada", label: "Seleção de concessionária, nos casos de geolocalização disponível ou loja única" },
+        { value: "5", unit: "concorrentes no benchmark", label: "Toyota, Renault, Chevrolet, Mitsubishi Motors e Volkswagen" },
+        { value: "7 → 1", unit: "formulário único e contextual", label: "Personalização visual e campos condicionais por cenário de entrada, em vez de uma tela igual pra todo mundo" },
+      ],
       results: [
         {
           title: "7 fluxos mapeados e prototipados",
@@ -994,13 +1040,6 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       scope: "UX Research, UI, Optimization",
       overview:
         "Optimization of the user journey in Honda Automóveis interest forms. Through behavioral analysis with Crazy Egg and competitive benchmarks in the automotive sector, I restructured the form flow to reduce friction and increase conversion rate.",
-      contextImage: {
-        src: "/honda-home-antiga.png",
-        width: 1920,
-        height: 2097,
-        kicker: "Before",
-        caption: "The previous form page — the starting point of the behavioral analysis.",
-      },
       challenges: [
         "Forms with high abandonment before the end — confirmed by scroll heatmap",
         "The dealership selector caused confusion and hesitation — identified in the mouse-movement heatmap",
@@ -1008,9 +1047,67 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         "Form with no context adaptation: the same layout for a user who arrived from the car page and for one who clicked the header without choosing a model",
         "No visual customization per campaign, breaking consistency with Honda's media pieces",
       ],
+      systemInAction: {
+        title: "A form that responds to the entry context",
+        intro:
+          "The old form treated every kind of user the same way. The restructure started from real behavioral evidence, not assumption, and produced a system that responds to each person's entry context.",
+        meta: [
+          { value: "7", label: "entry scenarios mapped" },
+          { value: "5", label: "competitors benchmarked" },
+          { value: "3", label: "heatmaps analyzed" },
+        ],
+        shots: [
+          {
+            idx: "01",
+            kind: "Diagnosis",
+            title: "Real behavior, not heuristics",
+            description:
+              "The scroll heatmap showed that a large share of users never reached the end of the old form. That evidence, plus the click and mouse-movement heatmaps, guided the entire restructure — not a design assumption.",
+            tags: ["scroll heatmap", "CrazyEgg"],
+            images: ["/honda-heatmap-scroll.jpg"],
+            width: 1211,
+            height: 1780,
+            annotations: [
+              { label: "Drop-off before the end", style: "top:46%;left:-12px" },
+              { label: "Real behavioral data", side: "right", style: "top:28%;right:-12px" },
+            ],
+          },
+          {
+            idx: "02",
+            kind: "Before",
+            title: "One screen for seven different scenarios",
+            description:
+              "The old form treated the same way the user who arrived from the car page and the one who clicked the header without choosing any model. That was the starting point of the analysis.",
+            tags: ["before", "starting point"],
+            images: ["/honda-home-antiga.png"],
+            width: 1920,
+            height: 2097,
+            annotations: [
+              { label: "Same layout for everyone", style: "top:46%;left:-12px" },
+              { label: "No conditional logic", side: "right", style: "top:28%;right:-12px" },
+            ],
+          },
+          {
+            idx: "03",
+            kind: "Campaign customization",
+            title: "The form changes with the campaign",
+            description:
+              "The form background adapts colors and image to the active campaign (for example, CR-V Hybrid), reinforcing the visual identity and keeping coherence with Honda's media pieces.",
+            tags: ["visual customization", "conditional logic"],
+            images: ["/honda-fluxo-7.jpg"],
+            width: 571,
+            height: 371,
+            annotations: [
+              { label: "Adapts to the active campaign", style: "top:44%;left:-12px" },
+              { label: "Coherent with paid media", side: "right", style: "bottom:22%;right:-12px" },
+            ],
+          },
+        ],
+      },
       process: [
         {
-          title: "Behavioral diagnosis with CrazyEgg",
+          title: "Behavioral diagnosis",
+          headline: "Real data, not heuristics",
           description:
             "Before proposing any solution, I mapped real user behavior with three types of analysis:",
           bullets: [
@@ -1027,16 +1124,10 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
               text: "the dealership selector caused visible hesitation — users hovered around the area without making a decision",
             },
           ],
-          image: {
-            src: "/honda-heatmap-scroll.jpg",
-            width: 1211,
-            height: 1780,
-            kicker: "Diagnosis — CrazyEgg",
-            caption: "Scroll heatmap: a large share of users never reached the end of the form.",
-          },
         },
         {
           title: "Competitive benchmark",
+          headline: "What the market already solved",
           description:
             "I analyzed the interest forms of Toyota, Renault, Chevrolet, Mitsubishi Motors, and Volkswagen. Patterns identified:",
           bullets: [
@@ -1046,7 +1137,8 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
           ],
         },
         {
-          title: "Mapping entry scenarios",
+          title: "Mapping scenarios",
+          headline: "Seven entries, seven different behaviors",
           description:
             "The form was treated as a single screen, but users arrived through completely different paths. I mapped 7 distinct scenarios that required different form behaviors:",
           bullets: [
@@ -1079,22 +1171,22 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
               text: "the form background adapts its colors and image to the active campaign (e.g., CR-V Hybrid), reinforcing the campaign's visual identity and increasing coherence with the media pieces",
             },
           ],
-          image: {
-            src: "/honda-fluxo-7.jpg",
-            width: 571,
-            height: 371,
-            kicker: "Flow 7",
-            caption: "Flow 7 — the form background adapts to the active campaign (e.g., CR-V Hybrid).",
-          },
         },
         {
           title: "Handoff with technology",
+          headline: "Spec ready to implement",
           description:
             "Coordination with Honda's technology team for technical specification and testing of each flow, including geolocation setup, conditional field logic, and visual customization per campaign.",
         },
       ],
       resultsIntro:
-        "The project was delivered as a validated proposal in September 2024. As it was a one-off freelance engagement, post-implementation conversion data is not available. What was delivered:",
+        "The project was delivered as a validated proposal in September 2024. As it was a one-off freelance engagement, post-implementation conversion data is not available.",
+      metrics: [
+        { value: "7", unit: "flows mapped and prototyped", label: "Covering all identified entry scenarios" },
+        { value: "1", unit: "manual step eliminated", label: "Dealership selection, in cases of available geolocation or a single store" },
+        { value: "5", unit: "competitors benchmarked", label: "Toyota, Renault, Chevrolet, Mitsubishi Motors, and Volkswagen" },
+        { value: "7 → 1", unit: "single, contextual form", label: "Visual customization and conditional fields per entry scenario, instead of one screen for everyone" },
+      ],
       results: [
         {
           title: "7 flows mapped and prototyped",
