@@ -398,6 +398,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       tag: "Plataforma multilateral",
       year: "2024",
       accentColor: "accent-3",
+      confidential: true,
       title: "Leiteiro",
       subtitle:
         "UX e UI para plataforma que conecta empresas agro e produtores rurais",
@@ -412,18 +413,99 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         "Necessidade de painéis admin robustos para empresas e analistas",
         "Responsabilidade total sobre todo o design da plataforma",
       ],
+      systemInAction: {
+        title: "Uma plataforma para dois públicos opostos",
+        intro:
+          "A plataforma precisava funcionar igualmente bem para dois perfis opostos: o produtor rural com baixa familiaridade digital e a empresa parceira operando um painel administrativo denso. As imagens abaixo mostram um recorte do trabalho, com a marca do cliente preservada em sigilo.",
+        meta: [
+          { value: "2", label: "públicos com necessidades opostas" },
+          { value: "3", label: "jornadas desenhadas" },
+          { value: "1", label: "design system completo pro setor agro" },
+        ],
+        shots: [
+          {
+            idx: "01",
+            kind: "Entrada",
+            title: "Login simples pra quem não é do digital",
+            description:
+              "Tela de entrada limpa, com opção de login via Google para reduzir o atrito de criar mais uma senha, pensada para o produtor rural sem familiaridade com sistemas complexos.",
+            tags: ["acessibilidade", "redução de atrito"],
+            images: ["/leiteiro-login.png"],
+            width: 1440,
+            height: 1024,
+            annotations: [
+              { label: "Login com Google", style: "top:46%;left:-12px" },
+              { label: "Poucos campos", side: "right", style: "top:28%;right:-12px" },
+            ],
+          },
+          {
+            idx: "02",
+            kind: "Painel administrativo",
+            title: "A estrutura antes da interface",
+            description:
+              "Wireframe do painel das empresas parceiras. Antes de partir para o visual, resolvi a arquitetura de informação — abas por categoria, busca e paginação — para dar conta da densidade de dados sem sobrecarregar a tela. A decisão de estrutura veio antes da execução.",
+            tags: ["wireframe", "arquitetura de informação"],
+            images: ["/leiteiro-painel.png"],
+            width: 1440,
+            height: 886,
+            annotations: [
+              { label: "Estrutura antes do visual", style: "top:42%;left:-12px" },
+              { label: "Abas por categoria", side: "right", style: "bottom:24%;right:-12px" },
+            ],
+          },
+          {
+            idx: "03",
+            kind: "Gestão de produtos",
+            title: "CRUD robusto, mesmo padrão em toda a plataforma",
+            description:
+              "Tabela de gestão de produtos com seleção múltipla, status coloridos (aprovado, em andamento, reprovado, desativado) e ações rápidas de edição, reaproveitando os mesmos componentes do design system em todos os painéis administrativos.",
+            tags: ["CRUD", "status coloridos"],
+            images: ["/leiteiro-produtos-cadastrados.png"],
+            width: 851,
+            height: 622,
+            annotations: [
+              { label: "4 estados de status", style: "top:44%;left:-12px" },
+              { label: "Ações em lote", side: "right", style: "top:28%;right:-12px" },
+            ],
+          },
+          {
+            idx: "04",
+            kind: "Design system",
+            title: "Base visual pensada pra escalar",
+            description:
+              "Paleta, tipografia, ícones customizados para o setor (rebanho, produção, sanidade) e componentes reutilizáveis, estruturados desde o início para sustentar novas telas sem retrabalho.",
+            tags: ["design system", "ícones customizados"],
+            images: ["/leiteiro-design-system.jpg"],
+            width: 1288,
+            height: 923,
+            annotations: [
+              { label: "Ícones customizados pro agro", style: "top:44%;left:-12px" },
+              { label: "Componentes reutilizáveis", side: "right", style: "bottom:24%;right:-12px" },
+            ],
+          },
+        ],
+      },
       process: [
         {
-          title: "A tensão central do projeto",
+          title: "Diagnóstico",
+          headline: "A tensão central do projeto",
           description:
             "A plataforma servia dois perfis radicalmente diferentes. De um lado, empresas agro com times estruturados e familiaridade com ferramentas digitais. Do outro, produtores rurais — em grande parte pessoas mais velhas, com pouca experiência tecnológica e contexto de uso completamente diferente. O que funcionava para um lado criava barreira para o outro.",
         },
         {
-          title: "A decisão de design",
+          title: "Decisão de design",
+          headline: "Desenhar a partir do usuário mais vulnerável",
           description:
             "Qualquer solução que priorizasse funcionalidade avançada para as empresas sacrificaria a acessibilidade para os produtores. A decisão foi desenhar a partir do usuário mais vulnerável: fluxos simplificados, linguagem direta, hierarquia visual clara e menos opções por tela. As empresas perderiam alguma densidade de informação, mas o produto só funcionaria se os dois lados conseguissem operar com autonomia.",
         },
       ],
+      metrics: [
+        { value: "2", unit: "públicos com necessidades opostas", label: "Produtores rurais com baixa familiaridade digital e empresas com painéis administrativos robustos" },
+        { value: "3", unit: "jornadas desenhadas", label: "Cliente, empresa e analista, com fluxos independentes e coerentes entre si" },
+        { value: "1", unit: "design system completo", label: "Paleta, tipografia, ícones customizados pro setor agro e componentes reutilizáveis, com escala prevista" },
+      ],
+      resultsNote:
+        "O projeto foi entregue como design completo, protótipo e design system prontos para desenvolvimento. Não tive acompanhamento do que aconteceu após a entrega, então não afirmo se chegou a produção ou como está hoje.",
       results: [
         {
           title: "Experiência acessível para usuários com baixa familiaridade digital",
@@ -448,6 +530,13 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       ],
       learnings:
         "O maior aprendizado foi construir uma experiência intuitiva para usuários com pouca familiaridade digital, sem comprometer a robustez e autonomia dos perfis administrativos.",
+      cta: {
+        title: "Quer saber mais sobre esse projeto?",
+        description:
+          "As telas acima são um recorte do trabalho. Prefiro não expor publicamente a marca e a lógica interna desse projeto, mas posso detalhar mais em conversa direta.",
+        linkLabel: "Falar no LinkedIn",
+        linkUrl: "https://www.linkedin.com/in/cristiano-carvalho-design/",
+      },
     },
     {
       id: "honda",
@@ -976,6 +1065,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       tag: "Multilateral Platform",
       year: "2024",
       accentColor: "accent-3",
+      confidential: true,
       title: "Leiteiro",
       subtitle:
         "UX and UI for a platform connecting agribusiness companies and rural producers",
@@ -990,18 +1080,99 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         "Need for robust admin dashboards for companies and analysts",
         "Full responsibility for the entire platform design",
       ],
+      systemInAction: {
+        title: "One platform for two opposite audiences",
+        intro:
+          "The platform had to work equally well for two opposite profiles: the rural producer with low digital familiarity and the partner company operating a dense admin panel. The screens below show a slice of the work, with the client's brand kept confidential.",
+        meta: [
+          { value: "2", label: "audiences with opposite needs" },
+          { value: "3", label: "journeys designed" },
+          { value: "1", label: "complete design system for agribusiness" },
+        ],
+        shots: [
+          {
+            idx: "01",
+            kind: "Entry",
+            title: "Simple login for non-digital users",
+            description:
+              "A clean entry screen, with Google login to reduce the friction of creating yet another password, designed for the rural producer unfamiliar with complex systems.",
+            tags: ["accessibility", "reduced friction"],
+            images: ["/leiteiro-login.png"],
+            width: 1440,
+            height: 1024,
+            annotations: [
+              { label: "Google login", style: "top:46%;left:-12px" },
+              { label: "Few fields", side: "right", style: "top:28%;right:-12px" },
+            ],
+          },
+          {
+            idx: "02",
+            kind: "Admin panel",
+            title: "Structure before the interface",
+            description:
+              "Wireframe of the partner companies' panel. Before moving to visual design, I resolved the information architecture — tabs by category, search, and pagination — to handle the data density without overloading the screen. The structural decision came before execution.",
+            tags: ["wireframe", "information architecture"],
+            images: ["/leiteiro-painel.png"],
+            width: 1440,
+            height: 886,
+            annotations: [
+              { label: "Structure before visuals", style: "top:42%;left:-12px" },
+              { label: "Tabs by category", side: "right", style: "bottom:24%;right:-12px" },
+            ],
+          },
+          {
+            idx: "03",
+            kind: "Product management",
+            title: "Robust CRUD, the same pattern across the platform",
+            description:
+              "A product management table with multi-select, color-coded statuses (approved, in progress, rejected, disabled), and quick edit actions, reusing the same design-system components across every admin panel.",
+            tags: ["CRUD", "color-coded statuses"],
+            images: ["/leiteiro-produtos-cadastrados.png"],
+            width: 851,
+            height: 622,
+            annotations: [
+              { label: "4 status states", style: "top:44%;left:-12px" },
+              { label: "Bulk actions", side: "right", style: "top:28%;right:-12px" },
+            ],
+          },
+          {
+            idx: "04",
+            kind: "Design system",
+            title: "A visual base built to scale",
+            description:
+              "Palette, typography, icons customized for the sector (herd, production, animal health), and reusable components, structured from the start to sustain new screens without rework.",
+            tags: ["design system", "custom icons"],
+            images: ["/leiteiro-design-system.jpg"],
+            width: 1288,
+            height: 923,
+            annotations: [
+              { label: "Custom icons for agribusiness", style: "top:44%;left:-12px" },
+              { label: "Reusable components", side: "right", style: "bottom:24%;right:-12px" },
+            ],
+          },
+        ],
+      },
       process: [
         {
-          title: "The core tension of the project",
+          title: "Diagnosis",
+          headline: "The core tension of the project",
           description:
             "The platform served two radically different profiles. On one side, agro companies with structured teams and digital tool familiarity. On the other, rural producers — largely older individuals with limited tech experience and a completely different usage context. What worked well for one side created a barrier for the other.",
         },
         {
-          title: "The design decision",
+          title: "Design decision",
+          headline: "Design from the most vulnerable user outward",
           description:
             "Any solution that prioritized advanced functionality for companies would sacrifice accessibility for producers. The decision was to design from the most vulnerable user outward: simplified flows, direct language, clear visual hierarchy, and fewer options per screen. Companies would lose some information density, but the product would only work if both sides could operate independently.",
         },
       ],
+      metrics: [
+        { value: "2", unit: "audiences with opposite needs", label: "Rural producers with low digital familiarity and companies with robust admin panels" },
+        { value: "3", unit: "journeys designed", label: "Client, company, and analyst, with independent yet cohesive flows" },
+        { value: "1", unit: "complete design system", label: "Palette, typography, custom icons for agribusiness, and reusable components, built to scale" },
+      ],
+      resultsNote:
+        "The project was delivered as complete design, prototype, and design system ready for development. I had no follow-up on what happened after delivery, so I can't claim whether it reached production or how it stands today.",
       results: [
         {
           title: "Accessible experience for users with low digital familiarity",
@@ -1026,6 +1197,13 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       ],
       learnings:
         "The biggest learning was building an intuitive experience for users with little digital familiarity, without compromising the robustness and autonomy of administrative profiles.",
+      cta: {
+        title: "Want to know more about this project?",
+        description:
+          "The screens above are a slice of the work. I'd rather not publicly expose the brand and internal logic of this project, but I can go into more detail in a direct conversation.",
+        linkLabel: "Connect on LinkedIn",
+        linkUrl: "https://www.linkedin.com/in/cristiano-carvalho-design/",
+      },
     },
     {
       id: "honda",
