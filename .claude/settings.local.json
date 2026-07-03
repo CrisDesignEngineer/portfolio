@@ -14,7 +14,10 @@
       "mcp__b3c9cb70-8e25-4a64-a1b7-c5a7243affa0__list_deployments",
       "Bash(node -e \"const lr = require\\(''lucide-react''\\); console.log\\(typeof lr.Award, typeof lr.X, typeof lr.Linkedin\\)\")",
       "Bash(node -e \"const lr = require\\(''lucide-react''\\); console.log\\(Object.keys\\(lr\\).filter\\(k => k.toLowerCase\\(\\).includes\\(''linkedin''\\)\\)\\)\")",
-      "Bash(node -e \"const lr = require\\(''lucide-react''\\); const keys = Object.keys\\(lr\\).slice\\(0, 30\\); console.log\\(keys\\)\")"
+      "Bash(node -e \"const lr = require\\(''lucide-react''\\); const keys = Object.keys\\(lr\\).slice\\(0, 30\\); console.log\\(keys\\)\")",
+      "Bash(claude plugin:*)",
+      "Bash(echo \"EXIT: $?\")",
+      "mcp__b56b86f8-67f4-47f9-be3e-f1d7f8875f61__get_issue"
     ]
   }
 }

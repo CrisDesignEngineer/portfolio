@@ -1,0 +1,99 @@
+{
+  "header": {
+    "cases": "Cases",
+    "about": "Sobre",
+    "contact": "Contato",
+    "role": "Product Designer + Engineer",
+    "back": "Voltar",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu"
+  },
+  "hero": {
+    "titleStart": "Do Figma ao código",
+    "titleHighlight": "em produção",
+    "description": "Product Designer & Design Engineer. SaaS B2B, Design Systems e interfaces escaláveis. Não desenho apenas interfaces. Estruturo produtos e construo soluções.",
+    "ctaCases": "Ver cases",
+    "ctaContact": "Contato",
+    "stackLabel": "Stack & Tools"
+  },
+  "heroPreview": {
+    "title": "Design System",
+    "description": "Componentes, tokens e padrões escaláveis para produtos consistentes.",
+    "components": "Componentes",
+    "production": "Produção",
+    "tokens": "Tokens",
+    "semantic": "Semânticos"
+  },
+  "cases": {
+    "label": "Cases",
+    "title": "Projetos selecionados",
+    "viewCase": "Ver case completo",
+    "viewCaseShort": "Ver case",
+    "preview": "Preview do projeto",
+    "confidential": "Confidencial",
+    "previous": "Anterior",
+    "next": "Próximo",
+    "goToCase": "Ir para case"
+  },
+  "caseDetail": {
+    "role": "Role",
+    "duration": "Duração",
+    "scope": "Escopo",
+    "overview": "Visão geral",
+    "challenges": "Desafios",
+    "process": "Processo",
+    "results": "Resultados",
+    "learnings": "Aprendizados",
+    "nextCase": "Próximo case",
+    "confidentialContent": "Conteúdo confidencial"
+  },
+  "about": {
+    "label": "Sobre mim",
+    "title": "Product Designer &",
+    "titleHighlight": "Design Engineer",
+    "bio": [
+      "Product Designer e Design Engineer com formação em Sistemas de Informação e experiência desde 2016 em produtos digitais B2B e SaaS.",
+      "Minha atuação conecta design e engenharia: vou do discovery e definição de problemas até a implementação em código, eliminando o gap entre o que é projetado no Figma e o que chega em produção.",
+      "Organizo arquitetura, reduzo ruído, crio padrões escaláveis e conecto experiência a métricas e impacto real no negócio. Quando necessário, coloco a mão no código para garantir que a entrega final tenha o nível de polimento e performance que o produto precisa."
+    ],
+    "productDesign": "Product Design",
+    "designEngineering": "Design Engineering",
+    "designSkills": [
+      "Estruturação e evolução de design systems escaláveis com tokens semânticos e componentes reutilizáveis",
+      "Desenho de fluxos complexos e jornadas críticas com foco em redução de fricção e clareza da informação",
+      "Prototipação de média e alta fidelidade para validação e tomada de decisão",
+      "UX research incluindo análise comportamental, testes de usabilidade e validação contínua",
+      "Arquitetura da informação para sistemas com grande volume de dados e regras de negócio",
+      "Uso estratégico de dados e métricas para orientar decisões de produto"
+    ],
+    "engineeringSkills": [
+      "Implementação de interfaces com React/Next.js, garantindo fidelidade ao design e performance",
+      "Deploy e gerenciamento via Vercel, com workflow profissional usando GitHub",
+      "Integração Figma-to-code com IA (Claude Code), acelerando a ponte entre design e código",
+      "Banco de dados (Neon/PostgreSQL), pagamentos (Stripe) e emails transacionais (Resend)",
+      "Design systems técnicos com shadcn/ui, HeroUI e Tailwind CSS",
+      "Colaboração direta com engenharia, eliminando handoff e entregando soluções end-to-end"
+    ],
+    "skillsLabel": "Skills",
+    "skills": [
+      "Pesquisa com usuários",
+      "Wireframing e prototipação",
+      "Design de interface (UI)",
+      "Design Thinking",
+      "Design responsivo e mobile-first",
+      "Design Engineering"
+    ],
+    "toolsLabel": "Ferramentas & Stack"
+  },
+  "contact": {
+    "label": "Contato",
+    "title": "Vamos conversar?",
+    "description": "Se você busca um designer que entende de produto e tecnologia, estou disponível para novos projetos.",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "phone": "Telefone"
+  },
+  "footer": {
+    "available": "Disponível para novos projetos"
+  }
+}

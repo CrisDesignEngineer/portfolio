@@ -1,0 +1,99 @@
+{
+  "header": {
+    "cases": "Cases",
+    "about": "About",
+    "contact": "Contact",
+    "role": "Product Designer + Engineer",
+    "back": "Back",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "titleStart": "From Figma to code",
+    "titleHighlight": "in production",
+    "description": "Product Designer & Design Engineer. B2B SaaS, Design Systems, and scalable interfaces. I don't just design interfaces. I structure products and build solutions.",
+    "ctaCases": "View cases",
+    "ctaContact": "Contact",
+    "stackLabel": "Stack & Tools"
+  },
+  "heroPreview": {
+    "title": "Design System",
+    "description": "Scalable components, tokens, and patterns for consistent products.",
+    "components": "Components",
+    "production": "Production",
+    "tokens": "Tokens",
+    "semantic": "Semantic"
+  },
+  "cases": {
+    "label": "Cases",
+    "title": "Selected projects",
+    "viewCase": "View full case",
+    "viewCaseShort": "View case",
+    "preview": "Project preview",
+    "confidential": "Confidential",
+    "previous": "Previous",
+    "next": "Next",
+    "goToCase": "Go to case"
+  },
+  "caseDetail": {
+    "role": "Role",
+    "duration": "Duration",
+    "scope": "Scope",
+    "overview": "Overview",
+    "challenges": "Challenges",
+    "process": "Process",
+    "results": "Results",
+    "learnings": "Learnings",
+    "nextCase": "Next case",
+    "confidentialContent": "Confidential content"
+  },
+  "about": {
+    "label": "About me",
+    "title": "Product Designer &",
+    "titleHighlight": "Design Engineer",
+    "bio": [
+      "Product Designer and Design Engineer with a degree in Information Systems and experience since 2016 in B2B and SaaS digital products.",
+      "My work connects design and engineering: from discovery and problem definition to code implementation, closing the gap between what's designed in Figma and what ships to production.",
+      "I organize architecture, reduce noise, create scalable patterns, and connect experience to metrics and real business impact. When needed, I write code to ensure the final delivery has the level of polish and performance the product demands."
+    ],
+    "productDesign": "Product Design",
+    "designEngineering": "Design Engineering",
+    "designSkills": [
+      "Building and evolving scalable design systems with semantic tokens and reusable components",
+      "Designing complex flows and critical journeys focused on reducing friction and information clarity",
+      "Medium and high-fidelity prototyping for validation and decision-making",
+      "UX research including behavioral analysis, usability testing, and continuous validation",
+      "Information architecture for systems with large data volumes and business rules",
+      "Strategic use of data and metrics to guide product decisions"
+    ],
+    "engineeringSkills": [
+      "Building interfaces with React/Next.js, ensuring design fidelity and performance",
+      "Deployment and management via Vercel, with professional GitHub workflow",
+      "Figma-to-code integration with AI (Claude Code), accelerating the design-to-code bridge",
+      "Databases (Neon/PostgreSQL), payments (Stripe), and transactional emails (Resend)",
+      "Technical design systems with shadcn/ui, HeroUI, and Tailwind CSS",
+      "Direct collaboration with engineering, eliminating handoff and delivering end-to-end solutions"
+    ],
+    "skillsLabel": "Skills",
+    "skills": [
+      "User research",
+      "Wireframing & prototyping",
+      "Interface design (UI)",
+      "Design Thinking",
+      "Responsive & mobile-first design",
+      "Design Engineering"
+    ],
+    "toolsLabel": "Tools & Stack"
+  },
+  "contact": {
+    "label": "Contact",
+    "title": "Let's talk?",
+    "description": "If you're looking for a designer who understands product and technology, I'm available for new projects.",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "phone": "Phone"
+  },
+  "footer": {
+    "available": "Available for new projects"
+  }
+}
