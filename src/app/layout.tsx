@@ -4,6 +4,7 @@ import "./globals.css";
 import { LanguageProvider, LocaleFadeWrapper } from "@/i18n/LanguageContext";
 import { MobileLanguageFab } from "@/components/MobileLanguageFab";
 import { TokenStyles } from "@/design-system/TokenStyles";
+import { Analytics } from "@vercel/analytics/next";
 
 // Display font — headings / titles
 const sora = Sora({
@@ -85,6 +86,7 @@ export default function RootLayout({
           </LocaleFadeWrapper>
           <MobileLanguageFab />
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );
