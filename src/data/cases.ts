@@ -71,12 +71,12 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       duration: "8 meses",
       scope: "UX, UI, Design System",
       overview:
-        "Criação de uma plataforma SaaS do zero, com foco em estruturar uma experiência clara, consistente e preparada para escalar. O desafio central foi transformar uma ideia de produto em uma interface funcional, criando padrões de interface que sustentassem a evolução contínua da plataforma.",
+        "Criação de uma plataforma SaaS do zero para conectar marcas e criadores de conteúdo, unindo dois modelos de monetização na mesma base de produto: participação em campanhas de conteúdo remuneradas por performance, e um conjunto mais amplo de gestão do lado do vendedor (vendas, assinaturas, carteira financeira, catálogo de produtos como cursos e ebooks). O plano enquanto eu estava no projeto era lançar os dois modelos juntos. O desafio central foi estruturar essa dupla lógica de negócio numa arquitetura de interface coesa, capaz de sustentar a evolução contínua da plataforma.",
       challenges: [
-        "Plataforma com múltiplas funcionalidades e fluxos interdependentes",
-        "Necessidade de estruturar arquitetura de interface desde o início",
-        "Tradução de regras de negócio complexas em experiências claras",
-        "Alinhamento técnico com shadcn/ui e Tailwind CSS",
+        "Unir dois modelos de monetização completamente diferentes (campanhas de conteúdo por performance, e gestão do lado do vendedor com vendas, assinaturas, carteira e produtos) numa arquitetura de interface coesa",
+        "Nomenclatura e iconografia confusas em fluxos-chave, identificadas por validação com usuários restritos conduzida pelo PM antes do lançamento, com insights repassados pra mim e implementados nas telas",
+        "Falha de usabilidade na área de cursos/infoprodutos, impedindo o usuário de marcar uma aula como assistida e travando o progresso, corrigida no mesmo processo de teste restrito",
+        "Coordenar dois designers juniores com estilos de trabalho muito próprios dentro de um design system ainda em construção",
       ],
       process: [
         {
@@ -135,7 +135,7 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       learnings:
         "Este projeto reforçou a importância de estruturar um design system desde o início e o impacto que o alinhamento entre design e engenharia tem na velocidade de desenvolvimento de um SaaS.",
       resultsIntro:
-        "O projeto foi interrompido antes do lançamento por mudanças internas na empresa. O design system foi entregue completo — 48 componentes, 120+ tokens semânticos, dois temas nativos, documentação de governança e processo estabelecido com a equipe. Pronto para implementação no momento em que o projeto foi encerrado.",
+        "Minha atuação no projeto foi encerrada antes do lançamento, por mudanças internas na empresa. Até esse momento, o plano era lançar a plataforma completa, cobrindo tanto as campanhas de conteúdo quanto o conjunto de gestão do vendedor (vendas, assinaturas, carteira, produtos). O design system foi entregue completo pra esse escopo: 48 componentes, 120+ tokens semânticos, dois temas nativos, documentação de governança e processo estabelecido com a equipe. Depois da minha saída, sem participação minha, a empresa reduziu o escopo de lançamento a um MVP de campanhas de conteúdo, que foi o modelo publicamente lançado.",
       metrics: [
         { value: "48", unit: "componentes", label: "Biblioteca reutilizável" },
         { value: "120", sup: "+", unit: "tokens", label: "Tokens semânticos" },
@@ -224,6 +224,21 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
             annotations: [
               { label: "Mesma tabela de vendas", style: "top:46%;left:-12px" },
               { label: "Mesmos filtros", side: "right", style: "top:30%;right:-12px" },
+            ],
+          },
+          {
+            idx: "06",
+            kind: "Gestão do vendedor",
+            title: "Painel do vendedor, nunca chegou a ter uso real",
+            description:
+              "Print real da camada de gestão do vendedor: menu lateral completo e dashboard financeiro zerado. Essa parte da plataforma foi desenhada por inteiro, mas não chegou a ser lançada publicamente.",
+            tags: ["camada não lançada", "print real"],
+            images: ["/saas-platform-evidencia-combinada.png"],
+            width: 1061,
+            height: 678,
+            annotations: [
+              { label: "Menu lateral completo", style: "top:46%;left:-12px" },
+              { label: "Dashboard financeiro zerado", side: "right", style: "top:28%;right:-12px" },
             ],
           },
         ],
