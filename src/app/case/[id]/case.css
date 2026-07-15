@@ -285,3 +285,13 @@
   .casepage .anno { position: static; opacity: 1; transform: none; margin-top: 8px; }
   .casepage .frame-wrap { display: flex; flex-direction: column; }
 }
+
+/* Limita a largura dos dois shots retrato (print de celular) do case
+   Leiteiro, pra altura não estourar dentro da coluna do grid. Mira pelo
+   nome do arquivo de imagem, então funciona nas versões PT e EN sem
+   depender de nenhuma classe adicional no componente React. */
+.casepage .frame-col:has(img[src*="leiteiro-checkout"]) .frame-wrap,
+.casepage .frame-col:has(img[src*="leiteiro-tracking"]) .frame-wrap {
+  max-width: 300px;
+  margin-inline: auto;
+}

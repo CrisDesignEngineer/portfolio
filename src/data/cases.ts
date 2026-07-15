@@ -395,141 +395,143 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
     {
       id: "leiteiro",
       image: "/leiteiro.jpg",
-      tag: "Plataforma multilateral",
+      tag: "Marketplace de infoprodutos",
       year: "2024",
       accentColor: "accent-3",
       confidential: true,
       title: "Leiteiro",
       subtitle:
-        "UX e UI para plataforma que conecta empresas agro e produtores rurais",
+        "UX e UI para a camada de marketplace que conecta empresas parceiras a produtores rurais, com controle de acesso a dado sensível",
       role: "Product Designer",
       duration: "3 meses",
       scope: "UX, UI, Design System",
       overview:
-        "A Leiteiro conecta empresas do setor agro a produtores rurais interessados em adquirir produtos e serviços personalizados. O grande desafio foi criar uma experiência fluida para dois públicos com perfis opostos: produtores com pouca familiaridade tecnológica e empresas que precisam de painéis administrativos robustos.",
+        "Entrei no projeto no momento em que nenhuma parte da plataforma existia ainda. A camada que coube a mim foi aquela em que empresas parceiras do setor agro configuram e vendem infoprodutos usando dado que o produtor já tem cadastrado, e onde o produtor compra e acompanha esse infoproduto. O desafio central não era a operação do dia a dia do produtor, isso vivia em outra parte do produto. Era desenhar como uma empresa terceira acessa um dado sensível de outra pessoa (financeiro, reprodução do rebanho, análise de solo) de forma controlada, com consentimento explícito.",
       challenges: [
-        "Dois públicos com perfis e necessidades muito distintos",
-        "Usuários finais com pouca familiaridade digital (produtores 30+)",
-        "Necessidade de painéis admin robustos para empresas e analistas",
-        "Responsabilidade total sobre todo o design da plataforma",
+        "Modelo de dado do produtor com mais de 100 campos, denso demais pra expor de uma vez pra quem não é o dono do dado",
+        "Consentimento de acesso a dado sensível de terceiros (CPF, financeiro, reprodução do rebanho), não da própria empresa logada",
+        "Persona, identidade visual e estrutura de dado já definidas pelo cliente, sem espaço de descoberta aberta",
+        "Fluxo de compra e acompanhamento do produtor precisava sustentar múltiplos métodos de pagamento e estados de erro claros",
       ],
       systemInAction: {
-        title: "Uma plataforma para dois públicos opostos",
+        title: "Escolher dado por categoria, uma etapa por vez",
         intro:
-          "A plataforma precisava funcionar igualmente bem para dois perfis opostos: o produtor rural com baixa familiaridade digital e a empresa parceira operando um painel administrativo denso. As imagens abaixo mostram um recorte do trabalho, com a marca do cliente preservada em sigilo.",
+          "A plataforma precisava dar conta de duas pontas: a empresa parceira configurando e vendendo um infoproduto, e o produtor comprando e acompanhando esse infoproduto. As imagens abaixo mostram um recorte do trabalho, com a marca do cliente preservada em sigilo.",
         meta: [
-          { value: "2", label: "públicos com necessidades opostas" },
-          { value: "3", label: "jornadas desenhadas" },
-          { value: "1", label: "design system completo pro setor agro" },
+          { value: "13", label: "categorias de dado organizadas" },
+          { value: "3", label: "métodos de pagamento" },
+          { value: "8", label: "estados no acompanhamento do pedido" },
         ],
         shots: [
           {
             idx: "01",
-            kind: "Entrada",
-            title: "Login simples pra quem não é do digital",
+            kind: "Consentimento",
+            title: "Escolher dado por categoria, não tudo de uma vez",
             description:
-              "Tela de entrada limpa, com opção de login via Google para reduzir o atrito de criar mais uma senha, pensada para o produtor rural sem familiaridade com sistemas complexos.",
-            tags: ["acessibilidade", "redução de atrito"],
-            images: ["/leiteiro-login.png"],
-            width: 1440,
-            height: 1024,
+              "A empresa parceira navega por 13 categorias de dado do produtor (propriedades, rebanho, reprodução, financeiro, entre outras) e escolhe o que precisa. Categorias com dado sensível recebem um aviso à parte, avisando que a análise pode levar mais tempo.",
+            tags: ["consentimento", "dado sensível"],
+            images: ["/leiteiro-selecao-dados.png"],
+            width: 810,
+            height: 1030,
             annotations: [
-              { label: "Login com Google", style: "top:46%;left:-12px" },
-              { label: "Poucos campos", side: "right", style: "top:28%;right:-12px" },
+              { label: "13 categorias organizadas", style: "top:46%;left:-12px" },
+              { label: "Aviso pra dado sensível", side: "right", style: "top:28%;right:-12px" },
             ],
           },
           {
             idx: "02",
-            kind: "Painel administrativo",
-            title: "A estrutura antes da interface",
+            kind: "Termo legal",
+            title: "Um termo antes de liberar o acesso",
             description:
-              "Wireframe do painel das empresas parceiras. Antes de partir para o visual, resolvi a arquitetura de informação — abas por categoria, busca e paginação — para dar conta da densidade de dados sem sobrecarregar a tela. A decisão de estrutura veio antes da execução.",
-            tags: ["wireframe", "arquitetura de informação"],
-            images: ["/leiteiro-painel.png"],
-            width: 1440,
-            height: 886,
+              "Antes de finalizar a solicitação, a empresa confirma que está ciente de que o dado acessado é exclusivo pra criação daquele produto e não pode ser reaproveitado pra outro fim.",
+            tags: ["consentimento", "LGPD"],
+            images: ["/leiteiro-termo-legal.png"],
+            width: 810,
+            height: 1030,
             annotations: [
-              { label: "Estrutura antes do visual", style: "top:42%;left:-12px" },
-              { label: "Abas por categoria", side: "right", style: "bottom:24%;right:-12px" },
+              { label: "Uso exclusivo do dado", style: "top:42%;left:-12px" },
+              { label: "Checkbox de ciência", side: "right", style: "bottom:24%;right:-12px" },
             ],
           },
           {
             idx: "03",
-            kind: "Gestão de produtos",
-            title: "CRUD robusto, mesmo padrão em toda a plataforma",
+            kind: "Checkout",
+            title: "Três formas de pagar, uma tela por vez",
             description:
-              "Tabela de gestão de produtos com seleção múltipla, status coloridos (aprovado, em andamento, reprovado, desativado) e ações rápidas de edição, reaproveitando os mesmos componentes do design system em todos os painéis administrativos.",
-            tags: ["CRUD", "status coloridos"],
-            images: ["/leiteiro-produtos-cadastrados.png"],
-            width: 851,
-            height: 622,
+              "O produtor escolhe entre Pix, cartão parcelado em até 12x ou boleto, com o valor sempre visível. O faturamento pode usar CPF pessoal ou CNPJ, sem alterar o cadastro principal do usuário.",
+            tags: ["checkout", "meios de pagamento"],
+            images: ["/leiteiro-checkout.png"],
+            width: 1080,
+            height: 1962,
             annotations: [
-              { label: "4 estados de status", style: "top:44%;left:-12px" },
-              { label: "Ações em lote", side: "right", style: "top:28%;right:-12px" },
+              { label: "3 métodos num só lugar", style: "top:44%;left:-12px" },
+              { label: "Parcelamento até 12x", side: "right", style: "top:28%;right:-12px" },
             ],
           },
           {
             idx: "04",
-            kind: "Design system",
-            title: "Base visual pensada pra escalar",
+            kind: "Acompanhamento",
+            title: "Cada etapa do pedido, inclusive quando dá errado",
             description:
-              "Paleta, tipografia, ícones customizados para o setor (rebanho, produção, sanidade) e componentes reutilizáveis, estruturados desde o início para sustentar novas telas sem retrabalho.",
-            tags: ["design system", "ícones customizados"],
-            images: ["/leiteiro-design-system.jpg"],
-            width: 1288,
-            height: 923,
+              "Do pagamento ao download, o pedido passa por 8 estados possíveis. Quando um dado enviado é reprovado, a mensagem explica o motivo específico em vez de um erro genérico.",
+            tags: ["tracking", "tratamento de erro"],
+            images: ["/leiteiro-tracking.png"],
+            width: 1080,
+            height: 2001,
             annotations: [
-              { label: "Ícones customizados pro agro", style: "top:44%;left:-12px" },
-              { label: "Componentes reutilizáveis", side: "right", style: "bottom:24%;right:-12px" },
+              { label: "8 estados de pedido", style: "top:44%;left:-12px" },
+              { label: "Erro com motivo específico", side: "right", style: "bottom:24%;right:-12px" },
             ],
           },
         ],
       },
       process: [
         {
-          title: "Diagnóstico",
-          headline: "A tensão central do projeto",
+          title: "Ponto de partida",
+          headline: "Nada existia antes dessa camada",
           description:
-            "A plataforma servia dois perfis radicalmente diferentes. De um lado, empresas agro com times estruturados e familiaridade com ferramentas digitais. Do outro, produtores rurais — em grande parte pessoas mais velhas, com pouca experiência tecnológica e contexto de uso completamente diferente. O que funcionava para um lado criava barreira para o outro.",
+            "Entrei no projeto no momento em que a plataforma ainda não tinha nenhuma parte desenvolvida. O trabalho começou a partir de uma persona e uma estrutura de dado que o cliente já tinha definido em um documento de escopo. Não havia produto existente pra pesquisar nem benchmark de mercado nessa etapa, o ponto de partida foi traduzir esse briefing em arquitetura de interface.",
         },
         {
-          title: "Decisão de design",
-          headline: "Desenhar a partir do usuário mais vulnerável",
+          title: "Arquitetura de dado",
+          headline: "Estrutura antes do visual",
           description:
-            "Qualquer solução que priorizasse funcionalidade avançada para as empresas sacrificaria a acessibilidade para os produtores. A decisão foi desenhar a partir do usuário mais vulnerável: fluxos simplificados, linguagem direta, hierarquia visual clara e menos opções por tela. As empresas perderiam alguma densidade de informação, mas o produto só funcionaria se os dois lados conseguissem operar com autonomia.",
+            "O modelo de dado do produtor cobria mais de 100 campos entre propriedade, rebanho, reprodução, produção e financeiro. Antes de desenhar qualquer tela, separei esse volume em 13 categorias e isolei os campos sensíveis dos campos padrão, porque cada grupo precisava de um tratamento de consentimento diferente.",
+        },
+        {
+          title: "Consentimento como parte do fluxo",
+          headline: "Pedir acesso a um dado que não é seu",
+          description:
+            "Essa camada não pede dado da própria empresa parceira, pede dado do produtor pra empresa usar. Isso mudou o desenho do consentimento: cada categoria sensível recebeu aviso próprio, e o fluxo termina com um termo de uso exclusivo que a empresa precisa confirmar antes de finalizar a solicitação.",
+        },
+        {
+          title: "Validação com o time",
+          headline: "Revisão constante em vez de pesquisa aberta",
+          description:
+            "O time era pequeno: eu como único designer, um desenvolvedor, um PM e o stakeholder do cliente. As telas eram revisadas com o stakeholder com frequência ao longo dos 3 meses, o que ocupou o espaço que normalmente seria de pesquisa com usuário, já que a persona e as diretrizes já vinham prontas.",
         },
       ],
-      metrics: [
-        { value: "2", unit: "públicos com necessidades opostas", label: "Produtores rurais com baixa familiaridade digital e empresas com painéis administrativos robustos" },
-        { value: "3", unit: "jornadas desenhadas", label: "Cliente, empresa e analista, com fluxos independentes e coerentes entre si" },
-        { value: "1", unit: "design system completo", label: "Paleta, tipografia, ícones customizados pro setor agro e componentes reutilizáveis, com escala prevista" },
-      ],
-      resultsNote:
-        "O projeto foi entregue como design completo, protótipo e design system prontos para desenvolvimento. Não tive acompanhamento do que aconteceu após a entrega, então não afirmo se chegou a produção ou como está hoje.",
+      resultsIntro:
+        "Saí do projeto antes de confirmar se a plataforma chegou a ser lançada, e depois perdi contato com o cliente. Não tenho dado de uso ou de negócio pra reportar aqui, e prefiro não afirmar um resultado que não acompanhei.",
       results: [
         {
-          title: "Experiência acessível para usuários com baixa familiaridade digital",
+          title: "Fluxo de consentimento de dado entregue",
           description:
-            "fluxos guiados, linguagem direta e hierarquia visual simplificada permitiram que produtores rurais operassem a plataforma com autonomia, sem treinamento prévio.",
+            "13 categorias organizadas, com separação clara entre dado padrão e dado sensível, e aviso específico em cada categoria que precisa.",
         },
         {
-          title: "Painéis administrativos robustos sem comprometer usabilidade",
+          title: "Checkout completo com 3 métodos de pagamento",
           description:
-            "empresas e analistas tiveram acesso a tabelas, CRUDs, filtros e status coloridos dentro da mesma base de design system, sem abrir mão de consistência.",
+            "Pix, cartão parcelado em até 12x e boleto, com opção de faturar com CPF pessoal ou CNPJ sem alterar o cadastro principal.",
         },
         {
-          title: "3 jornadas distintas entregues em 3 meses",
+          title: "Sistema de acompanhamento com 8 estados",
           description:
-            "cliente, empresa e analista com fluxos independentes e coerentes entre si, do zero até produção.",
-        },
-        {
-          title: "Design system completo para o setor agro",
-          description:
-            "paleta, tipografia, ícones customizados e componentes reutilizáveis estruturados desde o início, com escala prevista.",
+            "do pagamento ao download do produto, incluindo tratamento específico pra cada tipo de erro, como dado reprovado, pagamento recusado e desenvolvimento cancelado.",
         },
       ],
       learnings:
-        "O maior aprendizado foi construir uma experiência intuitiva para usuários com pouca familiaridade digital, sem comprometer a robustez e autonomia dos perfis administrativos.",
+        "Esse projeto reforçou como desenhar consentimento de dado sensível em um contexto onde a empresa loga pra acessar dado de outra pessoa exige deixar claro, em cada tela, quem está pedindo o quê e pra qual fim, não só cumprir um requisito legal no fim do fluxo. Também reforçou a diferença entre um processo de descoberta aberta e um processo de execução dentro de diretrizes já fechadas: a disciplina muda, e a validação frequente com o stakeholder ocupa o espaço que normalmente seria de pesquisa com usuário.",
       cta: {
         title: "Quer saber mais sobre esse projeto?",
         description:
@@ -1062,141 +1064,143 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
     {
       id: "leiteiro",
       image: "/leiteiro.jpg",
-      tag: "Multilateral Platform",
+      tag: "Infoproduct marketplace",
       year: "2024",
       accentColor: "accent-3",
       confidential: true,
       title: "Leiteiro",
       subtitle:
-        "UX and UI for a platform connecting agribusiness companies and rural producers",
+        "UX and UI for the marketplace layer connecting partner companies to rural producers, with sensitive data access control",
       role: "Product Designer",
       duration: "3 months",
       scope: "UX, UI, Design System",
       overview:
-        "Leiteiro connects agribusiness companies to rural producers interested in acquiring customized products and services. The big challenge was creating a fluid experience for two audiences with opposite profiles: producers with little technological familiarity and companies that need robust administrative dashboards.",
+        "I joined this project before any part of the platform existed. The layer I was responsible for was the one where partner companies from the agro sector configure and sell infoproducts using data that producers already have on file, and where producers buy and track those infoproducts. The core challenge wasn't the producer's day-to-day operation, that lived in a different part of the product. It was designing how a third-party company accesses another person's sensitive data (financial, herd reproduction, soil analysis) in a controlled way, with explicit consent.",
       challenges: [
-        "Two audiences with very different profiles and needs",
-        "End users with little digital familiarity (producers 30+)",
-        "Need for robust admin dashboards for companies and analysts",
-        "Full responsibility for the entire platform design",
+        "Producer's data model with 100+ fields, too dense to expose all at once to someone who isn't the data's owner",
+        "Consent for accessing a third party's sensitive data (CPF, financial records, herd reproduction), not the logged-in company's own data",
+        "Persona, visual identity and data structure already defined by the client, with no room for open-ended discovery",
+        "The producer's purchase and tracking flow needed to support multiple payment methods and clear error states",
       ],
       systemInAction: {
-        title: "One platform for two opposite audiences",
+        title: "Choosing data by category, one step at a time",
         intro:
-          "The platform had to work equally well for two opposite profiles: the rural producer with low digital familiarity and the partner company operating a dense admin panel. The screens below show a slice of the work, with the client's brand kept confidential.",
+          "The platform had to serve two sides: the partner company configuring and selling an infoproduct, and the producer buying and tracking it. The screens below show a slice of the work, with the client's brand kept confidential.",
         meta: [
-          { value: "2", label: "audiences with opposite needs" },
-          { value: "3", label: "journeys designed" },
-          { value: "1", label: "complete design system for agribusiness" },
+          { value: "13", label: "data categories organized" },
+          { value: "3", label: "payment methods" },
+          { value: "8", label: "order tracking states" },
         ],
         shots: [
           {
             idx: "01",
-            kind: "Entry",
-            title: "Simple login for non-digital users",
+            kind: "Consent",
+            title: "Choosing data by category, not all at once",
             description:
-              "A clean entry screen, with Google login to reduce the friction of creating yet another password, designed for the rural producer unfamiliar with complex systems.",
-            tags: ["accessibility", "reduced friction"],
-            images: ["/leiteiro-login.png"],
-            width: 1440,
-            height: 1024,
+              "The partner company browses 13 categories of producer data (properties, herd, reproduction, financials, and more) and picks what it needs. Categories with sensitive data get a separate warning, noting that review may take longer.",
+            tags: ["consent", "sensitive data"],
+            images: ["/leiteiro-selecao-dados.png"],
+            width: 810,
+            height: 1030,
             annotations: [
-              { label: "Google login", style: "top:46%;left:-12px" },
-              { label: "Few fields", side: "right", style: "top:28%;right:-12px" },
+              { label: "13 organized categories", style: "top:46%;left:-12px" },
+              { label: "Warning for sensitive data", side: "right", style: "top:28%;right:-12px" },
             ],
           },
           {
             idx: "02",
-            kind: "Admin panel",
-            title: "Structure before the interface",
+            kind: "Legal term",
+            title: "A consent step before access is granted",
             description:
-              "Wireframe of the partner companies' panel. Before moving to visual design, I resolved the information architecture — tabs by category, search, and pagination — to handle the data density without overloading the screen. The structural decision came before execution.",
-            tags: ["wireframe", "information architecture"],
-            images: ["/leiteiro-painel.png"],
-            width: 1440,
-            height: 886,
+              "Before finalizing the request, the company confirms it understands the accessed data is exclusive to that product's creation and can't be reused for another purpose.",
+            tags: ["consent", "data protection"],
+            images: ["/leiteiro-termo-legal.png"],
+            width: 810,
+            height: 1030,
             annotations: [
-              { label: "Structure before visuals", style: "top:42%;left:-12px" },
-              { label: "Tabs by category", side: "right", style: "bottom:24%;right:-12px" },
+              { label: "Exclusive data use", style: "top:42%;left:-12px" },
+              { label: "Acknowledgment checkbox", side: "right", style: "bottom:24%;right:-12px" },
             ],
           },
           {
             idx: "03",
-            kind: "Product management",
-            title: "Robust CRUD, the same pattern across the platform",
+            kind: "Checkout",
+            title: "Three ways to pay, one screen at a time",
             description:
-              "A product management table with multi-select, color-coded statuses (approved, in progress, rejected, disabled), and quick edit actions, reusing the same design-system components across every admin panel.",
-            tags: ["CRUD", "color-coded statuses"],
-            images: ["/leiteiro-produtos-cadastrados.png"],
-            width: 851,
-            height: 622,
+              "The producer chooses between Pix, credit card in up to 12 installments, or a bank slip, with the amount always visible. Billing can use a personal CPF or a company CNPJ without changing the main account.",
+            tags: ["checkout", "payment methods"],
+            images: ["/leiteiro-checkout.png"],
+            width: 1080,
+            height: 1962,
             annotations: [
-              { label: "4 status states", style: "top:44%;left:-12px" },
-              { label: "Bulk actions", side: "right", style: "top:28%;right:-12px" },
+              { label: "3 methods in one place", style: "top:44%;left:-12px" },
+              { label: "Up to 12 installments", side: "right", style: "top:28%;right:-12px" },
             ],
           },
           {
             idx: "04",
-            kind: "Design system",
-            title: "A visual base built to scale",
+            kind: "Tracking",
+            title: "Every step of the order, including when it fails",
             description:
-              "Palette, typography, icons customized for the sector (herd, production, animal health), and reusable components, structured from the start to sustain new screens without rework.",
-            tags: ["design system", "custom icons"],
-            images: ["/leiteiro-design-system.jpg"],
-            width: 1288,
-            height: 923,
+              "From payment to download, the order moves through 8 possible states. When submitted data gets rejected, the message explains the specific reason instead of a generic error.",
+            tags: ["tracking", "error handling"],
+            images: ["/leiteiro-tracking.png"],
+            width: 1080,
+            height: 2001,
             annotations: [
-              { label: "Custom icons for agribusiness", style: "top:44%;left:-12px" },
-              { label: "Reusable components", side: "right", style: "bottom:24%;right:-12px" },
+              { label: "8 order states", style: "top:44%;left:-12px" },
+              { label: "Error with specific reason", side: "right", style: "bottom:24%;right:-12px" },
             ],
           },
         ],
       },
       process: [
         {
-          title: "Diagnosis",
-          headline: "The core tension of the project",
+          title: "Starting point",
+          headline: "Nothing existed before this layer",
           description:
-            "The platform served two radically different profiles. On one side, agro companies with structured teams and digital tool familiarity. On the other, rural producers — largely older individuals with limited tech experience and a completely different usage context. What worked well for one side created a barrier for the other.",
+            "I joined the project at the point where no part of the platform had been built yet. The work started from a persona and a data structure the client had already defined in a scope document. There was no existing product to research and no market benchmark at this stage, the starting point was translating that brief into interface architecture.",
         },
         {
-          title: "Design decision",
-          headline: "Design from the most vulnerable user outward",
+          title: "Data architecture",
+          headline: "Structure before visuals",
           description:
-            "Any solution that prioritized advanced functionality for companies would sacrifice accessibility for producers. The decision was to design from the most vulnerable user outward: simplified flows, direct language, clear visual hierarchy, and fewer options per screen. Companies would lose some information density, but the product would only work if both sides could operate independently.",
+            "The producer's data model covered 100+ fields across properties, herd, reproduction, production and financials. Before designing any screen, I split that volume into 13 categories and separated sensitive fields from standard ones, since each group needed a different consent treatment.",
+        },
+        {
+          title: "Consent as part of the flow",
+          headline: "Requesting access to data that isn't yours",
+          description:
+            "This layer doesn't request the partner company's own data, it requests the producer's data for the company to use. That reshaped the consent design: every sensitive category got its own warning, and the flow ends with an exclusive-use term the company must confirm before finalizing the request.",
+        },
+        {
+          title: "Validation with the team",
+          headline: "Constant review instead of open research",
+          description:
+            "The team was small: me as the sole designer, one developer, one PM, and the client's stakeholder. Screens were reviewed with the stakeholder frequently over the 3 months, which filled the space that would normally be user research, since the persona and guidelines already came defined.",
         },
       ],
-      metrics: [
-        { value: "2", unit: "audiences with opposite needs", label: "Rural producers with low digital familiarity and companies with robust admin panels" },
-        { value: "3", unit: "journeys designed", label: "Client, company, and analyst, with independent yet cohesive flows" },
-        { value: "1", unit: "complete design system", label: "Palette, typography, custom icons for agribusiness, and reusable components, built to scale" },
-      ],
-      resultsNote:
-        "The project was delivered as complete design, prototype, and design system ready for development. I had no follow-up on what happened after delivery, so I can't claim whether it reached production or how it stands today.",
+      resultsIntro:
+        "I left the project before confirming whether the platform ever launched, and later lost contact with the client. I don't have usage or business data to report here, and I'd rather not claim a result I didn't follow through on.",
       results: [
         {
-          title: "Accessible experience for users with low digital familiarity",
+          title: "Data consent flow delivered",
           description:
-            "guided flows, plain language, and simplified visual hierarchy allowed rural producers to operate the platform independently, without prior training.",
+            "13 organized categories, with a clear split between standard and sensitive data, and a specific warning on every category that needed one.",
         },
         {
-          title: "Robust admin panels without compromising usability",
+          title: "Complete checkout with 3 payment methods",
           description:
-            "companies and analysts accessed tables, CRUDs, filters, and color-coded statuses within the same design system, without sacrificing consistency.",
+            "Pix, credit card in up to 12 installments, and bank slip, with the option to bill with a personal CPF or a company CNPJ without changing the main account.",
         },
         {
-          title: "3 distinct journeys delivered in 3 months",
+          title: "Order tracking system with 8 states",
           description:
-            "client, company, and analyst flows built independently but cohesively, from zero to production.",
-        },
-        {
-          title: "Complete design system for the agro sector",
-          description:
-            "palette, typography, custom icons, and reusable components structured from the start with scale in mind.",
+            "from payment to product download, including specific handling for each type of error, such as rejected data, declined payment, and canceled development.",
         },
       ],
       learnings:
-        "The biggest learning was building an intuitive experience for users with little digital familiarity, without compromising the robustness and autonomy of administrative profiles.",
+        "This project reinforced how designing consent for sensitive data, in a context where a company logs in to access another person's data, means making clear on every screen who's asking for what and for which purpose, not just satisfying a legal requirement at the end of the flow. It also reinforced the difference between an open-discovery process and execution within already-closed guidelines: the discipline required changes, and frequent validation with the stakeholder filled the space that would normally be user research.",
       cta: {
         title: "Want to know more about this project?",
         description:
