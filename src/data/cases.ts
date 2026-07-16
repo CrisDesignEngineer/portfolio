@@ -133,13 +133,12 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         },
       ],
       learnings:
-        "Este projeto reforçou a importância de estruturar um design system desde o início e o impacto que o alinhamento entre design e engenharia tem na velocidade de desenvolvimento de um SaaS.",
+        "Foi nesse projeto que minha visão sobre design system mudou de fato: comecei tentando construir tudo do zero, e a conversa com engenharia sobre trabalhar em cima do shadcn/ui, em vez de reconstruir cada peça, mudou como eu abordo esse tipo de decisão desde então. Hoje prefiro partir de bases já testadas e adaptar, em vez de reinventar componente por componente.",
       resultsIntro:
-        "Minha atuação no projeto foi encerrada antes do lançamento, por mudanças internas na empresa. Até esse momento, o plano era lançar a plataforma completa, cobrindo tanto as campanhas de conteúdo quanto o conjunto de gestão do vendedor (vendas, assinaturas, carteira, produtos). O design system foi entregue completo pra esse escopo: 48 componentes, 120+ tokens semânticos, dois temas nativos, documentação de governança e processo estabelecido com a equipe. Depois da minha saída, sem participação minha, a empresa reduziu o escopo de lançamento a um MVP de campanhas de conteúdo, que foi o modelo publicamente lançado.",
+        "Passei oito meses no projeto, do desenho inicial do design system até a etapa de governança com a equipe, o maior tempo contínuo que já dediquei a um único produto até hoje. Nesse período, construí uma base de 48 componentes e 120+ tokens semânticos, com dois temas nativos, que sustentou dois designers juniores trabalhando em paralelo, com estilos de trabalho bem diferentes entre si, sem perder consistência entre as peças. Minha atuação foi encerrada antes do lançamento, por mudanças internas na empresa. Até esse momento, o plano era lançar a plataforma completa, cobrindo campanhas de conteúdo e o conjunto de gestão do vendedor. Depois da minha saída, sem participação minha, a empresa reduziu o escopo a um MVP de campanhas de conteúdo, que foi o modelo publicamente lançado. A direção visual que defini para o produto segue em uso hoje, resultado que sobreviveu sem qualquer participação minha desde então.",
       metrics: [
-        { value: "48", unit: "componentes", label: "Biblioteca reutilizável" },
-        { value: "120", sup: "+", unit: "tokens", label: "Tokens semânticos" },
-        { value: "2", unit: "temas", label: "Claro e escuro nativos" },
+        { value: "0", unit: "minha participação desde o lançamento", label: "A identidade visual que criei seguiu em uso mesmo assim" },
+        { value: "2", unit: "designers juniores", label: "Coordenados no mesmo sistema, sem perder consistência" },
       ],
       systemInAction: {
         title: "Um design system, a mesma lógica em todo o produto",
@@ -755,12 +754,12 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
       duration: "8 months",
       scope: "UX, UI, Design System",
       overview:
-        "Creation of a SaaS platform from scratch, focused on structuring a clear, consistent experience ready to scale. The central challenge was transforming a product idea into a functional interface, creating interface patterns that would sustain the platform's continuous evolution.",
+        "Building a SaaS platform from scratch to connect brands and content creators, combining two monetization models within the same product: participation in performance-based content campaigns, and a broader seller-side management suite (sales, subscriptions, financial wallet, product catalog including courses and ebooks). While I was on the project, the plan was to launch both models together. The core challenge was structuring this dual business logic into a cohesive interface architecture, built to sustain the platform's ongoing evolution.",
       challenges: [
-        "Platform with multiple features and interdependent flows",
-        "Need to structure interface architecture from the ground up",
-        "Translating complex business rules into clear experiences",
-        "Technical alignment with shadcn/ui and Tailwind CSS",
+        "Merging two completely different monetization models (performance-based content campaigns, and seller-side management with sales, subscriptions, wallet, and products) into a cohesive interface architecture",
+        "Confusing naming and iconography in key flows, identified through restricted user validation led by the PM before launch, with insights passed on to me and implemented in the screens",
+        "A usability issue in the courses/digital products area, preventing users from marking a lesson as watched and blocking their progress, fixed in the same restricted testing process",
+        "Coordinating two junior designers with strongly individual working styles within a design system still under construction",
       ],
       process: [
         {
@@ -817,13 +816,12 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
         },
       ],
       learnings:
-        "This project reinforced the importance of structuring a design system from the start and the impact that alignment between design and engineering has on the development speed of a SaaS.",
+        "This project is where my perspective on design systems really shifted: I started out wanting to build everything from scratch, and a conversation with engineering about building on top of shadcn/ui, instead of rebuilding every piece, changed how I approach that kind of decision ever since. Today I'd rather start from a proven foundation and adapt it than reinvent every component from zero.",
       resultsIntro:
-        "The project was halted before launch due to internal changes at the company. The design system was delivered complete — 48 components, 120+ semantic tokens, two native themes, governance documentation, and an established process with the team. Ready for implementation at the moment the project was closed.",
+        "I spent eight months on this project, from the initial design system groundwork through establishing governance with the team, the longest continuous time I've dedicated to a single product to date. During that time, I built a foundation of 48 components and 120+ semantic tokens, with two native themes, that supported two junior designers working in parallel, with quite different working styles, without losing consistency across the interface. My involvement ended before launch, due to internal changes at the company. Up to that point, the plan was to launch the full platform, covering both content campaigns and the seller-side management suite. After I left, with no involvement from me, the company reduced the launch scope to a content-campaigns MVP, which is what was publicly released. The visual direction I defined for the product is still in use today, an outcome that has held up with zero involvement from me since then.",
       metrics: [
-        { value: "48", unit: "components", label: "Reusable library" },
-        { value: "120", sup: "+", unit: "tokens", label: "Semantic tokens" },
-        { value: "2", unit: "themes", label: "Native light and dark" },
+        { value: "0", unit: "my involvement since launch", label: "The visual identity I created remained in use anyway" },
+        { value: "2", unit: "junior designers", label: "Coordinated within the same system, without losing consistency" },
       ],
       systemInAction: {
         title: "One design system, the same logic across the product",
@@ -908,6 +906,21 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
             annotations: [
               { label: "Same sales table", style: "top:46%;left:-12px" },
               { label: "Same filters", side: "right", style: "top:30%;right:-12px" },
+            ],
+          },
+          {
+            idx: "06",
+            kind: "Seller management",
+            title: "The seller panel, it never saw real use",
+            description:
+              "Real screenshot of the seller management layer: full side menu and a zeroed financial dashboard. This part of the platform was fully designed, but never launched publicly.",
+            tags: ["unlaunched layer", "real screenshot"],
+            images: ["/saas-platform-evidencia-combinada.png"],
+            width: 1061,
+            height: 678,
+            annotations: [
+              { label: "Full side menu", style: "top:46%;left:-12px" },
+              { label: "Zeroed financial dashboard", side: "right", style: "top:28%;right:-12px" },
             ],
           },
         ],
