@@ -11,7 +11,7 @@
   "hero": {
     "titleStart": "From Figma to code",
     "titleHighlight": "in production",
-    "description": "Product Designer with a full technical stack. B2B SaaS, Design Systems, and scalable interfaces. I don't just design interfaces — I go from discovery to production code.",
+    "description": "Product Designer with a full technical stack. B2B SaaS, Design Systems, and scalable interfaces, for products that demand consistency at scale.",
     "ctaCases": "View cases",
     "ctaContact": "Contact",
     "stackLabel": "Stack & Tools"
@@ -55,9 +55,9 @@
     "title": "Product",
     "titleHighlight": "Designer",
     "bio": [
-      "Product Designer with a degree in Information Systems and experience since 2016 in B2B and SaaS digital products. My competitive edge: the technical stack that lets me take work from Figma to production code.",
-      "My work connects design and engineering: from discovery and problem definition to code implementation, closing the gap between what's designed in Figma and what ships to production.",
-      "I organize architecture, reduce noise, create scalable patterns, and connect experience to metrics and real business impact. I work across the full cycle — from discovery to code implementation — making sure polish and performance reach production intact."
+      "Product Designer with a degree in Information Systems and experience since 2016 in B2B and SaaS digital products.",
+      "My edge is the technical stack that lets me take work from Figma to production code: I connect design and engineering, from discovery and problem definition to implementation, closing the gap between what's designed and what reaches the end user.",
+      "I organize architecture, reduce noise, create scalable patterns, and connect experience to metrics and real business impact."
     ],
     "productDesign": "Product Design",
     "technicalStack": "Technical stack (competitive edge)",

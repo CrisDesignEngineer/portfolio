@@ -11,7 +11,7 @@
   "hero": {
     "titleStart": "Do Figma ao código",
     "titleHighlight": "em produção",
-    "description": "Product Designer com stack técnica completa. SaaS B2B, Design Systems e interfaces escaláveis. Não desenho apenas interfaces — vou do discovery ao código em produção.",
+    "description": "Product Designer com stack técnica completa. SaaS B2B, Design Systems e interfaces escaláveis, para produtos que exigem consistência em escala.",
     "ctaCases": "Ver cases",
     "ctaContact": "Contato",
     "stackLabel": "Stack & Tools"
@@ -55,9 +55,9 @@
     "title": "Product",
     "titleHighlight": "Designer",
     "bio": [
-      "Product Designer com formação em Sistemas de Informação e experiência desde 2016 em produtos digitais B2B e SaaS. Diferencial competitivo: a stack técnica que me permite ir do Figma ao código em produção.",
-      "Minha atuação conecta design e engenharia: vou do discovery e definição de problemas até a implementação em código, eliminando o gap entre o que é projetado no Figma e o que chega em produção.",
-      "Organizo arquitetura, reduzo ruído, crio padrões escaláveis e conecto experiência a métricas e impacto real no negócio. Atuo em todo o ciclo — do discovery à implementação em código — garantindo que polimento e performance cheguem intactos à produção."
+      "Product Designer com formação em Sistemas de Informação e experiência desde 2016 em produtos digitais B2B e SaaS.",
+      "Meu diferencial é a stack técnica que me permite ir do Figma ao código em produção: conecto design e engenharia, do discovery e definição de problemas até a implementação, eliminando o gap entre o que é projetado e o que chega ao usuário final.",
+      "Organizo arquitetura, reduzo ruído, crio padrões escaláveis e conecto experiência a métricas e impacto real no negócio."
     ],
     "productDesign": "Product Design",
     "technicalStack": "Stack técnica (diferencial)",
