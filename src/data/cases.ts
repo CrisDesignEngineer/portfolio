@@ -89,13 +89,19 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
           title: "Design System",
           headline: "Tokens antes de componentes",
           description:
-            "A estrutura de tokens foi definida antes dos primeiros componentes: cores semânticas (primária, sucesso, alerta, neutro), tipografia por hierarquia, espaçamentos por escala e estados de interação padronizados. A decisão de suportar dark mode desde o início significou que cada token de cor precisava ter sua variante escura — o que evitou retrabalho posterior e garantiu que o modo escuro fosse consistente em toda a plataforma, não uma adaptação.\n\nA escolha de shadcn/ui + Tailwind CSS foi um alinhamento deliberado com engenharia: ambos os lados avaliaram as opções disponíveis e concluíram que essa stack reduzia o gap entre o que era desenhado e o que seria implementado. Menos decisões duplicadas entre design e código, menos ciclos de revisão.",
+            "A estrutura de tokens foi definida antes dos primeiros componentes: cores semânticas (primária, sucesso, alerta, neutro), tipografia por hierarquia, espaçamentos por escala e estados de interação padronizados. A decisão de suportar dark mode desde o início significou que cada token de cor precisava ter sua variante escura — o que evitou retrabalho posterior e garantiu que o modo escuro fosse consistente em toda a plataforma, não uma adaptação.\n\nA escolha de shadcn/ui + Tailwind CSS foi um alinhamento deliberado com engenharia: ambos os lados avaliaram as opções disponíveis e concluíram que essa stack reduzia o gap entre o que era desenhado e o que seria implementado. Menos decisões duplicadas entre design e código, menos ciclos de revisão. As cores semânticas passaram por checagem pontual de contraste com o plugin Stark, seguindo diretrizes WCAG, garantindo legibilidade nos dois temas.",
+        },
+        {
+          title: "Adaptação mobile",
+          headline: "Cada tela desktop também nascia mobile",
+          description:
+            "Toda superfície da plataforma tinha uma versão mobile equivalente, desenhada por mim em paralelo à versão desktop, não como adaptação posterior. O alinhamento de implementação era direto com o desenvolvedor responsável pela camada mobile, seguindo os padrões nativos de cada plataforma (Human Interface Guidelines no iOS, Material Design no Android) para manter a interface reconhecível nos dois sistemas.",
         },
         {
           title: "Alinhamento com engenharia",
           headline: "Mesma linguagem, design e código",
           description:
-            "Interface estruturada considerando shadcn/ui e Tailwind CSS, garantindo consistência entre design e código e implementação mais rápida.",
+            "Interface estruturada considerando shadcn/ui e Tailwind CSS, garantindo consistência entre design e código e implementação mais rápida. Cada componente contava com documentação técnica de uso e variantes, servindo de referência direta pro time de front-end e reduzindo ambiguidade na implementação.",
         },
         {
           title: "Liderança de design",
@@ -772,13 +778,19 @@ export const cases: Record<"pt" | "en", CaseStudy[]> = {
           title: "Design System",
           headline: "Tokens before components",
           description:
-            "The token structure was defined before the first components: semantic colors (primary, success, warning, neutral), typography by hierarchy, spacing by scale, and standardized interaction states. Deciding to support dark mode from day one meant every color token needed a dark variant — which prevented rework later and ensured dark mode was consistent across the entire platform, not an adaptation.\n\nThe choice of shadcn/ui + Tailwind CSS was a deliberate alignment with engineering: both sides evaluated the available options and concluded this stack would reduce the gap between what was designed and what would be implemented. Fewer duplicated decisions between design and code, fewer review cycles.",
+            "The token structure was defined before the first components: semantic colors (primary, success, warning, neutral), typography by hierarchy, spacing by scale, and standardized interaction states. Deciding to support dark mode from day one meant every color token needed a dark variant — which prevented rework later and ensured dark mode was consistent across the entire platform, not an adaptation.\n\nThe choice of shadcn/ui + Tailwind CSS was a deliberate alignment with engineering: both sides evaluated the available options and concluded this stack would reduce the gap between what was designed and what would be implemented. Fewer duplicated decisions between design and code, fewer review cycles. Semantic colors went through spot checks of contrast ratio with the Stark plugin, following WCAG guidelines, to keep legibility consistent across both themes.",
+        },
+        {
+          title: "Mobile adaptation",
+          headline: "Every desktop screen also shipped with a mobile version",
+          description:
+            "Every surface of the platform also had an equivalent mobile version, designed by me in parallel with the desktop version, not as a later adaptation. Implementation alignment was handled directly with the developer responsible for the mobile layer, following each platform's native patterns (Human Interface Guidelines on iOS, Material Design on Android) to keep the interface recognizable on both systems.",
         },
         {
           title: "Engineering alignment",
           headline: "One language, design and code",
           description:
-            "Interface structured considering shadcn/ui and Tailwind CSS, ensuring consistency between design and code and faster implementation.",
+            "Interface structured considering shadcn/ui and Tailwind CSS, ensuring consistency between design and code and faster implementation. Each component had technical usage documentation and variants, serving as a direct reference for the front-end team and reducing ambiguity during implementation.",
         },
         {
           title: "Design leadership",
